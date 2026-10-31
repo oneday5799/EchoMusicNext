@@ -19,6 +19,7 @@
 #include <QSystemTrayIcon>
 #include <QMenu>
 #include <QIcon>
+#include <QFileInfo>
 #include <functional>
 namespace EchoMusic
 {
@@ -69,9 +70,11 @@ QObject *createMacDockMenuOwner(WindowController *controller, std::function<QMen
 #endif
 WindowController::WindowController(EchoMusic::SettingsStore &settings, bool persist,
                                    QObject *parent)
-    : QObject(parent), m_settings(settings), m_floating(settings, persist, this),
-      m_taskbar(settings, this), m_taskbarButton(settings, this), m_persist(persist),
-      m_startup(persist), m_backdrop(persist)
+    : QObject(parent),
+      m_appIcons(this, persist ? QString()
+                               : QFileInfo(settings.fileName()).absolutePath() + "/app-icons"),
+      m_settings(settings), m_floating(settings, persist, this), m_taskbar(settings, this),
+      m_taskbarButton(settings, this), m_persist(persist), m_startup(persist), m_backdrop(persist)
 {
     connect(&m_floating, &FloatingPlayerController::mainRequested, this,
             &WindowController::showWindow);

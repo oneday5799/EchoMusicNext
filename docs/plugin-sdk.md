@@ -141,7 +141,7 @@ TTML 来源信息，时间与预算见[TTML 文档](lyrics-ttml.md)。两项均�
 
 `plugins.catalog`、`plugins.commands`提供依赖可见的公开目录、服务方法发现、变化订阅与显式公开命令；context内部命令保持私有。使用与取消语义见[插件协作](https://github.com/hoowhoami/EchoMusicNextPlugins/blob/main/docs/plugin-cooperation.md)。
 
-`playback.clock` 公开 PlaybackService 的统一采样锚点与单调投影；`appearance.overrides` 通过授权的临时配方参与 ThemeStore 逐属性优先级解析；`app.icons` 接入实际窗口、托盘及平台快捷方式，使用可撤销租约；`files.audioMetadata` 在文件 worker 中返回完整音频标签。账号代际、授权撤销、呈现销毁和停用沿用作用域取消及资源排空。作者用法见 EchoMusicNextPlugins 的 `docs/presentation-services.md`。
+`playback.clock` 公开 PlaybackService 的统一采样锚点与单调投影；`appearance.overrides` 通过授权的临时配方参与 ThemeStore 逐属性优先级解析；`app.icons` 接入实际窗口、托盘及平台快捷方式，使用可撤销租约；`files.audioMetadata` 在文件 worker 中返回完整音频标签。账号代际、授权撤销、呈现销毁和停用沿用作用域取消及资源排空。正常退出保留最后请求的桌面/固定任务栏图标并排空已接受写入；退出时的插件清理不再重写快捷方式。原图标字段通过设备本地恢复记录跨启动保留，后续主动撤销仍尊重用户修改；运行中窗口与托盘资源照常释放。作者用法见 EchoMusicNextPlugins 的 `docs/presentation-services.md`。
 
 `graphics.resources` / `graphics.submissions` 补充有界一次性命令、资源快照和 GPU 完成 operation；支持区域上传、GPU 缓冲/纹理复制、mipmap、区域/mip 回读、uniform 范围和 viewport/scissor/base vertex/instance。非 uniform 更新使用 GPU 暂存，缓冲回读经过独立 GPU 快照和实际完成确认，不在 GUI 等待。普通窗口和 HDR 输出边界不变。
 

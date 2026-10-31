@@ -106,11 +106,18 @@ void clearRuntimeWindowIcon(QWindow *window, const QIcon &fallback)
 #endif
 struct AppIconService::ShortcutState
 {
+    explicit ShortcutState(const QString &directory)
+        : store(directory + "/plugin-icon-shortcuts.json")
+    {
+    }
     AppIconShortcuts store;
 };
-AppIconService::AppIconService(QObject *parent)
+AppIconService::AppIconService(QObject *parent, QString stateDirectory)
     : QObject(parent), m_default(QGuiApplication::windowIcon()),
-      m_shortcuts(std::make_shared<ShortcutState>())
+      m_stateDirectory(stateDirectory.isEmpty()
+                           ? QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation)
+                           : std::move(stateDirectory)),
+      m_shortcuts(std::make_shared<ShortcutState>(m_stateDirectory))
 {
     m_worker.setMaxThreadCount(1);
     m_worker.setExpiryTimeout(1000);
@@ -135,9 +142,10 @@ void AppIconService::prepare(const QHash<QString, QString> &paths,
                              std::function<void(PreparedAppIcons)> done,
                              const QHash<QString, QByteArray> &data)
 {
-    if (m_pending >= 16) {
+    if (m_closing || m_pending >= 16) {
         PreparedAppIcons result;
-        result.error = "Too many icon operations";
+        result.error =
+            m_closing ? "Application icon service is shutting down" : "Too many icon operations";
         done(result);
         return;
     }
@@ -159,9 +167,8 @@ void AppIconService::prepare(const QHash<QString, QString> &paths,
         keep.insert(path);
     for (const auto &path : m_submittedShortcuts)
         keep.insert(path);
-    const auto cache =
-        QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + "/plugin-icons";
-    watch->setFuture(QtConcurrent::run(&m_worker, [paths, data, cache, keep] {
+    const auto cache = m_stateDirectory + "/plugin-icons";
+    watch->setFuture(QtConcurrent::run(&m_worker, [paths, data, cache, keep, worker = m_shortcuts] {
         PreparedAppIcons result;
         auto keys = paths.keys();
         for (const auto &key : data.keys())
@@ -224,6 +231,12 @@ void AppIconService::prepare(const QHash<QString, QString> &paths,
                 result.paths[key] = path;
             }
         }
+        // Shortcuts may still reference images left by a previous process.
+        // Never evict those images (or original icons needed for restoration).
+        QString journalError;
+        const auto persisted = worker->store.protectedPaths(journalError);
+        if (!journalError.isEmpty())
+            return result;
         // Rebuildable image cache, bounded independently of source packages.
         // Keep current/pending shortcuts and a small newest preparation window.
         const auto entries = QDir(cache).entryInfoList({"*.png", "*.ico"},
@@ -237,6 +250,7 @@ void AppIconService::prepare(const QHash<QString, QString> &paths,
             if (bytes <= 64 * 1024 * 1024 && count <= 256)
                 break;
             if (keep.contains(file.absoluteFilePath()) ||
+                persisted.contains(file.absoluteFilePath()) ||
                 result.paths.values().contains(file.absoluteFilePath()))
                 continue;
             if (!QRegularExpression("^[0-9a-f]{64}\\.(png|ico)$").match(file.fileName()).hasMatch())
@@ -252,7 +266,7 @@ void AppIconService::prepare(const QHash<QString, QString> &paths,
 bool AppIconService::put(const QString &token, PreparedAppIcons icons, int priority,
                          QVariantMap owner)
 {
-    if (!m_entries.contains(token) && m_entries.size() >= 128)
+    if (m_closing || (!m_entries.contains(token) && m_entries.size() >= 128))
         return false;
     qint64 bytes = 0;
     for (auto it = m_entries.begin(); it != m_entries.end(); ++it)
@@ -367,7 +381,7 @@ void AppIconService::apply()
     for (const auto &target : {QStringLiteral("desktop"), QStringLiteral("taskbar")})
         if (winners.contains(target))
             paths[target] = winners[target].icons.paths.value(target);
-    if (paths != m_desiredShortcuts) {
+    if (!m_closing && paths != m_desiredShortcuts) {
         m_desiredShortcuts = paths;
         ++m_revision;
         scheduleShortcuts();
@@ -419,15 +433,24 @@ void AppIconService::scheduleShortcuts()
 }
 void AppIconService::refresh()
 {
+    if (m_closing)
+        return;
     ++m_revision;
     m_forceShortcuts = true;
     apply();
 }
+void AppIconService::beginShutdown()
+{
+    // Plugin retirement must release all executable/UI resources, but it must
+    // not turn normal process exit into an explicit shortcut reset.
+    m_closing = true;
+}
 void AppIconService::restoreShortcut(const QString &target, std::function<void(QVariantMap)> done,
                                      std::shared_ptr<std::atomic_bool> canceled)
 {
-    if (m_pending >= 16) {
-        done({{"error", "Too many icon operations"}});
+    if (m_closing || m_pending >= 16) {
+        done({{"error", m_closing ? "Application icon service is shutting down"
+                                  : "Too many icon operations"}});
         return;
     }
     ++m_pending;

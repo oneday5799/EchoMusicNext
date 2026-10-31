@@ -2015,6 +2015,8 @@ add_test(
         temporaryAppearancePriorityLiveBaseAndRevocation
         applicationIconsPriorityNativeOwnersAndCancellation
         completeAudioMetadataRealFilesAndCancellation shortcutIconTransactionPreservesCurrentFields
+        shortcutIconRecoveryAcrossSessions applicationIconShutdownKeepsShortcutWinners
+        applicationIconStartupRestoresUnclaimedShortcuts
 )
 set_tests_properties(
     plugin-runtime-presentation-services PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT

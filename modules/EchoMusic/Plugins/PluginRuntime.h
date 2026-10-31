@@ -207,6 +207,7 @@ private:
     bool m_fileShutdown = false;
     QString m_root, m_sdkError, m_storeError;
     bool m_safeMode = false, m_started = false, m_closing = false, m_closed = false;
+    bool m_iconsStartupReconciled = false;
     bool m_loadingNotification = false, m_refreshing = false, m_startScanPending = false;
     bool m_refreshNotice = false;
     bool m_reconcileQueued = false;

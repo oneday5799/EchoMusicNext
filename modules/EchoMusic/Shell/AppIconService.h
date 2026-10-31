@@ -24,7 +24,7 @@ class AppIconService final : public QObject
 {
     Q_OBJECT
 public:
-    explicit AppIconService(QObject *parent = nullptr);
+    explicit AppIconService(QObject *parent = nullptr, QString stateDirectory = {});
     ~AppIconService() override;
     void prepare(const QHash<QString, QString> &paths, std::function<void(PreparedAppIcons)> done,
                  const QHash<QString, QByteArray> &data = {});
@@ -48,6 +48,9 @@ public:
         return m_pending == 0;
     }
     void refresh();
+    /// Freeze external shortcut winners before plugin cleanup. Runtime window
+    /// and tray leases still retire; accepted shortcut writes continue to drain.
+    void beginShutdown();
     void restoreShortcut(const QString &target, std::function<void(QVariantMap)> done,
                          std::shared_ptr<std::atomic_bool> canceled = {});
     static bool supported(const QString &target);
@@ -57,6 +60,7 @@ signals:
     void contributionFailed(const QString &token, const QString &message);
 
 private:
+    friend class AppIconServiceTestAccess;
     void apply();
     void scheduleShortcuts();
     struct Entry
@@ -71,11 +75,12 @@ private:
     QIcon m_default;
     QThreadPool m_worker;
     struct ShortcutState;
+    QString m_stateDirectory;
     std::shared_ptr<ShortcutState> m_shortcuts;
     quint64 m_order = 0, m_revision = 0, m_applyRevision = 0, m_completedRevision = 0;
     int m_pending = 0;
     QString m_error;
     QHash<QString, QString> m_desiredShortcuts, m_submittedShortcuts;
-    bool m_shortcutBusy = false, m_forceShortcuts = false;
+    bool m_shortcutBusy = false, m_forceShortcuts = false, m_closing = false;
 };
 } // namespace EchoMusic

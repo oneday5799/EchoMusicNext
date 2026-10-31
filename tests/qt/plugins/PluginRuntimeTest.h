@@ -10,6 +10,10 @@ private slots:
     void applicationIconsPriorityNativeOwnersAndCancellation();
     void completeAudioMetadataRealFilesAndCancellation();
     void shortcutIconTransactionPreservesCurrentFields();
+    void shortcutIconRecoveryAcrossSessions_data();
+    void shortcutIconRecoveryAcrossSessions();
+    void applicationIconShutdownKeepsShortcutWinners();
+    void applicationIconStartupRestoresUnclaimedShortcuts();
     void publicPluginCatalogCommandsAndRetirement();
     void publicPluginCatalogScopeAccountAndReplacement();
     void graphicsValidationOwnershipAndAccount();

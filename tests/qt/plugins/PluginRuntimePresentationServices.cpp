@@ -4,9 +4,94 @@
 #include "AppIconShortcuts_p.h"
 #include "PlaybackClock.h"
 #include <QImage>
+#ifdef Q_OS_WIN
+#include <qt_windows.h>
+#include <shlobj.h>
+#include <shobjidl.h>
+#endif
 using namespace EchoMusic::PluginTest;
+namespace EchoMusic
+{
+class AppIconServiceTestAccess
+{
+public:
+    static QHash<QString, QString> desired(const AppIconService &service)
+    {
+        return service.m_desiredShortcuts;
+    }
+};
+} // namespace EchoMusic
 namespace
 {
+#ifdef Q_OS_WIN
+template <typename Callback> bool shortcutFile(const QString &path, bool create, Callback callback)
+{
+    if (FAILED(CoInitializeEx(nullptr, COINIT_APARTMENTTHREADED)))
+        return false;
+    const auto uninit = qScopeGuard([] { CoUninitialize(); });
+    IShellLinkW *link = nullptr;
+    if (FAILED(
+            CoCreateInstance(CLSID_ShellLink, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&link))))
+        return false;
+    const auto release = qScopeGuard([link] { link->Release(); });
+    IPersistFile *file = nullptr;
+    if (FAILED(link->QueryInterface(IID_PPV_ARGS(&file))))
+        return false;
+    const auto releaseFile = qScopeGuard([file] { file->Release(); });
+    if (!create && FAILED(file->Load(reinterpret_cast<LPCOLESTR>(path.utf16()), STGM_READ)))
+        return false;
+    return callback(link) &&
+           (!create || SUCCEEDED(file->Save(reinterpret_cast<LPCOLESTR>(path.utf16()), TRUE)));
+}
+#endif
+bool writeIconShortcut(const QString &path, const QString &icon, int index, const QString &comment)
+{
+#ifdef Q_OS_WIN
+    return shortcutFile(path, true, [&](IShellLinkW *link) {
+        const auto executable = QCoreApplication::applicationFilePath();
+        return SUCCEEDED(link->SetPath(reinterpret_cast<LPCWSTR>(executable.utf16()))) &&
+               SUCCEEDED(link->SetIconLocation(reinterpret_cast<LPCWSTR>(icon.utf16()), index)) &&
+               SUCCEEDED(link->SetDescription(reinterpret_cast<LPCWSTR>(comment.utf16())));
+    });
+#else
+    Q_UNUSED(index);
+    const auto content = "[Desktop Entry]\nName=Test\nExec=\"" +
+                         QCoreApplication::applicationFilePath().toUtf8() +
+                         "\" %u\nIcon=" + icon.toUtf8() + "\nComment=" + comment.toUtf8() + "\n";
+    write(path, content);
+    return QFileInfo::exists(path);
+#endif
+}
+QVariantMap readIconShortcut(const QString &path)
+{
+#ifdef Q_OS_WIN
+    QVariantMap result;
+    shortcutFile(path, false, [&](IShellLinkW *link) {
+        wchar_t icon[32768]{}, comment[1024]{};
+        int index = 0;
+        if (FAILED(link->GetIconLocation(icon, 32768, &index)) ||
+            FAILED(link->GetDescription(comment, 1024)))
+            return false;
+        result = {{"icon", QString::fromWCharArray(icon)},
+                  {"index", index},
+                  {"comment", QString::fromWCharArray(comment)}};
+        return true;
+    });
+    return result;
+#else
+    QFile file(path);
+    if (!file.open(QIODevice::ReadOnly))
+        return {};
+    QVariantMap result{{"index", 0}};
+    for (const auto &line : QString::fromUtf8(file.readAll()).split('\n')) {
+        if (line.startsWith("Icon="))
+            result["icon"] = line.mid(5);
+        if (line.startsWith("Comment="))
+            result["comment"] = line.mid(8);
+    }
+    return result;
+#endif
+}
 EchoPluginContext *installPresentationServices(Host &host, const QString &id)
 {
     const auto source = pluginPackage(
@@ -458,4 +543,134 @@ void PluginRuntimeTest::shortcutIconTransactionPreservesCurrentFields()
     QVERIFY(file.open(QIODevice::ReadOnly));
     QVERIFY(file.readAll().contains("Icon=user-choice"));
 #endif
+}
+void PluginRuntimeTest::shortcutIconRecoveryAcrossSessions_data()
+{
+    QTest::addColumn<QString>("target");
+    QTest::newRow("desktop") << QString("desktop");
+#ifdef Q_OS_WIN
+    QTest::newRow("taskbar") << QString("taskbar");
+#endif
+}
+void PluginRuntimeTest::shortcutIconRecoveryAcrossSessions()
+{
+    QFETCH(QString, target);
+    QTemporaryDir temp;
+#ifdef Q_OS_WIN
+    const auto path = temp.filePath("application.lnk");
+    const int originalIndex = 7;
+#else
+    const auto path = temp.filePath("application.desktop");
+    const int originalIndex = 0;
+#endif
+    const auto journal = temp.filePath("state/shortcuts.json");
+    const auto first = temp.filePath("first.png"), second = temp.filePath("second.png");
+    QVERIFY(writeIconShortcut(path, "original", originalIndex, "keep"));
+    {
+        AppIconShortcuts store(journal);
+        store.desktopLocations = store.taskbarLocations = {path};
+        QVERIFY(store.apply({{target, first}}).value("error").toString().isEmpty());
+    }
+    QCOMPARE(readIconShortcut(path).value("icon").toString(), first);
+    {
+        // A new worker restores the original fields, not the previous plugin
+        // image it encounters when the next process republishes its icon.
+        AppIconShortcuts store(journal);
+        store.desktopLocations = store.taskbarLocations = {path};
+        QString error;
+        QVERIFY(store.protectedPaths(error).contains(first));
+        QVERIFY(error.isEmpty());
+        QVERIFY(store.apply({{target, second}}).value("error").toString().isEmpty());
+        QVERIFY(store.apply({}).value("error").toString().isEmpty());
+    }
+    QCOMPARE(readIconShortcut(path).value("icon").toString(), QString("original"));
+    QCOMPARE(readIconShortcut(path).value("index").toInt(), originalIndex);
+    QCOMPARE(readIconShortcut(path).value("comment").toString(), QString("keep"));
+    {
+        AppIconShortcuts store(journal);
+        store.desktopLocations = store.taskbarLocations = {path};
+        QVERIFY(store.apply({{target, first}}).value("error").toString().isEmpty());
+    }
+    QVERIFY(writeIconShortcut(path, "user-choice", originalIndex, "edited"));
+    {
+        AppIconShortcuts store(journal);
+        QVERIFY(store.apply({}).value("error").toString().isEmpty());
+    }
+    QCOMPARE(readIconShortcut(path).value("icon").toString(), QString("user-choice"));
+    QCOMPARE(readIconShortcut(path).value("comment").toString(), QString("edited"));
+    // An unreadable/unwritable journal must fail before external icon writes.
+    write(temp.filePath("blocked"), "not a directory");
+    AppIconShortcuts blocked(temp.filePath("blocked/shortcuts.json"));
+    blocked.desktopLocations = blocked.taskbarLocations = {path};
+    QVERIFY(!blocked.apply({{target, second}}).value("error").toString().isEmpty());
+    QCOMPARE(readIconShortcut(path).value("icon").toString(), QString("user-choice"));
+    write(journal, "invalid journal");
+    AppIconShortcuts corrupt(journal);
+    corrupt.desktopLocations = corrupt.taskbarLocations = {path};
+    QVERIFY(!corrupt.apply({{target, second}}).value("error").toString().isEmpty());
+    QCOMPARE(readIconShortcut(path).value("icon").toString(), QString("user-choice"));
+}
+void PluginRuntimeTest::applicationIconShutdownKeepsShortcutWinners()
+{
+    Host host;
+    approve(host);
+    Calls calls{host};
+    auto *scope = installPresentationServices(host, "icon-shutdown");
+    QVERIFY(scope);
+    auto *service = scope->host().appIcons;
+    QQuickWindow window;
+    service->attach(&window);
+    const auto original = QGuiApplication::windowIcon();
+    QVERIFY(calls.lease(
+        scope->appIcons()->set("runtime", {{"window", "icon.png"}, {"tray", "icon.png"}})));
+    PreparedAppIcons first;
+    first.images["desktop"] = QImage(16, 16, QImage::Format_ARGB32);
+    first.images["desktop"].fill(Qt::red);
+    first.paths["desktop"] = host.temporary.filePath("first.png");
+    QVERIFY(service->put("first", first, 0, {}));
+    auto second = first;
+    second.paths["desktop"] = host.temporary.filePath("second.png");
+    QVERIFY(service->put("second", second, 10, {}));
+    const auto winners = AppIconServiceTestAccess::desired(*service);
+    const auto revision = service->shortcutRevision();
+    QCOMPARE(winners.value("desktop"), second.paths.value("desktop"));
+    QSignalSpy closed(&host.runtime, &PluginRuntime::closed);
+    host.runtime.shutdown();
+    service->remove("second");
+    service->remove("first");
+    service->refresh();
+    QVERIFY(!service->put("late", first, 0, {}));
+    QCOMPARE(AppIconServiceTestAccess::desired(*service), winners);
+    QCOMPARE(service->shortcutRevision(), revision);
+    QTRY_VERIFY(!closed.isEmpty());
+    QTRY_VERIFY(service->drained());
+    QVERIFY(!service->hasTarget("window"));
+    QVERIFY(!service->hasTarget("tray"));
+    QCOMPARE(window.icon().cacheKey(), original.cacheKey());
+    QCOMPARE(service->completedShortcutRevision(), revision);
+}
+void PluginRuntimeTest::applicationIconStartupRestoresUnclaimedShortcuts()
+{
+    QString shortcut;
+    Host host([&](const QString &root) {
+        const auto directory = QFileInfo(root).absolutePath();
+#ifdef Q_OS_WIN
+        shortcut = directory + "/application.lnk";
+#else
+        shortcut = directory + "/application.desktop";
+#endif
+        QVERIFY(writeIconShortcut(shortcut, "last-plugin", 0, "keep"));
+        const auto state = directory + "/app-icons";
+        QVERIFY(QDir().mkpath(state));
+        const QJsonObject record{{"icon", "original"}, {"applied", "last-plugin"}, {"index", 0}};
+        write(state + "/plugin-icon-shortcuts.json",
+              QJsonDocument(
+                  QJsonObject{{"version", 1}, {"shortcuts", QJsonObject{{shortcut, record}}}})
+                  .toJson());
+    });
+    // No plugin republishes the prior process's icon. The real startup barrier
+    // withdraws it after catalog/activation work has settled, without touching
+    // any shortcuts or journal outside this host's isolated settings directory.
+    QTRY_COMPARE(readIconShortcut(shortcut).value("icon").toString(), QString("original"));
+    QCOMPARE(readIconShortcut(shortcut).value("comment").toString(), QString("keep"));
 }

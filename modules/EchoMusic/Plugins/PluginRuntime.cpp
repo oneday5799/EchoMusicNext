@@ -52,7 +52,21 @@ PluginRuntime::PluginRuntime(QQmlEngine &engine, EchoMusic::SettingsStore &prefe
                  preferences.value(EchoMusic::SettingsKeys::Plugins::SafeMode, false).toBool())
 {
     if (!m_host.appIcons)
-        m_host.appIcons = new AppIconService(this);
+        m_host.appIcons = new AppIconService(
+            this, QFileInfo(preferences.fileName()).absolutePath() + "/app-icons");
+    // Wait for activation and icon decoding/writes to settle before withdrawing
+    // persisted shortcuts that no enabled plugin republishes (including safe mode).
+    const auto reconcileStartupIcons = [this] {
+        if (m_iconsStartupReconciled || !m_started || m_closing || loading() ||
+            !m_host.appIcons->drained())
+            return;
+        m_iconsStartupReconciled = true;
+        m_host.appIcons->refresh();
+    };
+    connect(this, &PluginRuntime::loadingChanged, this, reconcileStartupIcons,
+            Qt::QueuedConnection);
+    connect(m_host.appIcons, &AppIconService::drainedChanged, this, reconcileStartupIcons,
+            Qt::QueuedConnection);
     m_host.permissions = new PluginPermissionStore(preferences, this);
     m_fileService = new PluginFileService(m_root, this);
     m_host.files = m_fileService;
@@ -406,6 +420,10 @@ void PluginRuntime::shutdown()
 {
     if (std::exchange(m_closing, true))
         return;
+    // Preserve the last requested shortcut icons before leases and arbitrary
+    // plugin cleanup callbacks start withdrawing contributions.
+    if (m_host.appIcons)
+        m_host.appIcons->beginShutdown();
     for (auto *picker : findChildren<EchoPluginFilePicker *>())
         picker->cancel();
     if (auto ready = std::exchange(m_maintenanceReady, {}))

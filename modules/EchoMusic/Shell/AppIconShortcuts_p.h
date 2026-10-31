@@ -11,9 +11,11 @@ namespace EchoMusic
 class AppIconShortcuts
 {
 public:
+    explicit AppIconShortcuts(QString journalPath = {});
     QVariantMap apply(const QHash<QString, QString> &paths);
     QVariantMap restoreDefault(const QString &target,
                                std::shared_ptr<std::atomic_bool> canceled = {});
+    QStringList protectedPaths(QString &error);
     // Explicit locations are useful for isolated tests; production discovers only
     // this executable's own desktop/TaskBar entries, never arbitrary user files.
     QStringList desktopLocations, taskbarLocations;
@@ -25,6 +27,10 @@ private:
         int index = 0;
     };
     QHash<QString, Previous> m_previous;
+    QString m_journalPath;
+    bool m_loaded = false;
+    bool load(QString &error);
+    bool save(QString &error) const;
     QStringList candidates(const QString &target) const;
     bool update(const QString &path, const QString &icon, QString *previous, int *index,
                 QString &error, int newIndex = 0);

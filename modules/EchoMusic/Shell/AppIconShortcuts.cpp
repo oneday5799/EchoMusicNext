@@ -6,6 +6,10 @@
 #include <QFile>
 #include <QSaveFile>
 #include <QScopeGuard>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <limits>
+#include <utility>
 #ifdef Q_OS_WIN
 #include <qt_windows.h>
 #include <shlobj.h>
@@ -33,6 +37,75 @@ QString field(const QString &content, const QString &key)
 }
 #endif
 } // namespace
+AppIconShortcuts::AppIconShortcuts(QString journalPath) : m_journalPath(std::move(journalPath)) {}
+bool AppIconShortcuts::load(QString &error)
+{
+    if (m_loaded)
+        return true;
+    if (m_journalPath.isEmpty() || !QFileInfo::exists(m_journalPath)) {
+        m_loaded = true;
+        return true;
+    }
+    QFile file(m_journalPath);
+    if (file.size() > 2 * 1024 * 1024 || !file.open(QIODevice::ReadOnly)) {
+        error = "Cannot read shortcut icon recovery journal";
+        return false;
+    }
+    const auto root = QJsonDocument::fromJson(file.readAll()).object();
+    const auto entries = root.value("shortcuts").toObject();
+    if (root.value("version").toInt() != 1 || !root.value("shortcuts").isObject() ||
+        entries.size() > 1024) {
+        error = "Invalid shortcut icon recovery journal";
+        return false;
+    }
+    QHash<QString, Previous> previous;
+    for (auto it = entries.begin(); it != entries.end(); ++it) {
+        const auto item = it.value().toObject();
+        const auto index = item.value("index").toInteger(std::numeric_limits<qint64>::min());
+        if (!QFileInfo(it.key()).isAbsolute() || !item.value("icon").isString() ||
+            !item.value("applied").isString() || item.value("applied").toString().isEmpty() ||
+            index < std::numeric_limits<int>::min() || index > std::numeric_limits<int>::max()) {
+            error = "Invalid shortcut icon recovery entry";
+            return false;
+        }
+        previous.insert(it.key(), {item.value("icon").toString(), item.value("applied").toString(),
+                                   int(index)});
+    }
+    m_previous = std::move(previous);
+    m_loaded = true;
+    return true;
+}
+bool AppIconShortcuts::save(QString &error) const
+{
+    if (m_journalPath.isEmpty())
+        return true;
+    QJsonObject entries;
+    for (auto it = m_previous.begin(); it != m_previous.end(); ++it)
+        entries.insert(
+            it.key(),
+            QJsonObject{{"icon", it->icon}, {"applied", it->applied}, {"index", it->index}});
+    QSaveFile output(m_journalPath);
+    const auto bytes = QJsonDocument(QJsonObject{{"version", 1}, {"shortcuts", entries}})
+                           .toJson(QJsonDocument::Compact);
+    if (!QDir().mkpath(QFileInfo(m_journalPath).absolutePath()) ||
+        !output.open(QIODevice::WriteOnly) || output.write(bytes) != bytes.size() ||
+        !output.commit()) {
+        error = "Cannot save shortcut icon recovery journal";
+        return false;
+    }
+    return true;
+}
+QStringList AppIconShortcuts::protectedPaths(QString &error)
+{
+    if (!load(error))
+        return {};
+    QStringList paths;
+    for (const auto &previous : m_previous) {
+        paths.append(previous.icon);
+        paths.append(previous.applied);
+    }
+    return paths;
+}
 QStringList AppIconShortcuts::candidates(const QString &target) const
 {
     if (target == "desktop" && !desktopLocations.isEmpty())
@@ -205,6 +278,9 @@ bool AppIconShortcuts::update(const QString &path, const QString &icon, QString 
 }
 QVariantMap AppIconShortcuts::apply(const QHash<QString, QString> &paths)
 {
+    QString error;
+    if (!load(error))
+        return {{"error", error}, {"target", paths.isEmpty() ? QString() : paths.begin().key()}};
     QHash<QString, QString> desired, targets;
     for (auto it = paths.begin(); it != paths.end(); ++it) {
         bool found = false;
@@ -223,31 +299,41 @@ QVariantMap AppIconShortcuts::apply(const QHash<QString, QString> &paths)
                     {"target", it.key()}};
     }
     const auto previous = m_previous;
-    QHash<QString, QString> before;
-    QString error, failedTarget;
+    QHash<QString, Previous> before;
+    QString failedTarget;
     for (auto it = desired.begin(); it != desired.end(); ++it) {
         auto old = m_previous.value(it.key());
         int index = 0;
-        QString current;
-        if (!update(it.key(), it.value(), &current, &index, error)) {
+        const auto current = currentIcon(it.key(), &index, error);
+        if (!error.isEmpty()) {
             failedTarget = targets.value(it.key());
             break;
         }
-        before[it.key()] = current;
-        if (!m_previous.contains(it.key()) || current != old.applied) {
+        if (!m_previous.contains(it.key()) || current != old.applied || index != 0) {
             old.icon = current;
             old.index = index;
         }
         old.applied = it.value();
         m_previous[it.key()] = old;
+        // Persist the original fields before changing the external shortcut.
+        // Recovery only restores a shortcut still carrying our applied icon.
+        if (!save(error) || !update(it.key(), it.value(), nullptr, &index, error)) {
+            failedTarget = targets.value(it.key());
+            break;
+        }
+        before[it.key()] = {current, {}, index};
     }
     if (!error.isEmpty()) {
+        auto recovery = previous;
         for (auto it = before.begin(); it != before.end(); ++it) {
             QString ignored;
             int index = 0;
-            update(it.key(), it.value(), nullptr, &index, ignored);
+            if (!update(it.key(), it->icon, nullptr, &index, ignored, it->index))
+                recovery[it.key()] = m_previous.value(it.key());
         }
-        m_previous = previous;
+        m_previous = recovery;
+        QString ignored;
+        save(ignored);
         return {{"error", error}, {"target", failedTarget}};
     }
     bool restored = false;
@@ -257,7 +343,7 @@ QVariantMap AppIconShortcuts::apply(const QHash<QString, QString> &paths)
             int index = 0;
             QString problem;
             const auto current = currentIcon(path, &index, problem);
-            if (problem.isEmpty() && current == old.applied) {
+            if (problem.isEmpty() && current == old.applied && index == 0) {
                 index = old.index;
                 if (update(path, old.icon, nullptr, &index, problem, old.index))
                     restored = true;
@@ -267,6 +353,7 @@ QVariantMap AppIconShortcuts::apply(const QHash<QString, QString> &paths)
             else
                 error = problem;
         }
+    save(error);
 #ifdef Q_OS_WIN
     // SHCNE_UPDATEITEM 不足以刷新 AUMID 固定按钮的图标缓存；与旧版工具
     // 一致地广播全局关联变更并要求刷新，固定按钮即时重读图标。清除最后
@@ -279,6 +366,9 @@ QVariantMap AppIconShortcuts::apply(const QHash<QString, QString> &paths)
 QVariantMap AppIconShortcuts::restoreDefault(const QString &target,
                                              std::shared_ptr<std::atomic_bool> canceled)
 {
+    QString journalError;
+    if (!load(journalError))
+        return {{"error", journalError}};
     QStringList entries = candidates(target);
     bool restored = false;
     for (const auto &path : entries) {
@@ -296,6 +386,8 @@ QVariantMap AppIconShortcuts::restoreDefault(const QString &target,
             m_previous.remove(path);
         }
     }
+    if (restored && !save(journalError))
+        return {{"error", journalError}};
     return restored ? QVariantMap{{"applied", true}}
                     : QVariantMap{{"error", "No writable application shortcut found"}};
 }
