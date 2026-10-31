@@ -760,7 +760,8 @@ add_test(
         nativePlaybackFailurePublishesVisibleToast nativeOutputDeviceSelectHasOneDefaultChoice
         committedTrackClimaxFromLiveNativeApi productionEffectPanelAlignmentAndCompactContentTabs
         productionResolvedQualityMarksPickerAndToolbar productionAddToReopenStableHeight
-        productionAddToHeaderAlignment preferencesPreserveUnknownTagsValidateAndKeepFailedDraft
+        productionAddToHeaderAlignment productionAddToFailureUsesOnlyToast
+        preferencesPreserveUnknownTagsValidateAndKeepFailedDraft
         missingMembershipCodesKeepProductsWithoutInventingKnownRights
         missingPreferenceFactsDoNotBecomeExplicitClears liveSameAvatarThroughQtService
         screenshotTargetSnapshotAndDuplicateConfirmation
@@ -1516,7 +1517,7 @@ add_test(NAME share-target COMMAND echo-share-target-test)
 
 qt_add_executable(echo-share-resolve-test ShareResolveTest.cpp)
 target_link_libraries(
-    echo-share-resolve-test PRIVATE echo_sharing_ui echo_sharing_uiplugin Qt6::Test
+    echo-share-resolve-test PRIVATE echo_sharing_ui echo_sharing_uiplugin echo_details Qt6::Test
 )
 add_test(NAME share-resolve COMMAND echo-share-resolve-test)
 set_tests_properties(share-resolve PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 60)

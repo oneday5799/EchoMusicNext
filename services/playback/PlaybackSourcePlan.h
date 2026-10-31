@@ -20,6 +20,9 @@ struct PlaybackSourceCandidate
 class PlaybackSourcePlan
 {
 public:
+    /// Explicit zero-cost legacy file facts, not account authorization or a
+    /// substitute for membership checks on Viper qualities.
+    static bool isFreeLegacyFile(const QJsonObject &file);
     static QList<PlaybackSourceCandidate>
     catalog(const QString &hash, const QJsonObject &privileges,
             ApiClient::PlaybackQuality preferred, ApiClient::SoundEffect effect, bool compatibility,

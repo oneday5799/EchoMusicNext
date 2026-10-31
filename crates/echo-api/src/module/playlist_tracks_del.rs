@@ -38,6 +38,7 @@ pub fn convert(bytes: &[u8]) -> Result<CloudTrackChange, ApiError> {
     Ok(CloudTrackChange {
         user_id: v.userid,
         cloud_list_id: v.listid,
+        provider_status: Some(v.status),
         previous_revision: v.pre_list_ver,
         revision: v.list_ver,
         song_count: v.count,

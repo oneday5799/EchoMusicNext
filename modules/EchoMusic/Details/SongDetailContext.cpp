@@ -360,7 +360,7 @@ void SongDetailContext::accept(quint64 id, const QByteArray &bytes)
             m_qualities.clear();
             m_effects.clear();
             const QHash<QString, QString> qualityLabels{
-                {"320", "HQ"}, {"flac", "SQ"}, {"high", "Hi-Res"}};
+                {"128", "SD"}, {"320", "HQ"}, {"flac", "SQ"}, {"high", "Hi-Res"}};
             const QSet<QString> effects{"piano",  "vocal", "accompaniment", "subwoofer", "ancient",
                                         "surnay", "dj"};
             for (const auto &item : v.value("variants").toArray()) {

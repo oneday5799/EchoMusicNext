@@ -141,9 +141,9 @@ EchoDialog {
                             color: Theme.floatingText
                         }
                         EchoTextTagRow {
-                            text: target.resultText.length ? target.resultText : qsTr("%1 首").arg(target.songCount)
+                            text: !target.failed && target.resultText.length ? target.resultText : qsTr("%1 首").arg(target.songCount)
                             font: Theme.font(11, Theme.regularWeight)
-                            color: target.failed ? Theme.floating.dangerText : Theme.floatingSecondaryText
+                            color: Theme.floatingSecondaryText
                         }
                     }
                 }
@@ -153,16 +153,6 @@ EchoDialog {
                     surface: dialog
                     view: targets
                 }
-            }
-            Label {
-                id: errorLabel
-                Layout.fillWidth: true
-                Layout.rightMargin: 24
-                visible: text.length > 0
-                text: dialog.actions.errorMessage
-                font: Theme.font(12, Theme.regularWeight)
-                color: Theme.floating.dangerText
-                wrapMode: Text.Wrap
             }
         }
     }

@@ -78,9 +78,9 @@ void LibraryController::setTab(int tab)
 }
 QString LibraryController::errorMessage() const
 {
-    return !m_error.isEmpty()                      ? m_error
-           : !m_mutations.errorMessage().isEmpty() ? m_mutations.errorMessage()
-                                                   : m_source.errorMessage();
+    // Shared writer failures belong to the initiating action's toast. Exposing
+    // them here also paints unrelated add/like failures in the sidebar.
+    return !m_error.isEmpty() ? m_error : m_source.errorMessage();
 }
 void LibraryController::reload()
 {

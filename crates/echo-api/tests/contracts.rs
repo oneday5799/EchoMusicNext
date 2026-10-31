@@ -386,6 +386,41 @@ fn playlist_mutation_acknowledgements_preserve_real_versions_and_scope() {
     );
 }
 #[test]
+fn playlist_add_nested_status_is_not_an_envelope_error() {
+    use echo_api::module::playlist_tracks_add;
+    // Derived cases keep nested operation flags separate from outer business
+    // errors without changing the acknowledged item results.
+    let mut raw: Value =
+        serde_json::from_slice(&sample("playlist_tracks_add/added-two.json")).unwrap();
+    let reference = playlist_tracks_add::convert(&serde_json::to_vec(&raw).unwrap()).unwrap();
+    for status in [serde_json::json!(2), serde_json::json!(0), Value::Null] {
+        raw["data"]["status"] = status.clone();
+        let result = playlist_tracks_add::convert(&serde_json::to_vec(&raw).unwrap()).unwrap();
+        assert_eq!(result.provider_status, status.as_u64().map(|v| v as u32));
+        assert_eq!(result.revision, reference.revision);
+        assert_eq!(result.song_count, reference.song_count);
+        let item = &result.outcomes.unwrap()[0];
+        assert_eq!(item.resource_code, 1);
+        assert!(item.file_id > 0);
+    }
+    raw["data"].as_object_mut().unwrap().remove("status");
+    let result = playlist_tracks_add::convert(&serde_json::to_vec(&raw).unwrap()).unwrap();
+    assert_eq!(result.provider_status, None);
+    raw["data"]["status"] = serde_json::json!(2);
+    raw["data"]["info"][0]["code"] = serde_json::json!(206);
+    raw["data"]["info"][0]["fileid"] = serde_json::json!(0);
+    let result = playlist_tracks_add::convert(&serde_json::to_vec(&raw).unwrap()).unwrap();
+    let item = &result.outcomes.unwrap()[0];
+    assert_eq!(item.resource_code, 206);
+    assert_eq!(item.file_id, 0);
+    raw["status"] = serde_json::json!(0);
+    raw["error_code"] = serde_json::json!(2);
+    let error = playlist_tracks_add::convert(&serde_json::to_vec(&raw).unwrap()).unwrap_err();
+    assert_eq!(error.kind, "business");
+    assert_eq!(error.code, Some(2));
+}
+
+#[test]
 fn playlist_item_rejection_is_not_invented_success_or_missing_song_failure() {
     use echo_api::module::playlist_tracks_add;
 

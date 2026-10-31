@@ -1,15 +1,29 @@
 #include "ShareResolveService.h"
 #include "AccountService.h"
+#include "DetailsService.h"
+#include "NetworkPreferences.h"
 #include "PlaybackService.h"
 #include "ShellController.h"
 #include "WindowController.h"
 #include <QJsonArray>
+#include <QNetworkProxy>
+#include <QScopeGuard>
 #include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QtTest>
+#include <iostream>
+#include <iterator>
 using namespace EchoMusic;
 namespace EchoMusic
 {
+class PlaybackServiceTestAccess
+{
+public:
+    static void hold(PlaybackService &service)
+    {
+        service.m_ready = false;
+    }
+};
 class ShareResolveServiceTestAccess
 {
 public:
@@ -64,6 +78,7 @@ struct Fixture
     PlaybackService playback{api, settings};
     SharingCommands commands{account};
     RouteController router;
+    DetailsService details{api, playback, router, false};
     ShellController shell{settings, router};
     WindowController window{settings, false};
     ShareResolveService shares{api, commands, router, shell, window};
@@ -74,8 +89,10 @@ struct Fixture
         api.setAccount(900001, "offline-test-fixture");
         playback.songCommands()->attachSharing(commands);
         shell.attachPlayback(playback);
-        for (const auto &name : {"home", "song-detail", "playlist-detail", "artist-detail",
-                                 "album-detail", "listen-together"})
+        details.attachShell(shell);
+        details.registerRoutes(router);
+        for (const auto &name :
+             {"home", "playlist-detail", "artist-detail", "album-detail", "listen-together"})
             router.registerPage({name,
                                  QStringLiteral("/test/") + name,
                                  QUrl("qrc:/native-domain-test.qml"),
@@ -89,6 +106,7 @@ struct Fixture
     ~Fixture()
     {
         shares.shutdown();
+        details.shutdown();
         router.shutdown();
         shell.shutdown();
         window.shutdown();
@@ -105,6 +123,181 @@ class ShareResolveTest final : public QObject
 {
     Q_OBJECT
 private slots:
+    void liveLegacySharePlayback_data()
+    {
+        QTest::addColumn<QString>("quality");
+        QTest::addColumn<QString>("expected");
+        QTest::newRow("hq") << "higher" << "higher";
+        QTest::newRow("sq") << "flac" << "flac";
+        QTest::newRow("hires-descends-to-sq") << "hi_res" << "flac";
+    }
+    void liveLegacySharePlayback()
+    {
+        if (qEnvironmentVariable("ECHO_LIVE_SHARE_PLAYBACK") != "1")
+            QSKIP("Opt-in selected account; stdin credentials only");
+        QFETCH(QString, quality);
+        QFETCH(QString, expected);
+        const std::string input((std::istreambuf_iterator<char>(std::cin)),
+                                std::istreambuf_iterator<char>());
+        const auto identity = QJsonDocument::fromJson(QByteArray::fromStdString(input)).object();
+        DeviceIdentity device{identity.value("mid").toString(),
+                              identity.value("dfid").toString(),
+                              identity.value("guid").toString(),
+                              identity.value("mac").toString(),
+                              "EchoMusicNext",
+                              identity.value("uuid").toString(),
+                              "-"};
+        QTemporaryDir dir;
+        SettingsStore settings(dir.filePath("settings.ini"));
+        settings.setValue("playback/defaultQuality", quality);
+        settings.setValue("playback/compatibilityMode", true);
+        settings.setValue("playback/volume", 0);
+        settings.setValue("playerEngine/audioSamplerate", "48000");
+        settings.setValue("playback/transitionMode", "none");
+        settings.setValue("playback/mvAudioFallbackEnabled", false);
+        ApiClient api(device);
+        NetworkPreferences network(settings, api);
+        const auto previous = QNetworkProxy::applicationProxy();
+        const auto restore = qScopeGuard([&] { QNetworkProxy::setApplicationProxy(previous); });
+        network.installApplicationTransport();
+        QVERIFY(api.setAccount(quint64(identity.value("userid").toInteger()),
+                               identity.value("token").toString(),
+                               identity.value("t1").toString()));
+        AccountService account(api);
+        PlaybackService playback(api, settings, nullptr, dir.filePath("playback.sqlite"), &network);
+        SharingCommands commands(account);
+        RouteController router;
+        ShellController shell(settings, router);
+        WindowController window(settings, false);
+        DetailsService details(api, playback, router, true);
+        ShareResolveService shares(api, commands, router, shell, window);
+        shell.attachPlayback(playback);
+        details.attachShell(shell);
+        details.registerRoutes(router);
+        shares.registerRoutes(router);
+        QSignalSpy sourceFailures(&playback, &PlaybackService::sourceOperationFailed);
+        QSignalSpy playbackClosed(&playback, &PlaybackService::closed);
+        QSignalSpy apiClosed(&api, &ApiClient::closed);
+        const auto cleanup = qScopeGuard([&] {
+            shares.shutdown();
+            details.shutdown();
+            router.shutdown();
+            shell.shutdown();
+            window.shutdown();
+            playback.shutdown();
+            api.shutdown();
+            QVERIFY2(QTest::qWaitFor(
+                         [&] { return !playbackClosed.isEmpty() && !apiClosed.isEmpty(); }, 15000),
+                     "Live share probe did not drain playback and API before teardown");
+        });
+        QVERIFY(shares.openUrl(
+            shareWebUrl({ShareResource::Song,
+                         "8c4e910d5dd7250de34228945e8091cc",
+                         {{"albumAudioId", "410300671"}, {"albumId", "57386687"}}})));
+        QTRY_VERIFY_WITH_TIMEOUT(router.current() && router.current()->name() == "song-detail",
+                                 30000);
+        auto *detail = details.songFor(router.current());
+        QVERIFY(detail);
+        QTRY_VERIFY_WITH_TIMEOUT(!detail->loading(), 30000);
+        QCOMPARE(detail->songs()->count(), 1);
+        const auto track = detail->songs()->track("410300671");
+        QVERIFY(track);
+        QCOMPARE(detail->qualities().count("SD"), 1);
+        QCOMPARE(track->catalogPrivilege, 5U);
+        QVERIFY(!track->catalogMetadata.contains("old_copyright_code"));
+        QVERIFY(detail->songs()->catalogPlayable("410300671"));
+        detail->actions()->play();
+        QCOMPARE(playback.trackId(), QString("410300671"));
+        QTRY_VERIFY_WITH_TIMEOUT(playback.playing() || !playback.errorMessage().isEmpty(), 30000);
+        QVERIFY2(playback.errorMessage().isEmpty(), qPrintable(playback.errorMessage()));
+        QTRY_VERIFY_WITH_TIMEOUT(playback.clockPosition() > 2000, 10000);
+        QCOMPARE(playback.resolvedQuality(), expected);
+        QCOMPARE(sourceFailures.size(), 0);
+        qInfo() << "Live share/detail command native playback" << quality << "->"
+                << playback.resolvedQuality() << "position" << playback.clockPosition();
+    }
+    void sharedLegacySongReachesPlaybackOnlyWithMatchingFreeFacts_data()
+    {
+        QTest::addColumn<QString>("action");
+        QTest::addColumn<QString>("facts");
+        QTest::addColumn<bool>("playable");
+        QTest::newRow("header-play") << "play" << "free" << true;
+        QTest::newRow("row-play") << "row" << "free" << true;
+        QTest::newRow("menu-play-now") << "now" << "free" << true;
+        for (const auto &facts : {"missing-payment", "missing-price", "null-price", "paid",
+                                  "priced", "another-resource", "no-source"})
+            QTest::newRow(facts) << "play" << facts << false;
+    }
+    void sharedLegacySongReachesPlaybackOnlyWithMatchingFreeFacts()
+    {
+        QFETCH(QString, action);
+        QFETCH(QString, facts);
+        QFETCH(bool, playable);
+        Fixture f;
+        PlaybackServiceTestAccess::hold(f.playback);
+        PlaybackTrack existing;
+        existing.id = "existing";
+        existing.hash = QString(32, 'a');
+        existing.title = "Existing queue song";
+        f.playback.playTracks({existing}, 0, "Existing queue", "queue:existing");
+        const auto queueKey = f.playback.queueCatalog()->activeKey();
+        // Normalized legacy-copyright facts from privilege_lite supply no
+        // old_copyright_code for this track.
+        const QString hash = "8C4E910D5DD7250DE34228945E8091CC";
+        QJsonObject primary{{"hash", hash},     {"quality", "128"},     {"level", 2},
+                            {"privilege", 5},   {"service_status", 0},  {"payment_type", 0},
+                            {"price_units", 0}, {"duration_ms", 383085}};
+        if (facts == "missing-payment")
+            primary.remove("payment_type");
+        if (facts == "missing-price")
+            primary.remove("price_units");
+        if (facts == "null-price")
+            primary["price_units"] = QJsonValue::Null;
+        if (facts == "paid")
+            primary["payment_type"] = 3;
+        if (facts == "priced")
+            primary["price_units"] = 200;
+        if (facts == "no-source")
+            primary["privilege"] = 40;
+        QJsonObject catalog{{"hash", facts == "another-resource" ? QString(32, 'b') : hash},
+                            {"song_id", 410300671},
+                            {"album_id", "57386687"},
+                            {"display_name", "万能诊听器"},
+                            {"artist_text", "洛天依、Z新豪"},
+                            {"primary", primary},
+                            {"variants", QJsonArray{primary}}};
+        QVERIFY(f.open(ShareResource::Song, hash.toLower(),
+                       {{"albumId", "57386687"}, {"albumAudioId", "410300671"}}));
+        ShareResolveServiceTestAccess::acceptList(
+            f.shares, ShareResolveServiceTestAccess::request(f.shares), {catalog});
+        auto *detail = f.details.songFor(f.router.current());
+        QVERIFY(detail);
+        // Stale rights for another hash must not unlock this track. The real
+        // share path normally keeps these equal; exercise the shared model too.
+        if (facts == "another-resource") {
+            auto row = detail->songs()->track("410300671")->toDomain();
+            row["hash"] = hash;
+            detail->songs()->replaceSongs({row});
+        }
+        QCOMPARE(detail->songs()->count(), 1);
+        QCOMPARE(detail->songs()->catalogPlayable("410300671"), playable);
+        const auto track = detail->songs()->track("410300671");
+        QVERIFY(track);
+        QVERIFY(!track->catalogMetadata.contains("old_copyright_code"));
+        QCOMPARE(track->catalogPrivilege, facts == "no-source" ? 40U : 5U);
+        QCOMPARE(
+            detail->songs()->index(0, 0).data(SongCatalogModel::PrivilegeTags).toList().isEmpty(),
+            playable);
+        if (action == "now")
+            detail->actions()->playNow("410300671");
+        else if (action == "row")
+            detail->actions()->playOrToggle("410300671");
+        else
+            detail->actions()->play();
+        QCOMPARE(f.playback.queueCatalog()->activeKey(), queueKey);
+        QCOMPARE(f.playback.queue()->rowCount(), playable ? 2 : 1);
+        QCOMPARE(f.playback.trackId(), playable ? QString("410300671") : existing.id);
+    }
     void acceptedResourcesReplaceOnlyTheirTransientResolver()
     {
         for (auto type : {ShareResource::Album, ShareResource::Artist, ShareResource::Playlist}) {

@@ -1,4 +1,5 @@
 #include "SongRowFacts.h"
+#include "PlaybackSourcePlan.h"
 #include <QJsonArray>
 #include <QJsonObject>
 #include <QObject>
@@ -6,6 +7,18 @@
 
 namespace EchoMusic
 {
+bool songCopyrightRestricted(const PlaybackTrack &track)
+{
+    if (track.catalogPrivilege != 5 ||
+        track.catalogMetadata.value("old_copyright_code").toInt() == 1)
+        return false;
+    // Share/detail rights have no old-copyright marker. Use their explicit
+    // free-file facts without fabricating that marker or granting playback.
+    const auto rights = track.catalogMetadata.value("resource_privileges").toObject();
+    const auto hash = rights.value("hash").toString();
+    return hash.isEmpty() || hash.compare(track.hash, Qt::CaseInsensitive) != 0 ||
+           !PlaybackSourcePlan::isFreeLegacyFile(rights.value("primary").toObject());
+}
 QVariantList songPrivilegeTags(const PlaybackTrack &track)
 {
     QVariantList tags;
@@ -17,8 +30,7 @@ QVariantList songPrivilegeTags(const PlaybackTrack &track)
         add(QObject::tr("付费"), "#EF4444");
     if (track.catalogPrivilege == 10 && payment == 3)
         add("VIP", "#F59E0B");
-    if (track.catalogPrivilege == 5 &&
-        track.catalogMetadata.value("old_copyright_code").toInt() != 1)
+    if (songCopyrightRestricted(track))
         add(QObject::tr("版权"), "#8B5CF6");
     if (track.catalogPrivilege == 40)
         add(QObject::tr("音源"), "#6B7280");

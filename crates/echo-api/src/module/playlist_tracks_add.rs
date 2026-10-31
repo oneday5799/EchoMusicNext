@@ -29,8 +29,8 @@ struct Data {
     userid: u64,
     #[serde(deserialize_with = "crate::util::response::scalar")]
     listid: u64,
-    #[serde(deserialize_with = "crate::util::response::scalar")]
-    status: u32,
+    #[serde(default, deserialize_with = "crate::util::response::optional")]
+    status: Option<u32>,
     #[serde(deserialize_with = "crate::util::response::scalar")]
     pre_list_ver: u64,
     #[serde(deserialize_with = "crate::util::response::scalar")]
@@ -54,9 +54,9 @@ struct Item {
 }
 pub fn convert(bytes: &[u8]) -> Result<CloudTrackChange, ApiError> {
     let v: Data = cloudlist::decode(bytes)?;
-    if v.status != 1 {
-        return Err(ApiError::business(i64::from(v.status)));
-    }
+    // cloudlist::decode already checks the outer business result. The nested
+    // flag is not a second error code: retain it without a fixed-value gate.
+    // Item codes and the shared writer's canonical readback confirm the result.
     let replaced_file_ids = v.del_fileids.as_array().map(|ids| {
         ids.iter()
             .map(|id| crate::util::response::from_value(id.clone()).ok())
@@ -77,6 +77,7 @@ pub fn convert(bytes: &[u8]) -> Result<CloudTrackChange, ApiError> {
     Ok(CloudTrackChange {
         user_id: v.userid,
         cloud_list_id: v.listid,
+        provider_status: v.status,
         previous_revision: v.pre_list_ver,
         revision: v.list_ver,
         song_count: v.count,

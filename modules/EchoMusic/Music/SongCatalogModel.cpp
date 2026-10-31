@@ -254,9 +254,7 @@ SongCatalogModel::Entry SongCatalogModel::songEntry(const QJsonObject &song)
     entry.badges = songPrivilegeTags(track);
     entry.quality = songQualityLabel(track);
     entry.qualityTags = songQualityTags(track);
-    entry.playable = track.catalogPrivilege != 40 &&
-                     (track.catalogPrivilege != 5 ||
-                      track.catalogMetadata.value("old_copyright_code").toInt() == 1);
+    entry.playable = track.catalogPrivilege != 40 && !songCopyrightRestricted(track);
     return entry;
 }
 void SongCatalogModel::applyPresentations(const QJsonArray &presentations)

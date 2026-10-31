@@ -88,6 +88,12 @@ namespace EchoMusic
 class PlaybackLibraryActionsTestAccess
 {
 public:
+    static void failAdd(PlaybackLibraryActions &actions, const QString &message)
+    {
+        actions.m_currentTarget = actions.m_targets.first().key;
+        actions.m_remaining = actions.m_songs;
+        actions.writeFailed(message);
+    }
     static void favorite(PlaybackLibraryActions &actions, const PlaybackTrack &track, bool value)
     {
         if (value)
@@ -336,6 +342,12 @@ public:
 class PlaylistMutationServiceTestAccess
 {
 public:
+    static void rejectedAdd(PlaylistMutationService &s, const QString &message)
+    {
+        s.m_error = message;
+        s.m_state = PlaylistMutationService::State::Ready;
+        emit s.changed();
+    }
     static quint64 request(PlaylistMutationService &s)
     {
         return s.m_request;

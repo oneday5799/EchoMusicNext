@@ -715,6 +715,60 @@ void DesktopPagesTest::productionAddToReopenStableHeight()
     }
 }
 
+void DesktopPagesTest::productionAddToFailureUsesOnlyToast()
+{
+    Session session;
+    PlaybackService playback(session.api, session.preferences);
+    QVERIFY(session.create(&playback));
+    const auto cleanup = qScopeGuard([&session] {
+        session.root.reset();
+        session.window = nullptr;
+    });
+    QVERIFY(Test::prepareNativeInput(session.window));
+    QVERIFY(AccountServiceTestAccess::adopt(session.accounts.account, account(900001)));
+    UserPlaylistModelTestAccess::present(session.accounts.playlists, session.api, 5);
+    const QString message = QStringLiteral("音乐服务拒绝了写操作");
+    PlaybackTrack track;
+    track.id = "add-toast";
+    track.title = "添加提示测试";
+    track.localPath = "/ui-test/add-toast.wav";
+    for (const auto mode : {ThemeStore::Light, ThemeStore::Dark})
+        for (const qreal scale : {1., 1.25}) {
+            session.theme.setMode(mode);
+            session.shell.resetZoom();
+            while (session.shell.uiScale() < scale - .001)
+                session.shell.zoomIn();
+            auto *actions = playback.libraryActions();
+            actions->prepareTracks({track}, false);
+            QVERIFY(actions->rowCount() > 0);
+            QPointer<QObject> dialog = session.root->findChild<QObject *>("addToPlaylistDialog");
+            QTRY_VERIFY(dialog && dialog->property("opened").toBool());
+            PlaylistMutationServiceTestAccess::rejectedAdd(session.accounts.mutations, message);
+            PlaybackLibraryActionsTestAccess::failAdd(*actions, message);
+            auto *toasts = session.commands.toasts();
+            QTRY_VERIFY(toasts->visible());
+            QCOMPARE(toasts->message(), message);
+            QCOMPARE(toasts->tone(), ToastService::Warning);
+            QCOMPARE(toasts->repetitions(), 1);
+            QVERIFY(session.accounts.library.errorMessage().isEmpty());
+            auto *targets = visual(session.window->contentItem(), "playlistAddTargets");
+            QVERIFY(targets);
+            QTest::qWait(100);
+            QVERIFY(!visualText(targets, QStringLiteral("添加失败")));
+            const auto capture = qEnvironmentVariable("ECHO_ADD_TO_FAILURE_CAPTURE_DIR");
+            if (!capture.isEmpty()) {
+                QVERIFY(QDir().mkpath(capture));
+                QVERIFY(session.window->grabWindow().save(
+                    capture + QString("/add-failure-%1-%2.png").arg(int(mode)).arg(scale)));
+            }
+            toasts->dismiss(toasts->noticeId());
+            QTRY_VERIFY(!toasts->visible());
+            QVERIFY(!visualText(session.window->contentItem(), message));
+            QVERIFY(QMetaObject::invokeMethod(dialog, "close"));
+            QTRY_VERIFY(dialog.isNull());
+        }
+}
+
 void DesktopPagesTest::productionAddToHeaderAlignment()
 {
     Session session;

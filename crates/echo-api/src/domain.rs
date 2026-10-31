@@ -269,6 +269,8 @@ pub struct TrackWriteOutcome {
 pub struct CloudTrackChange {
     pub user_id: u64,
     pub cloud_list_id: u64,
+    /// Provider's nested operation flag, distinct from envelope success and per-item codes.
+    pub provider_status: Option<u32>,
     pub previous_revision: u64,
     pub revision: u64,
     pub song_count: Option<u64>,
