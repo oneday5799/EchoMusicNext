@@ -1,0 +1,115 @@
+2026-11-04 23:39:45.849 INFO  [echo.logging] Removed 3 expired log files (retention_days=7)
+2026-11-04 23:39:45.829 INFO  [echo.logging] Logging started pid=10764 level=debug timezone=Asia/Shanghai retention_days=7 file=C:/Users/Oneday/AppData/Local/hoowhoami/EchoMusicNext/logs/echomusicnext-2026-11-04_23-39-45-730-10764.log
+2026-11-04 23:39:45.829 INFO  [echo.logging] Session build: version=0.1.0 build=20261104T121311Z-251cc3686f67-dirty configuration=Release arch=x86_64 Qt=6.12.0 compiler=MSVC 19.44.35228.0
+2026-11-04 23:39:45.829 WARN  [default] Previous session ended without clean shutdown; crash report: C:/Users/Oneday/AppData/Local/hoowhoami/EchoMusicNext/logs/crashes/echomusicnext-20261104T152739592-26980.jsonl
+2026-11-04 23:39:45.831 INFO  [default] Bootstrap phase: createShell
+2026-11-04 23:39:45.926 INFO  [default] Bootstrap phase: createNetworkPlayback
+2026-11-04 23:39:45.964 INFO  [default] Bootstrap phase: createAccount
+2026-11-04 23:39:45.964 INFO  [default] Bootstrap phase: createPages
+2026-11-04 23:39:45.965 INFO  [default] Bootstrap phase: createPlugins
+2026-11-04 23:39:45.971 INFO  [default] Bootstrap phase: registerRoutes
+2026-11-04 23:39:45.971 INFO  [default] Bootstrap phase: wireShutdown
+2026-11-04 23:39:45.971 INFO  [default] Bootstrap phase: wireSmoke
+2026-11-04 23:39:45.971 INFO  [default] Bootstrap phase: mountUi
+2026-11-04 23:39:46.568 INFO  [echo.platform.windows.window] attach {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":false,"initialized":false,"layered":false,"nativeBounds":[561,221,1438,938],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"860f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":0,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:39:46.601 INFO  [echo.platform.windows.window] apply {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"860f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:39:46.656 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:39:46.815 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:39:46.004 INFO  [native] Windows SMTC initialized
+2026-11-04 23:39:46.005 INFO  [native] audio player initialized
+2026-11-04 23:39:46.643 INFO  [native] audio output switch requested: device='auto', exclusive=false
+2026-11-04 23:39:46.836 INFO  [echo.platform.taskbar-lyric] probe thread up
+2026-11-04 23:39:46.836 INFO  [echo.platform.taskbar-lyric] COM initialized (STA)
+2026-11-04 23:39:46.838 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:39:46.838 INFO  [echo.platform.taskbar-lyric] 挂载成功 hwnd= 0xb40c3a shell= 0x20208
+2026-11-04 23:39:46.839 DEBUG [echo.shell.taskbar-lyric] hide: available=false reliable=false fullscreen=false left=QRect(0,0 0x0) right=QRect(0,0 0x0) scale=1
+2026-11-04 23:39:46.841 INFO  [echo.platform.taskbar-lyric] UIA client up ok=true
+2026-11-04 23:39:46.841 INFO  [echo.platform.taskbar-lyric] probe stage iter=1
+2026-11-04 23:39:47.080 DEBUG [native.api] request=1 revision=1 started
+2026-11-04 23:39:47.080 DEBUG [native.api] request=1 revision=1 status=Success kind=none code=None elapsed_ms=0
+2026-11-04 23:39:47.162 DEBUG [echo.api.capabilities] Request completed request=1 session=1 attempt_elapsed_ms=82
+2026-11-04 23:39:47.152 DEBUG [native.api] request=2 revision=1 started
+2026-11-04 23:39:47.153 DEBUG [native.api] request=3 revision=1 started
+2026-11-04 23:39:47.183 DEBUG [echo.platform.taskbar-lyric] occupied "n=19 [0..69, 72..347, 118..153, 349..404, 404..459, 459..514, 514..569, 569..624, 2127..2167, 2167..2560, 2207..2247, 2247..2287, 2287..2327, 2327..2382, 2387..2417, 2422..2452, 2462..2540, 2545..2560, 2127..2560, ] cl=0..624 L=0,0 R=630,1491"
+2026-11-04 23:39:47.183 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:39:47.183 INFO  [echo.platform.taskbar-lyric] probe stage iter=2
+2026-11-04 23:39:47.204 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:39:47.166 INFO  [native] Image decoded: width=256, height=256, color_type=Rgb8
+2026-11-04 23:39:47.166 DEBUG [native.api] request=2 revision=1 status=Cancelled kind=none code=None elapsed_ms=14
+2026-11-04 23:39:47.166 DEBUG [native.api] request=3 revision=1 status=Cancelled kind=none code=None elapsed_ms=13
+2026-11-04 23:39:47.168 INFO  [native] Image re-encoded as JPEG: 13880 bytes
+2026-11-04 23:39:47.204 DEBUG [native.api] request=4 revision=2 started
+2026-11-04 23:39:47.204 DEBUG [native.api] request=6 revision=2 started
+2026-11-04 23:39:47.204 DEBUG [native.api] request=7 revision=2 started
+2026-11-04 23:39:47.205 DEBUG [native.api] request=8 revision=2 started
+2026-11-04 23:39:47.433 DEBUG [native.api] request=6 revision=2 status=Success kind=none code=None elapsed_ms=228
+2026-11-04 23:39:47.449 DEBUG [native.api] request=5 revision=2 status=Success kind=none code=None elapsed_ms=244
+2026-11-04 23:39:47.470 DEBUG [echo.api.user_info] Request completed request=6 session=2 attempt_elapsed_ms=266
+2026-11-04 23:39:47.470 DEBUG [echo.api.user_vip_detail] Request completed request=5 session=2 attempt_elapsed_ms=266
+2026-11-04 23:39:47.471 DEBUG [native.api] request=9 revision=2 started
+2026-11-04 23:39:47.471 DEBUG [native.api] request=10 revision=2 started
+2026-11-04 23:39:47.502 DEBUG [native.api] request=4 revision=2 status=Success kind=none code=None elapsed_ms=298
+2026-11-04 23:39:47.546 DEBUG [echo.api.user_detail] Request completed request=4 session=2 attempt_elapsed_ms=342
+2026-11-04 23:39:47.563 DEBUG [echo.api.user_playlist] Request completed request=7 session=2 attempt_elapsed_ms=360
+2026-11-04 23:39:47.578 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:39:47.545 INFO  [native] Image decoded: width=256, height=256, color_type=Rgb8
+2026-11-04 23:39:47.563 DEBUG [native.api] request=7 revision=2 status=Success kind=none code=None elapsed_ms=359
+2026-11-04 23:39:47.566 DEBUG [native.api] request=11 revision=2 started
+2026-11-04 23:39:47.566 DEBUG [native.api] request=12 revision=2 started
+2026-11-04 23:39:47.591 DEBUG [echo.api.krm_audio] Request completed request=9 session=2 attempt_elapsed_ms=120
+2026-11-04 23:39:47.597 DEBUG [echo.shell.taskbar-lyric] present side=right bounds=QRectF(1288.8,0 400x48.8) scale=1.25
+2026-11-04 23:39:47.601 DEBUG [echo.shell.taskbar-lyric] native: parent=0x20208 visible=1 rect=(1611,1380,2111,1441)
+2026-11-04 23:39:47.631 INFO  [echo.platform.taskbar-lyric] probe stage iter=3
+2026-11-04 23:39:47.637 DEBUG [echo.api.krm_audio] Request completed request=10 session=2 attempt_elapsed_ms=166
+2026-11-04 23:39:47.591 DEBUG [native.api] request=9 revision=2 status=Success kind=none code=None elapsed_ms=120
+2026-11-04 23:39:47.637 DEBUG [native.api] request=10 revision=2 status=Success kind=none code=None elapsed_ms=166
+2026-11-04 23:39:47.764 DEBUG [native.api] request=12 revision=2 status=Success kind=none code=None elapsed_ms=197
+2026-11-04 23:39:47.824 DEBUG [native.api] request=11 revision=2 status=Success kind=none code=None elapsed_ms=258
+2026-11-04 23:39:47.855 DEBUG [echo.api.user_playlist] Request completed request=12 session=2 attempt_elapsed_ms=289
+2026-11-04 23:39:47.867 DEBUG [echo.api.playlist_track_all_new] Request completed request=11 session=2 attempt_elapsed_ms=302
+2026-11-04 23:39:48.022 DEBUG [echo.api.personal_fm] Request completed request=8 session=2 attempt_elapsed_ms=817
+2026-11-04 23:39:48.011 DEBUG [native.api] request=8 revision=2 status=Success kind=none code=None elapsed_ms=805
+2026-11-04 23:39:59.421 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:40:04.986 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"8000100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:40:05.010 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":true,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"0","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":true,"initialized":true,"layered":false,"nativeBounds":[0,0,2560,1440],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"96080000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":4}
+2026-11-04 23:40:05.350 DEBUG [echo.platform.taskbar-lyric] occupied "n=20 [0..69, 72..347, 118..153, 349..404, 404..459, 459..514, 514..569, 569..624, 2092..2132, 2132..2560, 2172..2212, 2212..2252, 2252..2292, 2292..2347, 2352..2382, 2387..2417, 2427..2505, 2510..2540, 2545..2560, 2092..2560, ] cl=0..624 L=0,0 R=630,1456"
+2026-11-04 23:40:05.350 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1456"
+2026-11-04 23:40:05.673 DEBUG [echo.shell.taskbar-lyric] present side=right bounds=QRectF(1260.8,0 400x48.8) scale=1.25
+2026-11-04 23:40:05.675 DEBUG [echo.shell.taskbar-lyric] native: parent=0x20208 visible=1 rect=(1576,1380,2076,1441)
+2026-11-04 23:40:07.943 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":true,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"8000000","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":true,"initialized":true,"layered":false,"nativeBounds":[0,0,2560,1440],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"96080000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":4}
+2026-11-04 23:40:07.953 INFO  [echo.platform.windows.window] apply {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"8000100","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":true,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":4}
+2026-11-04 23:40:07.962 INFO  [echo.platform.windows.window] apply {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"8000100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:40:07.968 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:40:17.395 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1456"
+2026-11-04 23:40:19.610 DEBUG [echo.network.policy] Network configuration changed; retiring cached routes
+2026-11-04 23:40:30.353 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1456"
+2026-11-04 23:40:43.375 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1456"
+2026-11-04 23:40:56.305 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1456"
+2026-11-04 23:40:58.339 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[-32000,-32000,199,34],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"b6cf0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":1}
+2026-11-04 23:40:58.404 DEBUG [echo.platform.taskbar-lyric] occupied "n=19 [0..69, 72..347, 118..153, 349..404, 404..459, 459..514, 514..569, 569..624, 2127..2167, 2167..2560, 2207..2247, 2247..2287, 2287..2327, 2327..2382, 2387..2417, 2422..2452, 2462..2540, 2545..2560, 2127..2560, ] cl=0..624 L=0,0 R=630,1491"
+2026-11-04 23:40:58.404 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:40:58.673 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[-32000,-32000,199,34],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"b60f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":1}
+2026-11-04 23:40:58.751 DEBUG [echo.shell.taskbar-lyric] present side=right bounds=QRectF(1288.8,0 400x48.8) scale=1.25
+2026-11-04 23:40:58.753 DEBUG [echo.shell.taskbar-lyric] native: parent=0x20208 visible=1 rect=(1611,1380,2111,1441)
+2026-11-04 23:41:11.368 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:41:23.428 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:41:36.385 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:41:48.460 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:42:01.392 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:42:14.450 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:42:24.613 DEBUG [echo.network.policy] Network configuration changed; retiring cached routes
+2026-11-04 23:42:27.399 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:42:31.015 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"96cf0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:42:31.347 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:42:40.386 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:42:53.411 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:43:06.363 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:43:19.396 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:43:31.421 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:43:44.343 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:43:49.768 DEBUG [echo.network.policy] Network configuration changed; retiring cached routes
+2026-11-04 23:43:56.351 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:43:59.609 DEBUG [echo.network.policy] Network configuration changed; retiring cached routes
+2026-11-04 23:44:08.398 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:44:21.431 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:44:34.360 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"

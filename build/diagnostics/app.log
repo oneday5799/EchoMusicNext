@@ -1,0 +1,81 @@
+2026-11-04 23:13:58.649 INFO  [echo.logging] Logging started pid=10724 level=debug timezone=Asia/Shanghai retention_days=7 file=C:/Users/Oneday/AppData/Local/hoowhoami/EchoMusicNext/logs/echomusicnext-2026-11-04_23-13-58-549-10724.log
+2026-11-04 23:13:58.649 INFO  [echo.logging] Session build: version=0.1.0 build=20261104T121311Z-251cc3686f67-dirty configuration=Release arch=x86_64 Qt=6.12.0 compiler=MSVC 19.44.35228.0
+2026-11-04 23:13:58.649 WARN  [default] Previous session ended without clean shutdown; crash report: C:/Users/Oneday/AppData/Local/hoowhoami/EchoMusicNext/logs/crashes/echomusicnext-20261104T151247198-21152.jsonl
+2026-11-04 23:13:58.650 INFO  [default] Bootstrap phase: createShell
+2026-11-04 23:13:58.758 INFO  [default] Bootstrap phase: createNetworkPlayback
+2026-11-04 23:13:58.793 INFO  [default] Bootstrap phase: createAccount
+2026-11-04 23:13:58.794 INFO  [default] Bootstrap phase: createPages
+2026-11-04 23:13:58.795 INFO  [default] Bootstrap phase: createPlugins
+2026-11-04 23:13:58.801 INFO  [default] Bootstrap phase: registerRoutes
+2026-11-04 23:13:58.801 INFO  [default] Bootstrap phase: wireShutdown
+2026-11-04 23:13:58.801 INFO  [default] Bootstrap phase: wireSmoke
+2026-11-04 23:13:58.801 INFO  [default] Bootstrap phase: mountUi
+2026-11-04 23:13:59.392 INFO  [echo.platform.windows.window] attach {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":false,"initialized":false,"layered":false,"nativeBounds":[561,221,1438,938],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"860f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":0,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:13:59.423 INFO  [echo.platform.windows.window] apply {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[781,33,1563,1080],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"860f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:13:59.472 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[781,33,1563,1080],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:13:58.834 INFO  [native] Windows SMTC initialized
+2026-11-04 23:13:58.835 INFO  [native] audio player initialized
+2026-11-04 23:13:59.459 INFO  [native] audio output switch requested: device='auto', exclusive=false
+2026-11-04 23:13:59.471 INFO  [native] audio output switch completed
+2026-11-04 23:13:59.656 INFO  [echo.platform.taskbar-lyric] probe thread up
+2026-11-04 23:13:59.656 INFO  [echo.platform.taskbar-lyric] COM initialized (STA)
+2026-11-04 23:13:59.659 INFO  [echo.platform.taskbar-lyric] 挂载成功 hwnd= 0xdd0ca6 shell= 0x20208
+2026-11-04 23:13:59.659 INFO  [echo.shell.taskbar-lyric] 平台窗口被重建，已重新挂载
+2026-11-04 23:13:59.659 DEBUG [echo.shell.taskbar-lyric] hide: available=false reliable=false fullscreen=false left=QRect(0,0 0x0) right=QRect(0,0 0x0) scale=1
+2026-11-04 23:13:59.661 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:13:59.661 INFO  [echo.platform.taskbar-lyric] UIA client up ok=true
+2026-11-04 23:13:59.862 DEBUG [native.api] request=1 revision=1 started
+2026-11-04 23:13:59.862 DEBUG [native.api] request=1 revision=1 status=Success kind=none code=None elapsed_ms=0
+2026-11-04 23:13:59.949 DEBUG [echo.api.capabilities] Request completed request=1 session=1 attempt_elapsed_ms=87
+2026-11-04 23:13:59.931 DEBUG [native.api] request=2 revision=1 started
+2026-11-04 23:13:59.932 DEBUG [native.api] request=3 revision=1 started
+2026-11-04 23:13:59.951 INFO  [native] Image decoded: width=256, height=256, color_type=Rgb8
+2026-11-04 23:13:59.951 DEBUG [native.api] request=2 revision=1 status=Cancelled kind=none code=None elapsed_ms=20
+2026-11-04 23:13:59.951 DEBUG [native.api] request=3 revision=1 status=Cancelled kind=none code=None elapsed_ms=19
+2026-11-04 23:13:59.953 INFO  [native] Image re-encoded as JPEG: 13880 bytes
+2026-11-04 23:13:59.986 DEBUG [native.api] request=4 revision=2 started
+2026-11-04 23:13:59.986 DEBUG [native.api] request=5 revision=2 started
+2026-11-04 23:13:59.986 DEBUG [native.api] request=6 revision=2 started
+2026-11-04 23:13:59.986 DEBUG [native.api] request=7 revision=2 started
+2026-11-04 23:13:59.986 DEBUG [native.api] request=8 revision=2 started
+2026-11-04 23:14:00.014 DEBUG [echo.platform.taskbar-lyric] occupied "n=19 [0..69, 72..347, 118..153, 349..404, 404..459, 459..514, 514..569, 569..624, 2127..2167, 2167..2560, 2207..2247, 2247..2287, 2287..2327, 2327..2382, 2387..2417, 2422..2452, 2462..2540, 2545..2560, 2127..2560, ] cl=0..624 L=0,0 R=630,1491"
+2026-11-04 23:14:00.014 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:14:00.014 INFO  [echo.platform.taskbar-lyric] probe stage iter=2
+2026-11-04 23:14:00.287 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:14:00.220 DEBUG [native.api] request=9 revision=2 started
+2026-11-04 23:14:00.221 DEBUG [native.api] request=10 revision=2 started
+2026-11-04 23:14:00.238 DEBUG [native.api] request=6 revision=2 status=Success kind=none code=None elapsed_ms=251
+2026-11-04 23:14:00.255 DEBUG [native.api] request=5 revision=2 status=Success kind=none code=None elapsed_ms=269
+2026-11-04 23:14:00.289 DEBUG [echo.api.user_info] Request completed request=6 session=2 attempt_elapsed_ms=303
+2026-11-04 23:14:00.289 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:14:00.289 DEBUG [echo.api.user_detail] Request completed request=4 session=2 attempt_elapsed_ms=304
+2026-11-04 23:14:00.289 INFO  [native] Image decoded: width=256, height=256, color_type=Rgb8
+2026-11-04 23:14:00.290 INFO  [native] Image re-encoded as JPEG: 13880 bytes
+2026-11-04 23:14:00.351 DEBUG [echo.api.user_playlist] Request completed request=7 session=2 attempt_elapsed_ms=365
+2026-11-04 23:14:00.356 DEBUG [echo.shell.taskbar-lyric] present side=right bounds=QRectF(1288.8,0 400x48.8) scale=1.25
+2026-11-04 23:14:00.364 DEBUG [echo.shell.taskbar-lyric] native: parent=0x20208 visible=1 rect=(1611,1380,2111,1441)
+2026-11-04 23:14:00.375 DEBUG [echo.api.krm_audio] Request completed request=9 session=2 attempt_elapsed_ms=155
+2026-11-04 23:14:00.391 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-04 23:14:00.351 DEBUG [native.api] request=7 revision=2 status=Success kind=none code=None elapsed_ms=364
+2026-11-04 23:14:00.352 DEBUG [native.api] request=11 revision=2 started
+2026-11-04 23:14:00.353 DEBUG [native.api] request=12 revision=2 started
+2026-11-04 23:14:00.395 INFO  [echo.platform.taskbar-lyric] probe stage iter=3
+2026-11-04 23:14:00.417 DEBUG [native.api] request=10 revision=2 status=Success kind=none code=None elapsed_ms=195
+2026-11-04 23:14:00.497 DEBUG [echo.api.krm_audio] Request completed request=10 session=2 attempt_elapsed_ms=277
+2026-11-04 23:14:00.534 DEBUG [native.api] request=12 revision=2 status=Success kind=none code=None elapsed_ms=181
+2026-11-04 23:14:00.583 DEBUG [native.api] request=11 revision=2 status=Success kind=none code=None elapsed_ms=231
+2026-11-04 23:14:00.604 DEBUG [echo.api.user_playlist] Request completed request=12 session=2 attempt_elapsed_ms=251
+2026-11-04 23:14:00.613 DEBUG [echo.api.playlist_track_all_new] Request completed request=11 session=2 attempt_elapsed_ms=261
+2026-11-04 23:14:00.856 DEBUG [native.api] request=8 revision=2 status=Success kind=none code=None elapsed_ms=869
+2026-11-04 23:14:00.916 DEBUG [echo.api.personal_fm] Request completed request=8 session=2 attempt_elapsed_ms=930
+2026-11-04 23:14:11.354 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":true,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"0","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":true,"initialized":true,"layered":false,"nativeBounds":[0,0,2560,1440],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"96080000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":4}
+2026-11-04 23:14:11.449 DEBUG [echo.platform.taskbar-lyric] occupied "n=20 [0..69, 72..347, 118..153, 349..404, 404..459, 459..514, 514..569, 569..624, 2092..2132, 2132..2560, 2172..2212, 2212..2252, 2252..2292, 2292..2347, 2352..2382, 2387..2417, 2427..2505, 2510..2540, 2545..2560, 2092..2560, ] cl=0..624 L=0,0 R=630,1456"
+2026-11-04 23:14:11.449 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1456"
+2026-11-04 23:14:11.772 DEBUG [echo.shell.taskbar-lyric] present side=right bounds=QRectF(1260.8,0 400x48.8) scale=1.25
+2026-11-04 23:14:11.774 DEBUG [echo.shell.taskbar-lyric] native: parent=0x20208 visible=1 rect=(1576,1380,2076,1441)
+2026-11-04 23:14:14.315 INFO  [echo.platform.windows.window] apply {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":true,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":4}
+2026-11-04 23:14:14.325 INFO  [echo.platform.windows.window] apply {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":true,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[500,188,2000,1250],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":64,"windowColor":"#00000000","windowState":0}
+2026-11-04 23:14:14.371 DEBUG [echo.platform.taskbar-lyric] occupied "n=19 [0..69, 72..347, 118..153, 349..404, 404..459, 459..514, 514..569, 569..624, 2127..2167, 2167..2560, 2207..2247, 2247..2287, 2287..2327, 2327..2382, 2387..2417, 2422..2452, 2462..2540, 2545..2560, 2127..2560, ] cl=0..624 L=0,0 R=630,1491"
+2026-11-04 23:14:14.371 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1491"
+2026-11-04 23:14:14.695 DEBUG [echo.shell.taskbar-lyric] present side=right bounds=QRectF(1288.8,0 400x48.8) scale=1.25
+2026-11-04 23:14:14.696 DEBUG [echo.shell.taskbar-lyric] native: parent=0x20208 visible=1 rect=(1611,1380,2111,1441)
