@@ -27,6 +27,7 @@ QJsonObject engineStartupOptions(const PlayerEnginePreferences &engine,
     // configuration. Initialize its deadline with the engine, rather than rely
     // solely on a queued command after ready that could race the first probe.
     options.insert("network_timeout_secs", network ? network->playerTimeoutSeconds() : 60);
+    options.insert("http_user_agent", network ? network->playerUserAgent() : QString());
     if (network)
         options.insert("http_proxy", network->transportEndpoint().toString(QUrl::FullyEncoded));
     return options;
@@ -187,6 +188,7 @@ PlaybackService::PlaybackService(ApiClient &api, EchoMusic::SettingsStore &setti
             return;
         if (m_castRefreshSequence == m_sequence) {
             m_loading = m_playing = false;
+            m_startPending = false;
             m_error = tr("投放音源已过期，请重试");
             m_failure->failed();
             emit changed();
@@ -199,13 +201,18 @@ PlaybackService::PlaybackService(ApiClient &api, EchoMusic::SettingsStore &setti
         m_dynamicCover.setTrack(m_track);
         m_portraits.setTrack(m_track);
     });
-    // The application owns network policy. Only an immutable deadline is copied
-    // to the audio actor; playback does not persist a second network preference.
-    if (network)
+    // The application owns network policy. New readers snapshot HTTP preferences;
+    // playback does not persist a second copy or interrupt existing readers.
+    if (network) {
         connect(network, &NetworkPreferences::timeoutsChanged, this, [this] {
             if (m_ready && !m_closing)
                 m_engine.networkTimeout(m_networkPreferences->playerTimeoutSeconds());
         });
+        connect(network, &NetworkPreferences::playerUserAgentChanged, this, [this] {
+            if (m_ready && !m_closing)
+                m_engine.userAgent(m_networkPreferences->playerUserAgent());
+        });
+    }
     connect(&m_membership, &MembershipService::changed, this, &PlaybackService::changed);
     m_transition = std::make_unique<TrackTransitionController>(*this, api, settings);
     m_recovery = std::make_unique<PlaybackRecoveryController>(*this);
@@ -304,6 +311,7 @@ PlaybackService::PlaybackService(ApiClient &api, EchoMusic::SettingsStore &setti
             return;
         m_recovery->cancel();
         m_loading = false;
+        m_startPending = false;
         m_pendingSourceIdentity.reset();
         if (!m_seamless)
             m_playing = false;
@@ -1016,7 +1024,7 @@ void PlaybackService::toggle()
             m_listenTogether->localPauseRequested();
         if (!m_autoplay)
             m_engine.command(AudioEngine::Pause);
-    } else if (m_playing)
+    } else if (m_startPending || m_playing)
         pause();
     else
         play();
@@ -1037,7 +1045,7 @@ void PlaybackService::play()
         return;
     }
     m_autoplay = true;
-    if (m_loading)
+    if (loading())
         return;
     if (!m_loaded || !m_error.isEmpty()) {
         if (m_personalFm->active() && m_personalFm->m_resetPending) {
@@ -1063,6 +1071,9 @@ void PlaybackService::pause()
     m_recovery->cancel();
     m_listening.resetPosition();
     m_autoplay = false;
+    const bool startWasPending = std::exchange(m_startPending, false);
+    if (startWasPending)
+        emit changed();
     m_sleepInhibitor.setRequired(false);
     if (m_cast->remoteMedia()) {
         m_cast->pauseMedia();
@@ -1306,6 +1317,7 @@ void PlaybackService::refreshCurrentSource()
     // replacement can retain the MV when its hand-off buffer is unavailable.
     m_seamless = m_loaded && m_playing && !m_cast->remoteMedia() && m_sourceKind != "mv";
     m_loading = true;
+    m_startPending = false;
     if (!m_seamless) {
         m_resumePosition = m_position;
         m_autoplay = m_playing || m_autoplay;
@@ -1445,6 +1457,10 @@ void PlaybackService::persist()
 {
     m_queueController->persist();
 }
+void PlaybackService::beginHistory()
+{
+    m_sessionController->beginHistory();
+}
 void PlaybackService::finishHistory()
 {
     m_sessionController->finishHistory();
@@ -1473,6 +1489,7 @@ bool EchoMusic::PlaybackService::tryMvFallback(const QString &reason)
     m_audioSequence = ++m_audioSerial;
     ++m_sourceRevision;
     m_loading = true;
+    m_startPending = false;
     m_loaded = false;
     m_seamless = false;
     m_error.clear();
@@ -1483,6 +1500,7 @@ bool EchoMusic::PlaybackService::recoverSource(const QString &reason)
 {
     if (m_closing || !hasTrack() || !m_track.localPath.isEmpty())
         return false;
+    m_startPending = false;
     const bool mv = loadingSourceKind() == "mv";
     if (!mv) {
         if (m_sourceFailure.isEmpty())

@@ -1,6 +1,7 @@
 #include "PluginRuntimeTest.h"
 #include "EchoGpuSurface.h"
 #include "PluginRuntimeTestFixture.h"
+#include "EchoUiContribution.h"
 
 void PluginRuntimeTest::settingsContributionRetiresWithScope()
 {
@@ -55,6 +56,9 @@ void PluginRuntimeTest::spectrumCapabilityAndOwnerLifetime()
         host.playback.spectrum()->subscribe(owner.get(), {{"fps", 999}, {"fftSize", 300}});
     QVERIFY(id);
     QCOMPARE(PlayerSpectrum::normalize({{"fps", 999}, {"fftSize", 300}}).value("fps").toInt(), 60);
+    QCOMPARE(PlayerSpectrum::normalize({{"fps", 0}}).value("fps").toInt(), 0);
+    QCOMPARE(PlayerSpectrum::normalize({{"fps", -1}}).value("fps").toInt(), 1);
+    QCOMPARE(PlayerSpectrum::normalize({{"fps", "invalid"}}).value("fps").toInt(), 30);
     QCOMPARE(PlayerSpectrum::normalize({{"fps", 999}, {"fftSize", 300}}).value("fftSize").toInt(),
              2048);
     QCOMPARE(host.playback.spectrum()->subscriberCount(), 1);
@@ -96,7 +100,8 @@ void verifyAuthorPackage(bool entryOnly)
         return QPointer<EchoPluginOperation>(op);
     };
     QCOMPARE(host.playback.volume(), originalVolume);
-    QTRY_COMPARE(host.shell.pluginSurfaces()->entries().size(), 3);
+    QCOMPARE(host.shell.pluginSurfaces()->entries().size(), 0);
+    QCOMPARE(scope->findChildren<EchoUiContribution *>().size(), 3);
     QCOMPARE(scope->ui()->state().value("showLyricControls").toBool(), true);
     QCOMPARE(scope->ui()->state().value("showPlayerBar").toBool(), false);
     const auto initialMode = entryOnly ? QStringLiteral("centered") : QStringLiteral("hybrid");
@@ -104,12 +109,13 @@ void verifyAuthorPackage(bool entryOnly)
         retain(scope->executeCommand("settings.patch", {{"showPlayerBar", !entryOnly},
                                                         {"showMiniPlayer", !entryOnly},
                                                         {"mode", initialMode},
-                                                        {"fps", entryOnly ? 15 : 30}}));
+                                                        {"fps", entryOnly ? 15 : 0}}));
     QTRY_VERIFY(patch && patch->finished());
     QCOMPARE(patch->state(), EchoPluginOperation::Succeeded);
     QPointer<EchoPluginOperation> stored = retain(scope->io()->readValue("settings"));
     QTRY_COMPARE(stored->state(), EchoPluginOperation::Succeeded);
     QCOMPARE(stored->result().toMap().value("mode").toString(), initialMode);
+    QCOMPARE(stored->result().toMap().value("fps").toInt(), entryOnly ? 15 : 0);
     QVERIFY(!scope->ui()->settingsComponent().isEmpty());
     QStringList warnings;
     QObject::connect(&host.engine, &QQmlEngine::warnings, &host.engine,
@@ -228,7 +234,7 @@ ApplicationWindow {
     host.playback.setVolume(8);
     auto restore = qScopeGuard([&] { host.playback.setVolume(originalVolume); });
     QPointer<EchoPluginSpectrumSubscription> sub =
-        scope->audio()->spectrum()->subscribe({{"fps", 30},
+        scope->audio()->spectrum()->subscribe({{"fps", 0},
                                                {"binCount", 512},
                                                {"fftSize", 8192},
                                                {"scale", "linear"},
@@ -257,6 +263,15 @@ ApplicationWindow {
     QVERIFY2(std::abs(peakHz - 1000) < 150, qPrintable(QString::number(peakHz)));
     qInfo() << "Actual output PCM" << frame.value("sampleRate") << "FFT" << frame.value("fftSize")
             << "peak Hz" << peakHz << "RMS" << frame.value("rms");
+    auto *limited = scope->audio()->spectrum()->subscribe({{"fps", 1}});
+    QVERIFY(limited);
+    QSignalSpy limitedFrames(limited, &EchoPluginSpectrumSubscription::frameChanged);
+    frames.clear();
+    QTest::qWait(200);
+    QVERIFY(frames.count() > 1);
+    QVERIFY(limitedFrames.count() <= 1);
+    qInfo() << "Uncapped spectrum frames in 200ms" << frames.count();
+    limited->dispose();
     host.playback.pause();
     QTRY_VERIFY(!host.playback.spectrum()->status().value("running").toBool());
     QTRY_COMPARE(sub->frame().toMap().value("source").toString(), "silence");
@@ -345,8 +360,8 @@ ApplicationWindow {
     if (benchmarkMs > 0) {
         host.theme.setMode(ThemeStore::Dark);
         QSignalSpy delivered(host.playback.spectrum(), &PlayerSpectrum::frameReady);
-        QSignalSpy rendered(window, &QQuickWindow::frameSwapped);
-        QSignalSpy miniRendered(mini, &QQuickWindow::frameSwapped);
+        Test::FrameSpy rendered(window);
+        Test::FrameSpy miniRendered(mini);
         const auto measure = [&](const QString &label) {
             if (window->isVisible())
                 QVERIFY(Test::prepareNativeInput(window));
@@ -383,7 +398,7 @@ ApplicationWindow {
                     qInfo().noquote() << "SPECTRUM_STALLED" << label;
             }
         };
-        for (const auto fps : {15, 30}) {
+        for (const auto fps : {15, 30, 0}) {
             for (const auto &mode : {"disabled", "bars", "wave", "hybrid", "mist", "centered"}) {
                 patch = retain(scope->executeCommand("settings.patch",
                                                      {{"enabled", QString(mode) != "disabled"},
@@ -438,6 +453,7 @@ ApplicationWindow {
                 std::function<void(QQuickItem *)> verifyVectors = [&](QQuickItem *item) {
                     QVERIFY(!QString(item->metaObject()->className()).contains("Canvas"));
                     if (auto *surface = qobject_cast<EchoGpuSurface *>(item)) {
+                        QCOMPARE(surface->fps(), 0);
                         QTRY_COMPARE(surface->status().value("state").toString(), "ready");
                         QVERIFY(surface->status().value("compute").toBool());
                         ++gpuCount;
@@ -497,7 +513,7 @@ ApplicationWindow {
     QVERIFY(centerLayer);
     auto *centerGpu = centerLayer->findChild<EchoGpuSurface *>("spectrumGpuSurface");
     auto *centerClock = centerGpu ? static_cast<QObject *>(centerGpu)
-                                  : centerLayer->findChild<QObject *>("spectrumRenderClock");
+                                  : centerLayer->findChild<QObject *>("spectrumFrameClock");
     const auto clockProperty = centerGpu ? "continuous" : "running";
     QVERIFY(centerClock);
     QTRY_VERIFY_WITH_TIMEOUT(!centerClock->property(clockProperty).toBool(), 3000);
@@ -510,10 +526,17 @@ ApplicationWindow {
         for (const auto scale : {1.0, 1.25}) {
             window->setProperty("uiScale", scale);
             QVERIFY(QMetaObject::invokeMethod(root.get(), "openSettings"));
+            QPointer<QObject> settingsDialog;
+            QTRY_VERIFY((settingsDialog = root->findChild<QObject *>("pluginSettingsDialog")));
+            QTRY_VERIFY(settingsDialog->property("opened").toBool());
             QTRY_VERIFY(visual(window->contentItem(), "spectrumVisualizerSettings"));
             QPointer<QQuickItem> body = visual(window->contentItem(), "spectrumVisualizerSettings");
             QTest::qWait(120);
             QVERIFY(body->width() > 400);
+            auto *fpsSelect = visual(body, "spectrumFpsSelect");
+            QVERIFY(fpsSelect);
+            QCOMPARE(fpsSelect->property("currentValue").toInt(), 0);
+            QCOMPARE(fpsSelect->property("currentText").toString(), QStringLiteral("不限制"));
             if (scope->package().capabilities.contains("graphics")) {
                 auto *hdrToggle = visual(body, "spectrumHdrSwitch");
                 QVERIFY(hdrToggle);
@@ -522,18 +545,26 @@ ApplicationWindow {
             }
             if (mode == ThemeStore::Dark && scale == 1.0) {
                 QVERIFY(Test::prepareNativeInput(window));
-                auto *toggle = visual(body, "spectrumEnabledSwitch");
+                QPointer<QQuickItem> toggle = visual(body, "spectrumEnabledSwitch");
                 QVERIFY(toggle);
+                QVERIFY(Test::settleNativeItem(toggle));
+                auto *inputViewport = visual(window->contentItem(), "pluginSettingsViewport");
+                QVERIFY(inputViewport);
+                QVERIFY(inputViewport->mapRectToScene(inputViewport->boundingRect())
+                            .contains(toggle->mapToScene(toggle->boundingRect().center())));
                 auto click = [&] {
+                    if (!toggle)
+                        return false;
                     const auto point =
-                        toggle->mapToScene({toggle->width() / 2, toggle->height() / 2}).toPoint();
+                        toggle->mapToScene(toggle->boundingRect().center()).toPoint();
                     Test::moveNativePointer(window, point);
                     QTest::mouseClick(window, Qt::LeftButton, Qt::NoModifier, point);
+                    return true;
                 };
-                click();
+                QVERIFY(click());
                 QTRY_VERIFY(!scope->ui()->state().value("enabled").toBool());
                 QTRY_COMPARE(host.playback.spectrum()->subscriberCount(), 0);
-                click();
+                QVERIFY(click());
                 QTRY_VERIFY(scope->ui()->state().value("enabled").toBool());
                 QTRY_COMPARE(host.playback.spectrum()->subscriberCount(), 3);
             }

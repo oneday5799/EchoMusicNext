@@ -92,8 +92,10 @@ target_link_libraries(
 add_test(NAME about-service COMMAND echo-about-service-test)
 set_tests_properties(about-service PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 30)
 find_program(ECHO_NODE_EXECUTABLE NAMES node REQUIRED)
-add_test(NAME update-release-contract COMMAND ${ECHO_NODE_EXECUTABLE} --test
-                                              ${PROJECT_SOURCE_DIR}/tools/release/contract.test.mjs
+add_test(
+    NAME update-release-contract
+    COMMAND ${ECHO_NODE_EXECUTABLE} --test ${PROJECT_SOURCE_DIR}/tools/release/contract.test.mjs
+            ${PROJECT_SOURCE_DIR}/tools/release/changelog.test.mjs
 )
 add_test(
     NAME update-helper
@@ -103,6 +105,10 @@ add_test(
         ${ECHO_NODE_EXECUTABLE} --test ${PROJECT_SOURCE_DIR}/tools/update-helper/helper.test.mjs
 )
 set_tests_properties(update-helper PROPERTIES TIMEOUT 30)
+add_test(NAME release-licenses COMMAND ${ECHO_NODE_EXECUTABLE} --test
+                                       ${PROJECT_SOURCE_DIR}/tools/release/qt-licenses.test.mjs
+)
+set_tests_properties(release-licenses PROPERTIES TIMEOUT 30)
 qt_add_executable(echo-shortcut-service-test ShortcutServiceTest.cpp)
 if(APPLE)
     set_target_properties(
@@ -195,13 +201,46 @@ set_tests_properties(
     song-playback-ui PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 90 RUN_SERIAL TRUE
 )
 echo_copy_rust_runtime(echo-song-playback-ui-test)
+qt_add_executable(echo-playback-button-ui-test PlaybackButtonUiTest.cpp)
+target_link_libraries(
+    echo-playback-button-ui-test
+    PRIVATE echo_discovery
+            echo_discoveryplugin
+            echo_search
+            echo_searchplugin
+            echo_playback
+            echo_playbackplugin
+            echo_music
+            echo_musicplugin
+            echo_theme
+            echo_themeplugin
+            echo_controls
+            echo_controlsplugin
+            Qt6::Quick
+            Qt6::QuickControls2
+            Qt6::Test
+)
+add_test(NAME playback-button-ui COMMAND echo-playback-button-ui-test)
+set_tests_properties(
+    playback-button-ui PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 60 RUN_SERIAL
+                                  TRUE
+)
+echo_copy_rust_runtime(echo-playback-button-ui-test)
+if(APPLE)
+    target_link_libraries(echo-playback-button-ui-test PRIVATE echo_native_test_support)
+endif()
 qt_add_executable(echo-search-model-test SearchModelTest.cpp)
 target_link_libraries(echo-search-model-test PRIVATE echo_search echo_storage Qt6::Test)
 add_test(NAME search-model COMMAND echo-search-model-test)
 add_test(NAME qml-smoke COMMAND echomusicnext --smoke-test --log-dir
                                 "${CMAKE_CURRENT_BINARY_DIR}/logs"
 )
-set_tests_properties(qml-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 20)
+# The application has a 30s smoke deadline; reserve time for asynchronous drain
+# and the plugin wrapper's own 45s deadline before CTest terminates the process.
+set(ECHO_SMOKE_TEST_TIMEOUT 50)
+set_tests_properties(
+    qml-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT ${ECHO_SMOKE_TEST_TIMEOUT}
+)
 echo_copy_rust_runtime(echo-search-model-test)
 echo_copy_rust_runtime(echo-foundation-test)
 echo_copy_rust_runtime(echo-playlist-mutation-test)
@@ -425,9 +464,8 @@ target_link_libraries(
 )
 target_link_libraries(echo-shell-test PRIVATE echo_accountui echo_libraryui)
 add_test(NAME shell COMMAND echo-shell-test)
-# Includes the complete production UI matrices and popup destruction cycles.
-# Retain every assertion; bound the expanded suite rather than aborting at 30s.
-set_tests_properties(shell PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 120)
+# Includes native input, font/scale matrices and 480 sidebar visibility clicks.
+set_tests_properties(shell PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 240)
 qt_add_executable(echo-shell-actions-test ShellActionTest.cpp)
 target_link_libraries(
     echo-shell-actions-test PRIVATE echo_shell echo_shellplugin echo_controls Qt6::Quick
@@ -790,8 +828,9 @@ add_test(
         productionContentBlacklistKeepsPreferencesDraftAndVirtualScroll
         deviceRemovalRequiresConfirmationRefreshAndCurrentSession
 )
-add_test(NAME desktop-pages-popups COMMAND echo-desktop-pages-test
-                                           productionQualityPopupContainsAndScrollsAllOptions
+add_test(NAME desktop-pages-popups
+         COMMAND echo-desktop-pages-test productionQualityPopupContainsAndScrollsAllOptions
+                 taskIndicatorUsesSingleDot
 )
 add_test(
     NAME desktop-pages-library
@@ -892,12 +931,18 @@ target_sources(
             plugins/PluginRuntimeManagement2.cpp
             plugins/PluginRuntimeManagementFirstOpen.cpp
             plugins/PluginRuntimeDistribution.cpp
+            plugins/PluginRuntimeUpdateTasks.cpp
             plugins/PluginRuntimeRuntime.cpp
             plugins/PluginRuntimeShutdown.cpp
             plugins/PluginRuntimeDependencies.cpp
             plugins/PluginRuntimeInterop.cpp
+            plugins/PluginRuntimeJson.cpp
+            plugins/PluginRuntimeCommandPackages.cpp
             plugins/PluginRuntimePresentationServices.cpp
             plugins/PluginRuntimeCapabilities.cpp
+            plugins/PluginRuntimeComposition.cpp
+            plugins/PluginRuntimeCompositionBoundaries.cpp
+            plugins/PluginRuntimeUiContracts.cpp
             plugins/PluginRuntimeUiParts.cpp
             plugins/PluginRuntimeAppearance.cpp
             plugins/PluginRuntimeEcosystemFixture.h
@@ -917,6 +962,7 @@ target_sources(
 target_link_libraries(
     echo-plugin-runtime-test
     PRIVATE echo_settings
+            echo_logging
             echo_settingsplugin
             echo_music
             echo_themes
@@ -935,6 +981,7 @@ set(ECHO_PLUGINS_TEST_GROUPS
     plugin-runtime-runtime
     plugin-runtime-shutdown
     plugin-runtime-dependencies
+    plugin-runtime-json
     plugin-runtime-capabilities
     plugin-runtime-ui-parts
     plugin-runtime-appearance
@@ -986,6 +1033,14 @@ add_test(
         ecosystemLyricsNativeContextsStylesAndReclamation
         ecosystemBusinessRequestsAndSharedVerification
 )
+add_test(NAME plugin-runtime-distribution
+         COMMAND echo-plugin-runtime-test crossRepositoryCatalogInstallAndFailureIsolation
+                 flatDirectoriesDataManagementAndReinstallIsolation
+)
+set_tests_properties(
+    plugin-runtime-distribution PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 60
+)
+
 add_test(
     NAME plugin-runtime-management
     COMMAND
@@ -997,14 +1052,25 @@ add_test(
         directoryActionOpensTheDisplayedRoot managementUpdateRollsBackPackageAndPrivateData
         localBatchContinuesAfterInvalidPackage arrivingInstallFilesCompleteDependencyBatch
         qtFileOpenQueuesBeforeServiceInitialization githubMirrorFallbackAndPostShareUnifiedProxy
+        marketplaceIconsUseAcceleratorAndOriginFallback
         marketplaceFreshContentAndValidationFallback sourceCatalogNetworkCacheAndOfficialProtection
         managementHeaderAndLoadingContentStayAligned marketplaceNetworkFailureClassification
         marketplaceNetworkFailureDetailsUi managementPageUsesProductionModelsAndDialogs
         marketplaceInstallsActualPackageAndRejectsTampering
 )
-add_test(NAME plugin-runtime-runtime
-         COMMAND echo-plugin-runtime-test packageIntegrityAndCompatibility
-                 reloadUsesNewCodeUrlAndIdentity actualHttpAndCancellation
+add_test(
+    NAME plugin-update-tasks
+    COMMAND echo-plugin-runtime-test marketplaceUpdateTasksFilterDismissAndReplace
+            marketplaceUpdateTasksRunBatchAndRetry marketplaceStartupCheckDefersRecoversAndStops
+)
+set_tests_properties(
+    plugin-update-tasks PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 60
+)
+add_test(
+    NAME plugin-runtime-runtime
+    COMMAND
+        echo-plugin-runtime-test pluginDiagnosticsReachUnifiedLog packageIntegrityAndCompatibility
+        reloadUsesNewCodeUrlAndIdentity actualHttpAndCancellation
 )
 add_test(
     NAME plugin-runtime-shutdown
@@ -1024,6 +1090,14 @@ add_test(
         publicPluginCatalogScopeAccountAndReplacement
         dependentServicesActivationCancellationAndProviderReload
         optionalDependencyAndServiceLeasePreserveOwnership
+)
+add_test(
+    NAME plugin-runtime-json
+    COMMAND
+        echo-plugin-runtime-test operationJsonArraysAcrossIoCommandsAndQml
+        operationNativeHandlesAndTerminalResults activationStorageReadsPersistedValuesAndErrors
+        privateCommandNamesStayWithinQmlPluginScopes privateCommandRoutingThroughSettingsAndDialogs
+        pluginQueueValidationReportsFieldAndKeepsState
 )
 add_test(
     NAME plugin-runtime-capabilities
@@ -1078,7 +1152,8 @@ add_test(
         "${CMAKE_CURRENT_SOURCE_DIR}/PluginApplicationSmoke.cmake"
 )
 set_tests_properties(
-    plugin-application-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 25
+    plugin-application-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT
+                                        ${ECHO_SMOKE_TEST_TIMEOUT}
 )
 
 # Real ABI2 library exercises the host catalog and audio actor without network.
@@ -1141,7 +1216,8 @@ add_test(
         --log-dir "${CMAKE_CURRENT_BINARY_DIR}/plugin-share-logs"
 )
 set_tests_properties(
-    plugin-share-application-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 25
+    plugin-share-application-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT
+                                              ${ECHO_SMOKE_TEST_TIMEOUT}
 )
 
 qt_add_executable(echo-playback-page-test PlaybackPageTest.cpp PlaybackPageTest.h)
@@ -1357,8 +1433,15 @@ set_tests_properties(history PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" 
 
 qt_add_executable(echo-motion-test MotionTest.cpp)
 target_link_libraries(
-    echo-motion-test PRIVATE echo_controls echo_controlsplugin echo_theme echo_themeplugin
-                             Qt6::Quick Qt6::Test
+    echo-motion-test
+    PRIVATE echo_controls
+            echo_controlsplugin
+            echo_theme
+            echo_themeplugin
+            echo_music
+            echo_musicplugin
+            Qt6::Quick
+            Qt6::Test
 )
 add_test(NAME motion COMMAND echo-motion-test)
 set_tests_properties(motion PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 30)
@@ -1651,7 +1734,8 @@ add_test(
             --log-dir "${CMAKE_CURRENT_BINARY_DIR}/share-logs"
 )
 set_tests_properties(
-    share-application-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 25
+    share-application-smoke PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT
+                                       ${ECHO_SMOKE_TEST_TIMEOUT}
 )
 
 target_link_libraries(
@@ -1714,6 +1798,7 @@ if(APPLE)
               echo-playback-page-test
               echo-playback-queue-reorder-test
               echo-discovery-test
+              echo-personal-fm-test
               echo-playlist-detail-test
               echo-history-test
               echo-details-test
@@ -2127,4 +2212,77 @@ set_tests_properties(
 echo_copy_rust_runtime(echo-song-information-test)
 if(APPLE)
     target_link_libraries(echo-song-information-test PRIVATE echo_native_test_support)
+endif()
+
+add_test(
+    NAME plugin-ui-composition
+    COMMAND
+        echo-plugin-runtime-test compositionNativeContainers compositionNativeStylesRestoreBindings
+        compositionProductionLyricToolbar compositionSemanticTreeAndLayoutRestore
+        compositionInsertionParticipatesInLayout compositionWrapPreservesNativeContentAndRetires
+        compositionMoveConflictAndRestoration compositionRevisionRollbackAndReplacementLayers
+        compositionStateAccountAndPreferences compositionProductionRegionsAndInspector
+        nativeUiBatchPreparationCommitAndRollback nativeUiAdjacentFocusAndCapacity
+        nativeUiBoundedPublicValues modelProjectionValueForms nativeUiTabModelContentAndSelection
+        nativeUiSettingsModelSections nativeUiInspectorPointerPick nativeUiMenuModelActions
+        nativeUiStateStylesAndCommands nativeUiPresentationBoundary nativeUiControlContentFactories
+        nativeUiFocusOrderAndCoordinateMapping modelProjectionNativeDataAndLifecycles
+        compositionDecorationDoesNotLayout compositionAddressesAndScopedPreferences
+        compositionVirtualDelegateGeneration compositionAnchoredSiblingRestoresBindings
+        compositionNativeWindowsDiscoveryAndOwnership compositionProductionAnchoredInputActions
+)
+set_tests_properties(
+    plugin-ui-composition PROPERTIES ENVIRONMENT "QT_QPA_PLATFORM=offscreen" TIMEOUT 90
+)
+
+option(ECHO_BUILD_UI_SOAK_TEST "Build the opt-in macOS UI resource comparison workload" OFF)
+qt_add_executable(echo-quick-animation-driver-test QuickAnimationDriverTest.cpp)
+target_link_libraries(
+    echo-quick-animation-driver-test PRIVATE echo_controls Qt6::Test Qt6::QuickPrivate
+                                             Qt6::CorePrivate Qt6::Widgets
+)
+if(TARGET echo_native_test_support)
+    target_link_libraries(echo-quick-animation-driver-test PRIVATE echo_native_test_support)
+endif()
+add_test(NAME quick-animation-driver COMMAND echo-quick-animation-driver-test)
+set_tests_properties(
+    quick-animation-driver
+    PROPERTIES
+        ENVIRONMENT
+        "QT_QPA_PLATFORM=offscreen;QT_QUICK_BACKEND=;QSG_RENDER_LOOP=threaded;QSG_RHI_BACKEND=null"
+        TIMEOUT 30
+)
+if(ECHO_BUILD_UI_SOAK_TEST AND APPLE)
+    qt_add_executable(echo-ui-soak-test UiCompositionSoak.cpp plugins/PluginRuntimeTestFixture.h)
+    target_include_directories(echo-ui-soak-test PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+    target_link_libraries(
+        echo-ui-soak-test
+        PRIVATE echo_settings
+                echo_logging
+                echo_settingsplugin
+                echo_music
+                echo_themes
+                echo_themesplugin
+                echo_platform
+                echo_plugins
+                echo_pluginsplugin
+                echo_plugin_sdkplugin
+                echo_accountui
+                echo_accountuiplugin
+                echo_libraryui
+                echo_libraryuiplugin
+                echo_appui
+                echo_appuiplugin
+                echo_search
+                Qt6::Test
+                Qt6::QuickControls2
+                Qt6::Sql
+                Qt6::Widgets
+                Qt6::Network
+                Qt6::WebSockets
+    )
+    if(TARGET echo_native_test_support)
+        target_link_libraries(echo-ui-soak-test PRIVATE echo_native_test_support)
+    endif()
+    echo_copy_rust_runtime(echo-ui-soak-test)
 endif()

@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 export const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 export const appId = 'io.github.hoowhoami.echomusicnext';
 export const matrix = [
-  { platform: 'macOS', arch: 'arm64', runner: 'macos-15', kinds: ['dmg', 'zip'] },
-  { platform: 'macOS', arch: 'x64', runner: 'macos-15-intel', kinds: ['dmg', 'zip'] },
+  { platform: 'macOS', arch: 'arm64', runner: 'macos-26', kinds: ['dmg', 'zip'] },
+  { platform: 'macOS', arch: 'x64', runner: 'macos-26-intel', kinds: ['dmg', 'zip'] },
   {
     platform: 'Linux',
     arch: 'x64',
@@ -16,7 +16,7 @@ export const matrix = [
   {
     platform: 'Linux',
     arch: 'arm64',
-    runner: 'ubuntu-22.04-arm',
+    runner: 'ubuntu-24.04-arm',
     kinds: ['appimage', 'deb', 'rpm', 'pacman', 'tar'],
   },
   { platform: 'Windows', arch: 'x64', runner: 'windows-2022', kinds: ['nsis'] },
@@ -39,28 +39,40 @@ export function validVersion(version) {
     );
   return Boolean(
     match &&
+    match[0] === version &&
     !(match[4] || '')
       .split('.')
       .some((part) => /^\d+$/.test(part) && part.length > 1 && part.startsWith('0')),
   );
 }
-export function releaseVersion(repository = root, ref = process.env.GITHUB_REF || '') {
-  const cmake = fs.readFileSync(path.join(repository, 'CMakeLists.txt'), 'utf8');
-  const base = /project\(\s*EchoMusicNext\s+VERSION\s+([0-9.]+)/.exec(cmake)?.[1];
-  const cargo = /^version\s*=\s*"([^"]+)"/m.exec(
-    fs.readFileSync(path.join(repository, 'Cargo.toml'), 'utf8'),
-  )?.[1];
-  if (!base || base !== cargo) throw new Error('CMake and Cargo application versions must match');
-  const version = ref.startsWith('refs/tags/')
-    ? ref.slice('refs/tags/'.length).replace(/^v/, '')
-    : base;
-  if (
-    !validVersion(version) ||
-    version.split(/[-+]/)[0] !== base ||
-    (ref.startsWith('refs/tags/') && !ref.startsWith('refs/tags/v'))
-  )
-    throw new Error('Tag version must match the declared application version');
+export function releaseVersion(
+  repository = root,
+  ref = process.env.GITHUB_REF || '',
+  override = process.env.RELEASE_VERSION || '',
+) {
+  const source = fs.readFileSync(path.join(repository, 'VERSION'), 'utf8');
+  const version = source.replace(/\r?\n$/, '');
+  if (!validVersion(version)) throw new Error('VERSION must contain one strict SemVer');
+  if (ref.startsWith('refs/tags/') && ref !== `refs/tags/v${version}`)
+    throw new Error('Release tag differs from VERSION');
+  if (override && override !== version) throw new Error('RELEASE_VERSION differs from VERSION');
   return version;
+}
+export function verifyBuildVersion(build, version) {
+  const info = fs.readFileSync(path.join(build, 'generated/EchoBuildInfo.h'), 'utf8');
+  const actual = /^#define ECHO_RELEASE_VERSION "([^"]+)"$/m.exec(info)?.[1];
+  if (actual !== version)
+    throw new Error(
+      `Build version ${actual || '(missing)'} differs from package version ${version}; reconfigure and rebuild first`,
+    );
+}
+export function verifyReleaseBuild(build, version) {
+  verifyBuildVersion(build, version);
+  const cache = fs.readFileSync(path.join(build, 'CMakeCache.txt'), 'utf8');
+  if (!/^ECHO_DISTRIBUTION_BUILD:BOOL=(?:ON|TRUE|YES|1)$/im.test(cache))
+    throw new Error(
+      'Packages require a distribution build; reconfigure with --distribution and rebuild first',
+    );
 }
 export function assetName(version, platform, arch, kind) {
   if (

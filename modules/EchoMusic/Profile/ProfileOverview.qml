@@ -170,10 +170,9 @@ Rectangle {
                 tags: overview.account.identityTags
             }
         }
-        Rectangle {
+        EchoDivider {
+            lineColor: Theme.subtleBorder
             Layout.fillWidth: true
-            implicitHeight: 1
-            color: Theme.subtleBorder
         }
         GridLayout {
             objectName: "profileStatistics"
@@ -230,13 +229,13 @@ Rectangle {
                             Layout.fillHeight: false
                             Layout.alignment: Qt.AlignHCenter
                             spacing: 2
-                            Label {
+                            EchoRollingNumber {
                                 text: stat.index === 0 ? "Lv." + overview.account.grade : stat.index === 4 ? overview.account.visitors : overview.account.statistics.length > stat.index - 1 ? overview.account.statistics[stat.index - 1].value : "—"
+                                resourceActive: stat.index !== 0
                                 color: stat.hovered && stat.enabled ? Theme.accentText : Theme.text
                                 font: Theme.font(stat.index === 0 ? 16 : 18, Theme.semiboldWeight)
                                 lineHeightMode: Text.FixedHeight
                                 lineHeight: (stat.index === 0 ? 16 : 18) * 1.35
-                                verticalAlignment: Text.AlignVCenter
                             }
                             EchoIcon {
                                 visible: stat.index === 0

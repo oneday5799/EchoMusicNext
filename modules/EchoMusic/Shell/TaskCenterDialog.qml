@@ -281,25 +281,41 @@ EchoDialog {
                     }
                     ProgressBar {
                         id: taskProgress
+                        EchoMotionScope {
+                            id: progressMotion
+                            target: taskProgress
+                            active: dialog.visible && task.inViewport && !task.pooled
+                            animations: [progressChange]
+                        }
+                        objectName: "taskProgress-" + task.taskId
                         Layout.fillWidth: true
                         Layout.preferredHeight: 5
                         Layout.topMargin: -6
                         from: 0
                         to: 100
                         value: Math.max(0, task.taskPercent)
-                        visible: task.taskHasProgress
-                        indeterminate: task.taskPercent < 0 && task.inViewport && dialog.visible
+                        visible: task.taskPercent >= 0 || task.taskStatus === TaskCenterModel.Running
+                        indeterminate: task.taskStatus === TaskCenterModel.Running && task.taskPercent < 0 && task.inViewport && dialog.visible
                         contentItem: Item {
                             clip: true
                             Rectangle {
                                 id: movingProgress
                                 width: (taskProgress.indeterminate ? 0.35 : taskProgress.visualPosition) * parent.width
+                                Behavior on width {
+                                    enabled: progressMotion.allowed && !taskProgress.indeterminate
+                                    NumberAnimation {
+                                        id: progressChange
+                                        duration: Theme.normalDuration
+                                        easing.type: Easing.BezierSpline
+                                        easing.bezierCurve: Theme.easeDefault
+                                    }
+                                }
                                 height: 5
                                 radius: 2.5
                                 x: taskProgress.indeterminate ? -width : 0
                                 color: task.taskStatus === TaskCenterModel.Error ? Theme.colors.danger : task.taskStatus === TaskCenterModel.Completed ? Theme.colors.success : Theme.accent
                                 NumberAnimation on x {
-                                    running: taskProgress.indeterminate && dialog.visible && !task.pooled
+                                    running: taskProgress.indeterminate && progressMotion.allowed
                                     from: -movingProgress.width
                                     to: movingProgress.parent.width
                                     loops: Animation.Infinite

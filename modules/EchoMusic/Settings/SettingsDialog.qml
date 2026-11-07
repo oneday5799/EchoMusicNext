@@ -11,6 +11,14 @@ import EchoMusic.Settings
 
 Popup {
     id: dialog
+    EchoPopupMotion {
+        id: appearance
+        surface: dialog
+        fromY: 0
+        exitDuration: Theme.exitDuration
+    }
+    enter: appearance.enter
+    exit: appearance.exit
     EchoPopupLifecycle {
         surface: dialog
     }
@@ -80,6 +88,7 @@ Popup {
     }
     SettingsCatalog {
         id: navigation
+        uiExtensions: sectionRoot._echoUiModelAdapter
         playbackAvailable: dialog.playback !== null
     }
     Connections {
@@ -90,6 +99,9 @@ Popup {
         }
     }
     contentItem: ColumnLayout {
+        id: sectionRoot
+        readonly property string _echoUiModelKind: "settings"
+        property QtObject _echoUiModelAdapter: null
         spacing: 0
         RowLayout {
             Layout.fillWidth: true
@@ -112,42 +124,72 @@ Popup {
                 Layout.fillWidth: true
                 Layout.minimumWidth: 0
             }
-            EchoIconButton {
-                visible: !dialog.searchExpanded
-                objectName: "settingsSearchTrigger"
-                glyph: "search"
-                text: qsTr("搜索设置")
-                tooltipText: ""
-                colors: Theme.floating
-                implicitWidth: 30
-                implicitHeight: 30
-                padding: 6
-                onClicked: {
-                    dialog.searchExpanded = true;
-                    search.forceActiveFocus();
-                }
-            }
-            EchoTextField {
-                id: search
-                objectName: "settingsSearchInput"
-                clearable: true
-                visible: dialog.searchExpanded
+            Item {
+                id: searchSlot
+                objectName: "settingsSearchSlot"
+                property real expansion: dialog.searchExpanded ? 1 : 0
+                // Reserve the toolbar slot once. Animate only its right-anchored
+                // field, so RowLayout's next polish cannot move the trigger.
                 Layout.preferredWidth: Math.min(236, dialog.width / 3)
-                Layout.minimumWidth: 0
+                Layout.minimumWidth: 30
                 implicitHeight: 30
-                font: Theme.font(12, Theme.mediumWeight)
-                colors: Theme.floating
-                placeholderText: qsTr("搜索设置")
-                Accessible.name: qsTr("搜索设置")
-                onTextChanged: navigation.filter = text
-                onActiveFocusChanged: {
-                    if (!activeFocus && !text.trim().length)
-                        dialog.searchExpanded = false;
+                clip: true
+                EchoMotionScope {
+                    id: searchMotion
+                    target: dialog.parent
+                    active: dialog.visible
+                    animations: [searchExpansion]
                 }
-                Keys.onEscapePressed: event => {
-                    text = "";
-                    dialog.searchExpanded = false;
-                    event.accepted = true;
+                Behavior on expansion {
+                    enabled: searchMotion.allowed
+                    NumberAnimation {
+                        id: searchExpansion
+                        duration: dialog.searchExpanded ? Theme.searchExpandDuration : Theme.searchCollapseDuration
+                        easing.type: Easing.BezierSpline
+                        easing.bezierCurve: Theme.easeSongRemove
+                    }
+                }
+                EchoTextField {
+                    id: search
+                    objectName: "settingsSearchInput"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 30 + (searchSlot.width - 30) * searchSlot.expansion
+                    height: parent.height
+                    visible: dialog.searchExpanded || searchSlot.expansion > 0
+                    opacity: searchSlot.expansion
+                    clearable: true
+                    font: Theme.font(12, Theme.mediumWeight)
+                    colors: Theme.floating
+                    placeholderText: qsTr("搜索设置")
+                    Accessible.name: qsTr("搜索设置")
+                    onTextChanged: navigation.filter = text
+                    onActiveFocusChanged: {
+                        if (!activeFocus && !text.trim().length)
+                            dialog.searchExpanded = false;
+                    }
+                    Keys.onEscapePressed: event => {
+                        text = "";
+                        dialog.searchExpanded = false;
+                        event.accepted = true;
+                    }
+                }
+                EchoIconButton {
+                    visible: !dialog.searchExpanded
+                    objectName: "settingsSearchTrigger"
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    width: 30
+                    height: 30
+                    glyph: "search"
+                    text: qsTr("搜索设置")
+                    tooltipText: ""
+                    colors: Theme.floating
+                    padding: 6
+                    onClicked: {
+                        dialog.searchExpanded = true;
+                        search.forceActiveFocus();
+                    }
                 }
             }
             EchoIconButton {
@@ -252,7 +294,7 @@ Popup {
                     // Keep asynchronous creation, but present the complete
                     // section at once instead of exposing rows across frames.
                     visible: status === Loader.Ready
-                    active: dialog.visible && navigation.source.toString().length > 0
+                    active: dialog.visible && (navigation.source.toString().length > 0 || navigation.extensionRecipe !== null)
                     // Inject typed service references before bindings evaluate.
                     // No section QML is instantiated until selected and visible.
                     onActiveChanged: reload()
@@ -262,7 +304,22 @@ Popup {
                             loader.reload();
                         }
                     }
+                    readonly property Component extensionSection: Component {
+                        EchoUiModelCell {
+                            recipe: navigation.extensionRecipe
+                            entryData: navigation.extensionEntry
+                        }
+                    }
                     function reload() {
+                        if (active && navigation.extensionRecipe !== null) {
+                            if (sourceComponent !== extensionSection) {
+                                source = "";
+                                sourceComponent = extensionSection;
+                            }
+                            return;
+                        }
+                        if (sourceComponent !== null)
+                            sourceComponent = null;
                         const targetSource = active ? navigation.source : "";
                         // Navigation/filter notifications and Loader activation
                         // can arrive in the same frame. Reapplying setSource to
@@ -288,11 +345,8 @@ Popup {
                             properties.shortcuts = dialog.shortcuts;
                         if (navigation.current === "about")
                             properties.about = dialog.about;
-                        if (navigation.current === "data") {
-                            properties.dataService = dialog.dataService;
-                            properties.logging = dialog.logging;
-                        }
                         if (navigation.current === "experimental") {
+                            properties.dataService = dialog.dataService;
                             properties.logging = dialog.logging;
                             properties.relaunch = dialog.relaunch;
                             properties.experimental = dialog.experimental;

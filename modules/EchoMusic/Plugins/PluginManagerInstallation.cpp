@@ -1,3 +1,4 @@
+#include "LogRedaction.h"
 #include "SettingsKeys.h"
 #include "PluginManager.h"
 #include "SharingCommands.h"
@@ -17,11 +18,13 @@
 #include <QtConcurrent>
 #include <QDateTime>
 #include <QCryptographicHash>
+#include <QLoggingCategory>
 #include "PluginManagerHelpers_p.h"
 
 namespace EchoMusic
 {
 using namespace PluginManagerDetail;
+Q_DECLARE_LOGGING_CATEGORY(pluginMarketplaceLog)
 
 bool PluginManager::install(const QString &key)
 {
@@ -45,6 +48,12 @@ bool PluginManager::install(const QString &key)
     m_busy = true;
     m_installWasUpdate = !m_runtime.installationForId(e.value("id").toString()).isEmpty();
     m_installingKey = key;
+    qCInfo(pluginMarketplaceLog).noquote().nospace()
+        << "install started plugin=" << m_pendingPluginId
+        << " source=" << e.value("sourceId").toString()
+        << " version=" << e.value("version").toString() << " update=" << m_installWasUpdate;
+    if (m_installWasUpdate)
+        beginUpdate(e, current);
     rebuild();
     get(
         QUrl(e.value("artifactUrl").toString()), 128 * 1024 * 1024,
@@ -59,8 +68,8 @@ bool PluginManager::install(const QString &key)
             return QString::fromLatin1(
                        QCryptographicHash::hash(bytes, QCryptographicHash::Sha256).toHex()) !=
                            e.value("sha256").toString()
-                       ? tr("下载的插件文件与插件源记录不一致，已停止安装。请刷新插件列表后重试；若"
-                            "仍失败，请联系插件源维护者。")
+                       ? tr("下载的插件文件与作者发布记录不一致，已停止安装。请刷新插件列表后重试；"
+                            "若仍失败，请联系插件作者。")
                        : QString();
         },
         true);
@@ -68,7 +77,7 @@ bool PluginManager::install(const QString &key)
 }
 void PluginManager::installArchive(const QByteArray &bytes, const QVariantMap &entry)
 {
-    // The download validator checks the index checksum before accepting either
+    // The download validator checks the author publication checksum before accepting either
     // mirror or origin bytes, so a failed mirror can retry before staging starts.
     m_staging = QSharedPointer<QTemporaryDir>::create();
     if (!m_staging->isValid()) {
@@ -129,6 +138,7 @@ bool PluginManager::installLocal(const QUrl &url)
     if (!url.isLocalFile() || m_busy || m_catalogLoading || m_closing || m_runtime.loading())
         return false;
     const auto path = url.toLocalFile();
+    qCInfo(pluginMarketplaceLog).noquote() << "local install path=" << safeLogField(path, 1024);
     if (QFileInfo(path).isDir()) {
         m_busy = true;
         m_installingKey.clear();
@@ -191,6 +201,21 @@ void PluginManager::startLocalNext()
 }
 void PluginManager::finishInstall(bool success, const QString &error)
 {
+    const auto diagnostic =
+        QStringLiteral("install finished plugin=%1 installation=%2 success=%3 error=%4")
+            .arg(m_pendingPluginId, m_pendingInstallation)
+            .arg(success)
+            .arg(safeLogField(error, 1536));
+    if (success)
+        qCInfo(pluginMarketplaceLog).noquote() << diagnostic;
+    else
+        qCWarning(pluginMarketplaceLog).noquote() << diagnostic;
+    if (!m_activeUpdate.isEmpty()) {
+        auto &job = m_updateJobs[m_activeUpdate];
+        job.status = success ? TaskCenterModel::Completed : TaskCenterModel::Error;
+        job.error = error;
+        m_activeUpdate.clear();
+    }
     const auto selected = entry(m_installingKey);
     if (!selected.isEmpty())
         reportInstallation(selected, success);
@@ -253,20 +278,35 @@ void PluginManager::startUpdateNext()
     }
     const auto next = m_updateQueue.takeFirst();
     m_busy = false;
-    if (!install(next))
+    if (!install(next)) {
+        const auto selected = entry(next);
+        if (!selected.isEmpty())
+            beginUpdate(selected, m_runtime.record(m_runtime.installationForId(
+                                      selected.value("id").toString())));
         finishInstall(false, tr("插件更新未能开始"));
+    }
 }
 void PluginManager::updateAll()
 {
-    if (m_busy || m_catalogLoading || m_closing)
-        return;
-    QSet<QString> ids;
+    QStringList keys;
     for (const auto &value : m_entries) {
         const auto e = value.toMap();
-        auto current = m_runtime.record(m_runtime.installationForId(e.value("id").toString()));
+        keys.append(e.value("key").toString());
+    }
+    updateBatch(keys);
+}
+void PluginManager::updateBatch(const QStringList &keys)
+{
+    if (m_busy || m_catalogLoading || m_closing || m_batch || m_runtime.loading())
+        return;
+    QSet<QString> ids;
+    for (const auto &key : keys) {
+        const auto e = entry(key);
+        const auto current =
+            m_runtime.record(m_runtime.installationForId(e.value("id").toString()));
         if (availableUpdate(current, e) && sourceIds().contains(e.value("sourceId").toString()) &&
             !ids.contains(e.value("id").toString())) {
-            m_updateQueue.append(e.value("key").toString());
+            m_updateQueue.append(key);
             ids.insert(e.value("id").toString());
         }
     }
@@ -274,9 +314,7 @@ void PluginManager::updateAll()
         m_batch = true;
         m_batchTotal = int(m_updateQueue.size());
         m_batchDone = 0;
-        const auto next = m_updateQueue.takeFirst();
-        if (!install(next))
-            finishInstall(false, tr("插件更新未能开始"));
+        startUpdateNext();
     }
 }
 } // namespace EchoMusic

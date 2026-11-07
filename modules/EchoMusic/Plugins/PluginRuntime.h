@@ -165,6 +165,7 @@ private:
              removeData = false;
         QString previousSource, transactionError, transaction, previousTransaction, importedInput;
         QString source, error;
+        QString lastDiagnostic;
         bool reloadPending = false;
         bool retirementPending = false;
         bool enabled = false, deactivateDone = false;
@@ -174,6 +175,8 @@ private:
         QPointer<PluginSettlement> settlement;
         State afterRetire = Disabled;
     };
+    QString m_uiAccount;
+    bool m_uiPreferencesLoading = false;
     void discoverRoot(bool reloadInstalled);
     void advanceRefresh();
     void importResolved(const QString &directory, const QString &source,

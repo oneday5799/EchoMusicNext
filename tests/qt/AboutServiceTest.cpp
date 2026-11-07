@@ -17,6 +17,8 @@
 #include <QTcpSocket>
 #include <QSignalSpy>
 #include <QStandardPaths>
+#include <QFile>
+#include <QRegularExpression>
 
 #include <QTemporaryDir>
 #include <QTextDocument>
@@ -169,7 +171,14 @@ private slots:
         HttpServer server;
         AboutService about(settings, network);
         AboutServiceTestAccess::endpoint(about, server.url());
-        QVERIFY(about.changelog().contains("0.1.0"));
+        const auto expectedNotes = qEnvironmentVariable("ECHO_EXPECT_RELEASE_CHANGELOG");
+        QFile notes(expectedNotes.isEmpty() ? QFINDTESTDATA("../../CHANGELOG.md") : expectedNotes);
+        QVERIFY(notes.open(QIODevice::ReadOnly));
+        QCOMPARE(about.changelog(), QString::fromUtf8(notes.readAll()).trimmed());
+        if (!expectedNotes.isEmpty()) {
+            QVERIFY(!about.changelog().contains("## 未发布"));
+            QCOMPARE(about.changelog().count(QRegularExpression("(?m)^## ")), 1);
+        }
         about.check();
         about.check();
         QTRY_VERIFY(!about.checking());

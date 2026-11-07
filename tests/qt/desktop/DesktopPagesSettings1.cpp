@@ -8,6 +8,26 @@ void DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage()
         QVERIFY(QDir().mkpath(artifacts));
     for (const bool deviceFailure : {false, true}) {
         Session session;
+        // Hold the actual RouteHost's first presentation independently of
+        // runtime readiness. This is a lifecycle probe, not an API fixture.
+        QFile landingFile(session.directory.filePath("startup-landing.qml"));
+        QVERIFY(landingFile.open(QIODevice::WriteOnly));
+        QVERIFY(landingFile.write(R"(
+            import QtQuick
+            import EchoMusic.Shell
+            import EchoMusic.Controls
+            RoutePage {
+                id: landing
+                objectName: "startupLandingPage"
+                property bool readyToShow: false
+                Component.onCompleted: EchoPageState.presentation.waitFor(landing)
+                onReadyToShowChanged: if (readyToShow) EchoPageState.presentation.release(landing)
+                Rectangle { anchors.fill: parent; color: "#2878bf" }
+            })") > 0);
+        landingFile.close();
+        QVERIFY(session.router.registerPage({"startup-landing", "/main/startup-landing",
+                                             QUrl::fromLocalFile(landingFile.fileName())}));
+        session.initialRoute = QStringLiteral("startup-landing");
         if (!deviceFailure) {
             auto identity = session.api.deviceIdentitySnapshot();
             identity.dfid = "stored-device-state-fixture";
@@ -69,7 +89,7 @@ void DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage()
                 session.shell.resetZoom();
                 for (int i = 100; i < zoom; i += 5)
                     session.shell.zoomIn();
-                QSignalSpy frames(session.window, &QQuickWindow::frameSwapped);
+                Test::FrameSpy frames(session.window);
                 session.window->update();
                 QTRY_VERIFY(!frames.isEmpty());
                 // A nested text maximum must not left-align the entire
@@ -104,8 +124,26 @@ void DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage()
         Test::moveNativePointer(session.window, point);
         QTest::mouseClick(session.window, Qt::LeftButton, Qt::NoModifier, point);
         QTRY_VERIFY_WITH_TIMEOUT(startup.entered(), 15000);
+        QQuickItem *landing = nullptr;
+        QTRY_VERIFY((landing = visual(session.window->contentItem(), "startupLandingPage")));
+        QVERIFY(page);
+        QVERIFY(session.root->property("startupCoverNeeded").toBool());
+        QCOMPARE(visual(page, "startupStatus")->property("text").toString(),
+                 QStringLiteral("正在打开页面..."));
+        QCOMPARE(landing->parentItem()->opacity(), 0.);
+        Test::FrameSpy pendingFrames(session.window);
+        session.window->update();
+        QTRY_VERIFY(!pendingFrames.isEmpty());
+        QVERIFY(page); // Startup remains across real frames while the route waits.
+        if (!artifacts.isEmpty())
+            QVERIFY(session.window->grabWindow().save(
+                artifacts + (deviceFailure ? "/initial-route-pending-device.png"
+                                           : "/initial-route-pending-storage.png")));
+        landing->setProperty("readyToShow", true);
         QTRY_VERIFY(page.isNull());
         QTRY_VERIFY(visual(session.window->contentItem(), "shellFrame"));
+        QTRY_COMPARE(landing->parentItem()->opacity(), 1.);
+        QVERIFY(!session.root->property("startupCoverNeeded").toBool());
         startup.shutdown();
         QVERIFY(startup.entered());
         QVERIFY(!visual(session.window->contentItem(), "startupPage"));
@@ -191,6 +229,13 @@ void DesktopPagesTest::settingsSearchClearRestoresCategoriesAndKeepsFocus()
             QVERIFY(fullCount > 1);
             auto *trigger = visual(session.window->contentItem(), "settingsSearchTrigger");
             QVERIFY(trigger);
+            auto *searchSlot = visual(session.window->contentItem(), "settingsSearchSlot");
+            auto *close = visual(session.window->contentItem(), "settingsClose");
+            QVERIFY(searchSlot && close);
+            QVERIFY(session.settleScene());
+            const auto triggerCenter =
+                trigger->mapToScene({trigger->width() / 2, trigger->height() / 2});
+            const auto closeCenter = close->mapToScene({close->width() / 2, close->height() / 2});
             trigger->forceActiveFocus(Qt::TabFocusReason);
             QTest::keyClick(session.window, Qt::Key_Space);
             auto *input = visual(session.window->contentItem(), "settingsSearchInput");
@@ -204,7 +249,7 @@ void DesktopPagesTest::settingsSearchClearRestoresCategoriesAndKeepsFocus()
             QTRY_COMPARE(catalog->filter(), QString("bypass"));
             QCOMPARE(catalog->rowCount(), 1);
             QTRY_VERIFY(clear->isVisible());
-            QSignalSpy frames(session.window, &QQuickWindow::frameSwapped);
+            Test::FrameSpy frames(session.window);
             session.window->update();
             QTRY_VERIFY(!frames.isEmpty());
             const auto capture = [&](const QString &phase) {
@@ -235,9 +280,43 @@ void DesktopPagesTest::settingsSearchClearRestoresCategoriesAndKeepsFocus()
                 QTest::keyClick(session.window, key);
             QTRY_COMPARE(catalog->filter(), QString("font"));
             QVERIFY(catalog->rowCount() < fullCount);
+            session.theme.setMotionEnabled(true);
             QTest::keyClick(session.window, Qt::Key_Escape);
             QTRY_COMPARE(catalog->filter(), QString());
+            QTRY_VERIFY(searchSlot->property("expansion").toDouble() > 0 &&
+                        searchSlot->property("expansion").toDouble() < .7);
+            QVERIFY(trigger->isVisible());
+            QVERIFY(input->width() > 30 && input->width() < searchSlot->width());
+            const auto anchored = [&] {
+                return qAbs(trigger->mapToScene({trigger->width() / 2, trigger->height() / 2}).x() -
+                            triggerCenter.x()) < .25 &&
+                       qAbs(close->mapToScene({close->width() / 2, close->height() / 2}).x() -
+                            closeCenter.x()) < .25;
+            };
+            const auto geometry = [&] {
+                return QString("trigger %1/%2 close %3/%4 phase %5 slot %6+%7")
+                    .arg(trigger->mapToScene({trigger->width() / 2, trigger->height() / 2}).x())
+                    .arg(triggerCenter.x())
+                    .arg(close->mapToScene({close->width() / 2, close->height() / 2}).x())
+                    .arg(closeCenter.x())
+                    .arg(searchSlot->property("expansion").toDouble())
+                    .arg(searchSlot->x())
+                    .arg(searchSlot->width());
+            };
+            QVERIFY2(anchored(), qPrintable(geometry()));
+            QVERIFY(capture("closing"));
+            // Reopen while shrinking: the same fixed trigger reverses the
+            // input animation without introducing another toolbar item.
+            trigger->forceActiveFocus(Qt::TabFocusReason);
+            QTest::keyClick(session.window, Qt::Key_Space);
+            QTRY_VERIFY(dialog->property("searchExpanded").toBool());
+            QTRY_VERIFY(input->hasActiveFocus());
+            QTRY_COMPARE(searchSlot->property("expansion").toDouble(), 1.);
+            QVERIFY2(anchored(), qPrintable(geometry()));
+            QTest::keyClick(session.window, Qt::Key_Escape);
             QTRY_VERIFY(!input->isVisible());
+            QVERIFY2(anchored(), qPrintable(geometry()));
+            session.theme.setMotionEnabled(false);
             QVERIFY(QMetaObject::invokeMethod(dialog, "close"));
             QTRY_VERIFY(dialog.isNull());
         }
@@ -450,7 +529,7 @@ void DesktopPagesTest::lyricFontSettingsApplyToProductionWindows()
     QTRY_VERIFY(lyricFontsMatch(pageLyrics, uiFont("system-ui")));
     QTRY_VERIFY(pageOwner->property("item").value<QObject *>()->property("opened").toBool());
     if (!captures.isEmpty()) {
-        QSignalSpy frames(session.window, &QQuickWindow::frameSwapped);
+        Test::FrameSpy frames(session.window);
         session.window->update();
         QTRY_VERIFY(!frames.isEmpty());
         QVERIFY(session.window->grabWindow().save(captures + "/playback.png"));
@@ -556,7 +635,7 @@ void DesktopPagesTest::lyricVariantSettingUsesProductionSelectAndReleasesPopup()
             QVERIFY(!select->property("popup").value<QObject *>());
             playback.lyricText()->setConversion("traditional");
             QTRY_COMPARE(select->property("currentIndex").toInt(), 2);
-            QSignalSpy frames(session.window, &QQuickWindow::frameSwapped);
+            Test::FrameSpy frames(session.window);
             session.window->update();
             QTRY_VERIFY(!frames.isEmpty());
             auto *viewport = visual(session.window->contentItem(), "settingsContentViewport");
@@ -687,7 +766,7 @@ void DesktopPagesTest::lyricSettingsShareCoverPickerAndExcludeTaskbar()
     QSignalSpy warnings(&session.engine, &QQmlEngine::warnings);
     // 弹层按需创建：先经真实入口打开设置，再取得实例。
     session.router.navigate("settings");
-    auto *dialog = session.root->findChild<QObject *>("settingsDialog");
+    QPointer<QObject> dialog = session.root->findChild<QObject *>("settingsDialog");
     QVERIFY(dialog);
     QTRY_VERIFY(dialog->property("opened").toBool());
     QVERIFY(QMetaObject::invokeMethod(dialog, "openSection", Q_ARG(QVariant, QString("lyric"))));
@@ -805,7 +884,7 @@ void DesktopPagesTest::lyricSettingsShareCoverPickerAndExcludeTaskbar()
         }
     }
     QVERIFY(QMetaObject::invokeMethod(dialog, "close"));
-    QTRY_VERIFY(!dialog->property("visible").toBool());
+    QTRY_VERIFY(dialog.isNull());
     QCOMPARE(warnings.size(), 0);
 }
 
@@ -878,6 +957,7 @@ void DesktopPagesTest::productionExperimentalIdentitySettings()
     catalog->setFilter(QStringLiteral("鉴权头"));
     QCOMPARE(catalog->count(), 1);
     QCOMPARE(catalog->current(), QString("experimental"));
+    QVERIFY(session.settingsSectionReady());
     auto *viewport = visual(session.window->contentItem(), "settingsContentViewport");
     QVERIFY(viewport);
     QQuickItem *view = nullptr;
@@ -887,8 +967,9 @@ void DesktopPagesTest::productionExperimentalIdentitySettings()
     QCOMPARE(view->height(), 36.);
     QCOMPARE(reset->height(), 36.);
     QVERIFY(reset->property("danger").toBool());
-    viewport->setProperty(
-        "contentY", qMax(0., viewport->property("contentHeight").toReal() - viewport->height()));
+    // 合并后的实验性功能页在身份区之后还有备份与数据行；把行滚动进视口，
+    // 不能假设页面底部仍是身份设置。
+    QVERIFY(session.revealItem(reset));
     auto *infoOwner = settings->findChild<QObject *>("settingsUserInfoOwner");
     auto *resetOwner = settings->findChild<QObject *>("settingsResetDeviceIdentityOwner");
     QVERIFY(infoOwner && resetOwner);
@@ -1004,8 +1085,8 @@ void DesktopPagesTest::productionExperimentalLoggingSettings()
     auto *viewport = visual(session.window->contentItem(), "settingsContentViewport");
     auto *enable = visual(session.window->contentItem(), "settingsEnableDiagnostics");
     QVERIFY(viewport && enable);
-    viewport->setProperty(
-        "contentY", qMax(0., viewport->property("contentHeight").toReal() - viewport->height()));
+    // 合并后的实验性功能页在日志区之后还有身份、备份与数据行；滚动到诊断行而非页面底部。
+    QVERIFY(session.revealItem(enable));
     QCOMPARE(enable->height(), 36.);
     QCOMPARE(enable->property("text").toString(), QStringLiteral("10 分钟"));
     enable->forceActiveFocus(Qt::TabFocusReason);
@@ -1042,8 +1123,7 @@ void DesktopPagesTest::productionExperimentalLoggingSettings()
     viewport = visual(session.window->contentItem(), "settingsContentViewport");
     restart = visual(session.window->contentItem(), "settingsRestartDiagnostics");
     QVERIFY(viewport && restart);
-    viewport->setProperty(
-        "contentY", qMax(0., viewport->property("contentHeight").toReal() - viewport->height()));
+    QVERIFY(session.revealItem(restart));
     const auto restartBounds = [&] {
         return restart->mapRectToItem(viewport, restart->boundingRect());
     };
@@ -1095,7 +1175,7 @@ void DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme()
     for (int step = 0; step < qRound((scale - 1) / .05); ++step)
         session.shell.zoomIn();
     session.router.navigate("settings", {{"section", "network"}});
-    auto *dialog = session.root->findChild<QObject *>("settingsDialog");
+    QPointer<QObject> dialog = session.root->findChild<QObject *>("settingsDialog");
     QVERIFY(dialog);
     QTRY_VERIFY(dialog->property("opened").toBool());
     auto *catalog = dialog->property("catalog").value<SettingsCatalog *>();
@@ -1204,8 +1284,37 @@ void DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme()
     QVERIFY(session.settingsSectionReady());
     QTRY_VERIFY((rules = visual(session.window->contentItem(), "settingsProxyRules")));
     QTRY_COMPARE(rules->property("text").toString(), QString("unsaved.example:8888"));
+    auto *userAgent = visual(session.window->contentItem(), "settingsPlayerUserAgent");
+    auto *regenerate = visual(session.window->contentItem(), "settingsRegeneratePlayerUserAgent");
+    QVERIFY(userAgent && regenerate);
+    auto *githubAddress = visual(session.window->contentItem(), "settingsGithubProxyUrl");
+    QVERIFY(githubAddress);
+    QTRY_COMPARE(userAgent->width(), githubAddress->width());
+    QCOMPARE(userAgent->property("text").toString(), QString());
+    QVERIFY(session.revealItem(userAgent));
+    snapshot("user-agent-empty");
+    userAgent->forceActiveFocus(Qt::TabFocusReason);
+    QTest::keyClick(session.window, Qt::Key_A, Qt::ControlModifier);
+    for (const auto key : QByteArray("CustomAudio/2.0"))
+        QTest::keyClick(session.window, key);
+    regenerate->forceActiveFocus(Qt::TabFocusReason);
+    QTRY_COMPARE(network.playerUserAgent(), QString("CustomAudio/2.0"));
+    QVERIFY(session.clickItem("settingsRegeneratePlayerUserAgent"));
+    QTRY_VERIFY(network.playerUserAgent() != "CustomAudio/2.0");
+    const auto generated = network.playerUserAgent();
+    QVERIFY(QRegularExpression("^[A-Za-z0-9]{32}$").match(generated).hasMatch());
+    QTRY_COMPARE(userAgent->property("text").toString(), generated);
+    QCOMPARE(regenerate->height(), 36.);
+    snapshot("user-agent");
+    catalog->select("interface");
+    QVERIFY(session.settingsSectionReady());
+    catalog->select("network");
+    QVERIFY(session.settingsSectionReady());
+    userAgent = visual(session.window->contentItem(), "settingsPlayerUserAgent");
+    QVERIFY(userAgent);
+    QCOMPARE(userAgent->property("text").toString(), generated);
     QVERIFY(QMetaObject::invokeMethod(dialog, "close"));
-    QTRY_VERIFY(!dialog->property("visible").toBool());
+    QTRY_VERIFY(dialog.isNull()); // Closing releases the entire demand-created settings tree.
     QCOMPARE(warnings.size(), 0);
 }
 
@@ -1223,7 +1332,7 @@ void DesktopPagesTest::productionPlayerEngineSettingsDecimalInputAndLifecycle()
     QVERIFY(Test::prepareNativeInput(session.window));
     session.theme.setFloatingFrosted(false);
     session.router.navigate("settings");
-    auto *dialog = session.root->findChild<QObject *>("settingsDialog");
+    QPointer<QObject> dialog = session.root->findChild<QObject *>("settingsDialog");
     QVERIFY(dialog);
     QTRY_VERIFY(dialog->property("opened").toBool());
     auto *catalog = dialog->property("catalog").value<SettingsCatalog *>();
@@ -1300,7 +1409,7 @@ void DesktopPagesTest::productionPlayerEngineSettingsDecimalInputAndLifecycle()
     }
     QPointer<QQuickItem> released(retainedBuffer);
     QVERIFY(QMetaObject::invokeMethod(dialog, "close"));
-    QTRY_VERIFY(!dialog->property("visible").toBool());
+    QTRY_VERIFY(dialog.isNull());
     QTRY_VERIFY(released.isNull());
     QCOMPARE(warnings.size(), 0);
     session.root.reset();
@@ -1438,6 +1547,7 @@ void DesktopPagesTest::settingsDefaultsAndSourceEffectFileManager()
     QTRY_VERIFY((control = visual(session.window->contentItem(), "settingsDefaultSearch")));
     QVERIFY(!control->property("checked").toBool());
     catalog->select("playback");
+    QVERIFY(session.settingsSectionReady());
     QTRY_VERIFY((control = visual(session.window->contentItem(), "settingsDefaultQuality")));
     QTRY_COMPARE(control->property("currentText").toString(), QStringLiteral("Hi-Res 品质"));
     QCOMPARE(playback.preferences()->defaultQuality(), QString("hi_res"));
@@ -1446,20 +1556,10 @@ void DesktopPagesTest::settingsDefaultsAndSourceEffectFileManager()
         (compatibility = visual(session.window->contentItem(), "settingsCompatibilityMode")));
     QVERIFY(compatibility->property("checked").toBool());
     QVERIFY(playback.preferences()->compatibilityMode());
-    QVERIFY(Test::prepareNativeInput(session.window));
-    QVERIFY(session.revealItem(compatibility));
-    QSignalSpy compatibilityFrame(session.window, &QQuickWindow::frameSwapped);
-    session.window->update();
-    QTRY_VERIFY(!compatibilityFrame.isEmpty());
-    Test::moveNativePointer(
-        session.window,
-        compatibility->mapToScene({compatibility->width() / 2, compatibility->height() / 2})
-            .toPoint());
+    // Section incubation and scroll restoration can outlive one rendered frame.
+    // Use the shared real-input helper, which waits for stable target geometry.
+    QVERIFY(session.clickItem(compatibility));
     QTRY_VERIFY(compatibility->property("hovered").toBool());
-    QTest::mouseClick(
-        session.window, Qt::LeftButton, Qt::NoModifier,
-        compatibility->mapToScene(QPointF(compatibility->width() / 2, compatibility->height() / 2))
-            .toPoint());
     QTRY_VERIFY(!playback.preferences()->compatibilityMode());
     QTRY_VERIFY(!compatibility->property("checked").toBool());
     QPointer<QQuickItem> retiredCompatibility = compatibility;
@@ -1613,6 +1713,7 @@ void DesktopPagesTest::settingsDefaultsAndSourceEffectFileManager()
     session.shell.resetZoom();
     QTest::qWait(100);
     QVERIFY(qAbs(gap() - 20) < .5);
+    QVERIFY(dialog);
     QVERIFY(QMetaObject::invokeMethod(dialog, "close"));
     QTRY_VERIFY(dialog.isNull());
     auto *engines = visual(session.window->contentItem(), "manageDspProvidersAction");

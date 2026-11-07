@@ -2,6 +2,18 @@
 #include "DesktopPagesTestFixture.h"
 #include "RenderedInk.h"
 
+namespace EchoMusic
+{
+class DetailsTestAccess
+{
+public:
+    static bool presented(const MvDetailContext &context)
+    {
+        return context.m_presented;
+    }
+};
+} // namespace EchoMusic
+
 void DesktopPagesTest::productionChatBubblesKeepBalancedTextInsets()
 {
     Session session;
@@ -164,14 +176,13 @@ void DesktopPagesTest::productionPopupsFollowRequestOwnership()
     anchor.setSize({32, 32});
     anchor.setPosition({600, 500});
     const QStringList cases{
-        "settingsDialog",        "taskCenterDialog",      "playbackPage",
-        "playbackQueueDrawer",   "playbackEffectPopup",   "sleepTimerPopup",
-        "playbackOptionsPopup",  "playerbarMorePopup",    "sidebarLayoutPopup",
-        "sidebarAccountPopover", "accountSwitcherDialog", "logoutConfirmation",
-        "playlistCreateDialog",  "playlistOrderDialog",   "playlistRemoveDialog",
-        "playlistImportDialog",  "profileEditorDialog",   "profileGradeDialog",
-        "profileSocialDrawer",   "profileDeviceDialog",   "listeningPreferencesDialog",
-        "contentBlacklistDialog"};
+        "settingsDialog",        "taskCenterDialog",           "playbackPage",
+        "playbackQueueDrawer",   "playbackEffectPopup",        "sleepTimerPopup",
+        "playbackOptionsPopup",  "playerbarMorePopup",         "sidebarLayoutPopup",
+        "sidebarAccountPopover", "accountSwitcherDialog",      "logoutConfirmation",
+        "playlistCreateDialog",  "playlistOrderDialog",        "playlistImportDialog",
+        "profileEditorDialog",   "profileGradeDialog",         "profileSocialDrawer",
+        "profileDeviceDialog",   "listeningPreferencesDialog", "contentBlacklistDialog"};
     for (const auto &name : cases) {
         auto *owner = session.root->findChild<QObject *>(name + "Owner");
         if (!owner) {
@@ -241,6 +252,8 @@ void DesktopPagesTest::productionPopupsFollowRequestOwnership()
 void DesktopPagesTest::playerMetadataLinksUseProductionRoutes()
 {
     Session session;
+    session.theme.setMotionEnabled(false);
+    QSignalSpy warnings(&session.engine, &QQmlEngine::warnings);
     PlaybackService playback(session.api, session.preferences, nullptr,
                              session.directory.filePath("playback.sqlite"));
     playback.setVolume(0);
@@ -269,6 +282,9 @@ void DesktopPagesTest::playerMetadataLinksUseProductionRoutes()
     QVERIFY(art.save(coverPath));
     track.cover = QUrl::fromLocalFile(coverPath).toString();
     QVERIFY(session.create(&playback));
+    session.root->setProperty("songDetails", QVariant::fromValue(&details));
+    session.root->setProperty("playbackDiscussion",
+                              QVariant::fromValue(details.playbackDiscussion()));
     const auto destroyUi = qScopeGuard([&] {
         session.root.reset();
         session.window = nullptr;
@@ -293,6 +309,7 @@ void DesktopPagesTest::playerMetadataLinksUseProductionRoutes()
     };
     auto *actions = session.commands.playerbarActions();
     QVERIFY(actions->setPlacement("host/mv", ShellActionModel::Left));
+    QVERIFY(actions->setPlacement("host/song-details", ShellActionModel::Left));
     for (const bool dark : {false, true})
         for (const qreal scale : {1., 1.25}) {
             session.theme.setMode(dark ? ThemeStore::Dark : ThemeStore::Light);
@@ -324,7 +341,91 @@ void DesktopPagesTest::playerMetadataLinksUseProductionRoutes()
                 QVERIFY(session.window->grabWindow().save(
                     captures +
                     QString("/player-links-%1-%2.png").arg(dark ? "dark" : "light").arg(scale)));
+            auto page = session.openOwnedPopup("playbackPageOwner");
+            QVERIFY(page);
+            auto *content = page->property("contentItem").value<QQuickItem *>();
+            QVERIFY(content);
+            const auto routeBefore = session.router.current();
+            auto *detailsOwner = page->findChild<QObject *>("playbackSongDetailDrawerOwner");
+            QVERIFY(detailsOwner);
+            QVERIFY(!detailsOwner->property("item").value<QObject *>());
+            QQuickItem *detailsButton = nullptr;
+            QTRY_VERIFY((detailsButton = visual(content, "playerbar-action-song-details")) &&
+                        detailsButton->isEnabled());
+            QTRY_VERIFY(page->property("acceptingInput").toBool());
+            click(detailsButton);
+            QPointer<QObject> drawer;
+            QTRY_VERIFY((drawer = detailsOwner->property("item").value<QObject *>()) &&
+                        drawer->property("opened").toBool());
+            QPointer<SongDetailContext> drawerDetail =
+                drawer->property("detailContext").value<SongDetailContext *>();
+            QVERIFY(drawerDetail);
+            auto *optionsOwner = session.root->findChild<QObject *>("playbackOptionsPopupOwner");
+            QVERIFY(optionsOwner);
+            QVERIFY(!optionsOwner->property("item").value<QObject *>());
+            QCOMPARE(drawerDetail->detail().value("title").toString(), QString("Song"));
+            QCOMPARE(session.router.current(), routeBefore);
+            QVERIFY(page && page->property("opened").toBool());
+            const qreal detailsWidth = drawer->property("width").toReal();
+            const qreal detailsX = drawer->property("x").toReal();
+            auto *drawerContent = drawer->property("contentItem").value<QQuickItem *>();
+            auto *artistField = visual(drawerContent, "songInformation-artist");
+            auto *albumField = visual(drawerContent, "songInformation-album");
+            QVERIFY(artistField && albumField);
+            QTRY_VERIFY(qAbs(artistField->mapToScene({}).y() - albumField->mapToScene({}).y()) < 1);
+            QVERIFY(albumField->mapToScene({}).x() >=
+                    artistField->mapToScene({artistField->width(), 0}).x());
+            if (!captures.isEmpty())
+                QVERIFY(session.window->grabWindow().save(
+                    captures + QString("/playback-song-details-%1-%2.png")
+                                   .arg(dark ? "dark" : "light")
+                                   .arg(scale)));
+            auto *detailScroll = visual(drawerContent, "playbackSongDetailScroll");
+            auto *language = visual(drawerContent, "songInformationValue-language");
+            QVERIFY(detailScroll && language);
+            detailScroll->setProperty("contentY",
+                                      qMax(0., detailScroll->property("contentHeight").toReal() -
+                                                   detailScroll->height()));
+            QTRY_VERIFY(language->mapRectToItem(detailScroll, language->boundingRect()).bottom() <=
+                        detailScroll->height() + 1);
+            QTest::keyClick(session.window, Qt::Key_Escape);
+            QTRY_VERIFY(drawer.isNull());
+            QTRY_VERIFY(drawerDetail.isNull());
+            QVERIFY(page && page->property("opened").toBool());
+            auto *commentsButton = visual(content, "playerbar-action-comments");
+            QVERIFY(commentsButton && commentsButton->isEnabled());
+            click(commentsButton);
+            QPointer<QObject> commentDrawer;
+            QTRY_VERIFY(
+                (commentDrawer = session.root->findChild<QObject *>("playbackCommentDrawer")) &&
+                commentDrawer->property("opened").toBool());
+            QCOMPARE(commentDrawer->property("width").toReal(), detailsWidth);
+            QCOMPARE(commentDrawer->property("x").toReal(), detailsX);
+            QVERIFY(QMetaObject::invokeMethod(commentDrawer, "close"));
+            QTRY_VERIFY(commentDrawer.isNull());
+            QQuickItem *pageMv = nullptr;
+            QTRY_VERIFY((pageMv = visual(content, "playerbar-action-mv")) && pageMv->isEnabled());
+            QTRY_VERIFY(page->property("acceptingInput").toBool());
+            QSignalSpy mvClicks(pageMv, SIGNAL(clicked()));
+            click(pageMv);
+            QCOMPARE(mvClicks.size(), 1);
+            QTRY_COMPARE(session.router.current()->name(), QString("mv-detail"));
+            QTRY_VERIFY(page.isNull());
+            auto *video = details.mvFor(session.router.current());
+            QVERIFY(video);
+            QTRY_VERIFY(DetailsTestAccess::presented(*video));
+            // Cover an existing MV and manually close the playback page too:
+            // effective visibility must restore the media presentation gate.
+            page = session.openOwnedPopup("playbackPageOwner");
+            QVERIFY(page);
+            QTRY_VERIFY(!DetailsTestAccess::presented(*video));
+            QVERIFY(QMetaObject::invokeMethod(page, "close"));
+            QTRY_VERIFY(page.isNull());
+            QTRY_VERIFY(DetailsTestAccess::presented(*video));
+            QCOMPARE(playback.queue()->rowCount(), 1);
+            QVERIFY(!playback.playing());
         }
+    QCOMPARE(warnings.size(), 0);
 }
 
 void DesktopPagesTest::profileWritesRejectInvalidDraftAndCancelOlderRead()
@@ -473,11 +574,13 @@ void DesktopPagesTest::productionCollectionAndSocialEntrypoints()
     const auto capture = qEnvironmentVariable("ECHO_COLLECTION_SOCIAL_CAPTURE_DIR");
     if (!capture.isEmpty())
         QVERIFY(QDir().mkpath(capture));
-    const auto click = [&](QQuickItem *item) {
+    const auto click = [&](QQuickItem *target) {
+        QPointer<QQuickItem> item = target;
         QVERIFY(item);
-        QVERIFY(item->isEnabled());
-        QTRY_VERIFY(item->isVisible() && item->width() > 0 && item->height() > 0);
+        QTRY_VERIFY(item && item->isEnabled() && item->isVisible() && item->width() > 0 &&
+                    item->height() > 0);
         QTest::qWait(50);
+        QTRY_VERIFY(item && item->isEnabled());
         QSignalSpy pressed(item, SIGNAL(clicked()));
         QVERIFY(pressed.isValid());
         const auto point = item->mapToScene({item->width() / 2, item->height() / 2}).toPoint();
@@ -522,19 +625,32 @@ void DesktopPagesTest::productionCollectionAndSocialEntrypoints()
                                                                 : "artistDetailPage";
                 QTRY_VERIFY((activePage = visual(session.window->contentItem(), pageName)) &&
                             activePage->isVisible());
+                // The cached scroll position is restored before RouteHost
+                // enables the page; only then choose the expanded-header state.
+                QTRY_VERIFY(activePage->isEnabled());
                 QTRY_VERIFY(visual(activePage, "songDetailHeader"));
                 auto *songView = visual(activePage, "discoverySongs");
                 QVERIFY(songView);
-                songView->setProperty("contentY", -songView->property("topMargin").toReal());
+                auto *catalog = visual(activePage, "catalogSongList");
+                QVERIFY(catalog);
+                auto *scrollOwner = catalog->property("pageContainer").value<QObject *>();
+                QVERIFY(scrollOwner);
+                // Explicit scroll commands retire cached row-anchor recovery
+                // and respect ListView's potentially nonzero originY.
+                QVERIFY(QMetaObject::invokeMethod(scrollOwner, "scrollTo", Q_ARG(double, 0.)));
+                QTRY_COMPARE(scrollOwner->property("scrollTop").toReal(), 0.);
                 const auto buttonName =
                     name == "artist-detail" ? "artistFollowButton" : "detailCollectButton";
                 QQuickItem *button = nullptr;
                 QTRY_VERIFY((button = visual(activePage, buttonName)) && button->isVisible());
-                QVERIFY(button->isEnabled());
+                // RouteHost enables a new page after its presentation is ready.
+                QTRY_VERIFY2(button->isEnabled(), qPrintable(name + ':' + buttonName));
                 QTRY_VERIFY(button->width() > 20 && button->height() > 20);
                 QTest::qWait(100);
                 const auto verifyCommand = [&](QQuickItem *target) {
-                    qInfo() << "Entry command" << name << target->objectName();
+                    qInfo() << "Entry command" << name << target->objectName() << "enabled"
+                            << target->isEnabled() << "visible" << target->isVisible() << "scroll"
+                            << songView->property("contentY");
                     click(target);
                     if (name == "artist-detail") {
                         const auto write = ProfileServiceTestAccess::followWrite(session.profile);
@@ -579,7 +695,7 @@ void DesktopPagesTest::productionCollectionAndSocialEntrypoints()
                         capture + QString("/%1-%2-%3.png").arg(name).arg(int(mode)).arg(scale)));
                 auto *list = visual(activePage, "discoverySongs");
                 QVERIFY(list);
-                list->setProperty("contentY", 500);
+                QVERIFY(QMetaObject::invokeMethod(scrollOwner, "scrollTo", Q_ARG(double, 500.)));
                 const auto collapsed =
                     name == "artist-detail" ? "artistFollowCollapsed" : "detailCollectCollapsed";
                 QTRY_VERIFY(visual(activePage, collapsed) &&
@@ -602,8 +718,8 @@ void DesktopPagesTest::productionCollectionAndSocialEntrypoints()
                                           {"mutual", true}};
             ProfileServiceTestAccess::seed(session.profile, 0, {user});
             session.profile.openSocial(ProfileService::SocialTab::Friends);
-            auto *page = visual(session.window->contentItem(), "profilePage");
-            QTRY_VERIFY(page);
+            QQuickItem *page = nullptr;
+            QTRY_VERIFY(page = visual(session.window->contentItem(), "profilePage"));
             auto *owner = page->findChild<QObject *>("profileSocialDrawerOwner");
             QVERIFY(owner);
             QVERIFY(
@@ -977,8 +1093,11 @@ void DesktopPagesTest::productionSidebarOrderEditor()
     QTRY_COMPARE(position->property("value").toInt(), 21);
     QTRY_COMPARE(number->property("text").toString(), QString("21"));
     model.select(0);
+    QVERIFY(QMetaObject::invokeMethod(list, "positionViewAtBeginning"));
+    QVERIFY(session.settleScene());
     const auto from = list->mapToScene(QPointF(100, 26)).toPoint();
     const auto to = list->mapToScene(QPointF(100, 182)).toPoint();
+    Test::moveNativePointer(session.window, from);
     QTest::mousePress(session.window, Qt::LeftButton, Qt::NoModifier, from);
     QTest::mouseMove(session.window, from + QPoint(0, 15), 20);
     QTest::mouseMove(session.window, to, 30);

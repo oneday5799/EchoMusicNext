@@ -595,10 +595,18 @@ Window {
             QTRY_COMPARE(backdrop->property("imageCount").toInt(), 1);
             QPointer<QQuickItem> retired(findVisual(page, "discoverFlowArtwork"));
             QVERIFY(retired);
+            page->setProperty("m_activeIndex", 1);
+            QPointer<QQuickItem> retiredPage(page);
             QVERIFY(router.navigate("free-listen"));
             QTRY_VERIFY(retired.isNull());
+            QTRY_VERIFY(retiredPage.isNull());
             QCOMPARE(gallery->source(), portraitUrl);
             router.back();
+            QTRY_VERIFY((page = findVisual(window->contentItem(), "discoverFlowPage")));
+            QTRY_COMPARE(page->property("m_activeIndex").toInt(), 1);
+            backdrop = findVisual(page, "discoverFlowBackdrop");
+            info = findVisual(page, "discoverFlowInfo");
+            QVERIFY(backdrop && info);
             QTRY_COMPARE(backdrop->property("imageCount").toInt(), 1);
             QTRY_VERIFY(findVisual(page, "discoverFlowArtwork"));
             QTRY_COMPARE(findVisual(page, "discoverFlowArtwork")->property("status").toInt(), 1);
@@ -611,7 +619,7 @@ Window {
                 // does not mean the returned page has been presented yet.
                 QVERIFY(!window->grabWindow().isNull());
                 QTest::qWait(100);
-                QSignalSpy frames(window, &QQuickWindow::frameSwapped);
+                Test::FrameSpy frames(window);
                 // Native upload/material retirement can present a late frame.
                 // Require two quiet intervals within a bounded drain, while a
                 // persistent animation clock still fails this observation.
@@ -731,7 +739,7 @@ Window {
                     sections.append(item);
             }
             QCOMPARE(sections.size(), 7);
-            QSignalSpy frames(window, &QQuickWindow::frameSwapped);
+            Test::FrameSpy frames(window);
             window->update();
             QTRY_VERIFY(!frames.isEmpty());
             const auto image = window->grabWindow();
@@ -781,7 +789,7 @@ Window {
         QTRY_VERIFY(agreement->property("opened").toBool());
         auto *accept = findVisual(window->contentItem(), "userAgreementAccept");
         QVERIFY(accept);
-        QSignalSpy acceptedFrame(window, &QQuickWindow::frameSwapped);
+        Test::FrameSpy acceptedFrame(window);
         window->update();
         QTRY_VERIFY(!acceptedFrame.isEmpty());
         QTest::mouseClick(
@@ -993,33 +1001,35 @@ Window {
         DiscoveryServiceTestAccess::complete(service, DiscoveryService::Playlists, cards);
         DiscoveryServiceTestAccess::complete(service, DiscoveryService::Editors, cards);
         QTRY_VERIFY(findVisual(window->contentItem(), "homeView"));
-        auto *view = findVisual(window->contentItem(), "homeView");
+        QPointer<QQuickItem> view = findVisual(window->contentItem(), "homeView");
         QTest::qWait(150);
         const auto artifacts = qEnvironmentVariable("ECHO_HOME_SCROLL_ARTIFACTS");
         if (!artifacts.isEmpty())
             QVERIFY(QDir().mkpath(artifacts));
         const auto verifyReadySection = [&]() {
-            auto *section = findVisual(window->contentItem(), "homePlaylistSection");
-            auto *grid = findVisual(window->contentItem(), "homePlaylistGrid");
-            QVERIFY(section && grid);
-            QCOMPARE(section->height(), grid->y() + grid->height());
-            auto *editors = findVisual(window->contentItem(), "homeEditorSection");
-            QCOMPARE(editors->y(), section->y() + section->height());
+            QQuickItem *section = nullptr, *grid = nullptr, *editors = nullptr;
+            QTRY_VERIFY((section = findVisual(window->contentItem(), "homePlaylistSection")) &&
+                        (grid = findVisual(window->contentItem(), "homePlaylistGrid")) &&
+                        (editors = findVisual(window->contentItem(), "homeEditorSection")));
+            QTRY_COMPARE(section->height(), grid->y() + grid->height());
+            QTRY_COMPARE(editors->y(), section->y() + section->height());
         };
         verifyReadySection();
         auto *homeRoute = router.current();
-        QVERIFY(router.navigate("ranking"));
-        QTest::qWait(40);
+        QList<QPointer<QQuickItem>> oldLoaders;
         for (const auto *name :
              {"homeStyleEmptyLoader", "homePlaylistEmptyLoader", "homeEditorEmptyLoader"}) {
             auto *loader = findVisual(window->contentItem(), name);
             QVERIFY(loader);
-            QVERIFY(!loader->property("active").toBool());
-            QVERIFY(!loader->property("item").value<QObject *>());
+            oldLoaders.append(loader);
         }
+        QVERIFY(router.navigate("ranking"));
+        QTRY_VERIFY(view.isNull());
+        for (const auto &loader : oldLoaders)
+            QTRY_VERIFY(loader.isNull());
         router.back();
         QCOMPARE(router.current(), homeRoute);
-        QTest::qWait(40);
+        QTRY_VERIFY((view = findVisual(window->contentItem(), "homeView")));
         verifyReadySection();
         for (int count : {8, 2, 0, 5, 6, 10, 60}) {
             QJsonArray sample;
@@ -1044,7 +1054,7 @@ Window {
             if (count == 5 && !artifacts.isEmpty()) {
                 view->setProperty("contentY",
                                   grid->property("contentTop").toReal() + grid->height() - 180);
-                QSignalSpy frames(window, &QQuickWindow::frameSwapped);
+                Test::FrameSpy frames(window);
                 window->update();
                 QTRY_VERIFY(!frames.isEmpty());
                 QVERIFY(window->grabWindow().save(artifacts + "/home-boundary-" +
@@ -1817,6 +1827,13 @@ Window {
                     for (int i = 0; i < 5; ++i)
                         shell.zoomIn();
                 QTest::qWait(80);
+                // Leaving now destroys the view; each reopen owns new widgets.
+                freePage = findVisual(window->contentItem(), "freeListenPage");
+                QVERIFY(freePage);
+                countRow = findVisual(freePage, "songCatalogCountRow");
+                countBadge = findVisual(freePage, "songCatalogCountBadge");
+                underline = findVisual(freePage, "songCatalogTabUnderline");
+                QVERIFY(countRow && countBadge && underline);
                 auto *textBox = countRow->property("textBox").value<QQuickItem *>();
                 QVERIFY(textBox);
                 QTRY_VERIFY(qAbs(textBox->mapToScene({0, textBox->height() / 2}).y() -

@@ -97,6 +97,92 @@ class FormatGateTest(unittest.TestCase):
             {"modules/EchoMusic/Controls/Control.qml", "tests/tooling/test_example.py"},
         )
 
+    def test_utf8_sources_and_manifests_ignore_windows_default_encoding(self):
+        catalogs = self.root / "modules/EchoMusic/App"
+        catalogs.mkdir(parents=True)
+        xml = catalogs / "zh_CN.ts"
+        typescript = catalogs / "example.ts"
+        typescript.write_text("// 丁\nexport const title = '音乐';\n", encoding="utf-8")
+        (self.root / "Cargo.toml").write_text(
+            '# 丁\n[workspace]\nmembers = ["crate"]\n', encoding="utf-8"
+        )
+        (self.root / "crate").mkdir()
+        (self.root / "crate/Cargo.toml").write_text(
+            '# 丁\n[package]\nname = "fixture"\n', encoding="utf-8"
+        )
+        original_read_text = Path.read_text
+
+        def windows_read_text(path, *args, **kwargs):
+            # UTF-8 for 丁 contains 0x81, which is undefined in cp1252.
+            kwargs.setdefault("encoding", "cp1252")
+            return original_read_text(path, *args, **kwargs)
+
+        for bom in (b"", b"\xef\xbb\xbf"):
+            with self.subTest(bom=bool(bom)):
+                xml.write_bytes(bom + '<?xml version="1.0"?><TS>音乐丁</TS>\n'.encode("utf-8"))
+                original = {path: path.read_bytes() for path in (xml, typescript)}
+                with (
+                    patch.object(Path, "read_text", autospec=True, side_effect=windows_read_text),
+                    patch.object(formatter, "verify_tools", return_value=Path("prettier.cjs")),
+                    patch.object(formatter, "run") as commands,
+                    contextlib.redirect_stdout(io.StringIO()),
+                ):
+                    self.assertEqual(formatter.format_sources(QMLFORMAT, True), 0)
+                prettier = commands.call_args_list[-1].args[0]
+                self.assertIn(str(typescript.relative_to(self.root)), prettier)
+                self.assertNotIn(str(xml.relative_to(self.root)), prettier)
+                self.assertEqual({path: path.read_bytes() for path in original}, original)
+
+    def test_large_cpp_inventory_fits_windows_process_limit(self):
+        files = [Path(f"modules/Control_{i:04d}_{'x' * 80}.cpp") for i in range(900)]
+        (self.root / "Cargo.toml").write_text("[workspace]\nmembers = []\n", encoding="utf-8")
+        checked = []
+        calls = []
+
+        def windows_process(args, **kwargs):
+            size = (
+                len(subprocess.list2cmdline([str(arg) for arg in args]).encode("utf-16-le")) // 2
+                + 1
+            )
+            if size > 32767:
+                raise OSError(206, "The filename or extension is too long")
+            if "clang-format" in str(args[0]):
+                calls.append(args)
+                checked.extend(Path(arg) for arg in args if str(arg).endswith(".cpp"))
+
+        with (
+            patch.object(formatter, "owned_files", return_value=files),
+            patch.object(formatter, "verify_tools", return_value=Path("prettier.cjs")),
+            patch.object(formatter, "run", side_effect=windows_process),
+            contextlib.redirect_stdout(io.StringIO()),
+        ):
+            self.assertEqual(formatter.format_sources(QMLFORMAT, True), 0)
+        self.assertEqual(checked, files)
+        self.assertGreater(len(calls), 1)
+
+    def test_batches_preserve_quoted_unicode_paths_and_failure_status(self):
+        files = [f"目录 with spaces/😀_{i:03d}.cpp" for i in range(30)]
+        checked = []
+
+        def check_files(args):
+            size = len(subprocess.list2cmdline(args).encode("utf-16-le")) // 2 + 1
+            self.assertLessEqual(size, 180)
+            self.assertEqual(args[:2], ["formatter", "--check"])
+            checked.extend(args[2:])
+            if files[0] in args:
+                raise subprocess.CalledProcessError(1, args)
+
+        with patch.object(formatter, "run", side_effect=check_files):
+            with self.assertRaises(subprocess.CalledProcessError):
+                formatter.run_file_batches(["formatter", "--check"], files, limit=180)
+        self.assertEqual(checked, files)
+
+    def test_single_path_over_budget_is_not_silently_skipped(self):
+        with patch.object(formatter, "run") as command:
+            with self.assertRaisesRegex(RuntimeError, "too long"):
+                formatter.run_file_batches(["formatter", "--check"], ["x" * 300], limit=100)
+            command.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()

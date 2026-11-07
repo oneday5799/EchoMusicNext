@@ -37,6 +37,7 @@ void PlaybackOutputController::mediaRouteChanged()
     m_playback.m_resumePosition = m_playback.m_position;
     m_playback.m_engine.command(AudioEngine::Pause);
     m_playback.m_playing = false;
+    m_playback.m_startPending = false;
     m_playback.m_loaded = false;
     m_playback.m_loading = true;
     m_playback.m_autoplay = autoplay;
@@ -65,6 +66,8 @@ void PlaybackOutputController::consumeOutputEvent(const QJsonObject &event)
             m_playback.m_networkPreferences
                 ? m_playback.m_networkPreferences->playerTimeoutSeconds()
                 : 60);
+        if (m_playback.m_networkPreferences)
+            m_playback.m_engine.userAgent(m_playback.m_networkPreferences->playerUserAgent());
         m_playback.m_engine.command(AudioEngine::Volume, m_playback.localVolume());
         m_playback.m_engine.command(AudioEngine::Speed, m_playback.m_speed);
         m_playback.m_audioControls.initialize();
@@ -156,6 +159,9 @@ void PlaybackOutputController::consumeOutputEvent(const QJsonObject &event)
         m_playback.m_audioControls.setTrackLoudness(m_playback.m_pendingLoudness);
         m_playback.m_loading = false;
         m_playback.m_loaded = true;
+        m_playback.m_startPending = m_playback.m_autoplay && !m_playback.m_playing;
+        if (!m_playback.m_autoplay || m_playback.m_playing)
+            m_playback.beginHistory();
         m_playback.m_appliedEffect = m_playback.m_sourceEffect;
         m_playback.m_error.clear();
         publishMedia();
@@ -219,8 +225,12 @@ void PlaybackOutputController::consumeOutputEvent(const QJsonObject &event)
         m_playback.m_listening.resetPosition();
         const auto s = event.value("state").toObject();
         m_playback.m_playing = s.value("playing").toBool() && !s.value("paused").toBool();
-        if (m_playback.m_playing)
+        if (m_playback.m_playing) {
+            m_playback.m_startPending = false;
             m_playback.m_failure->succeeded();
+            if (m_playback.m_loaded && !m_playback.m_loading)
+                m_playback.beginHistory();
+        }
         if (!m_playback.m_cast->remoteMedia())
             m_playback.m_recovery->handleEvent(event);
         m_playback.m_listenTick.restart();
@@ -230,12 +240,14 @@ void PlaybackOutputController::consumeOutputEvent(const QJsonObject &event)
     } else if (kind == "playback-end") {
         if (event.value("reason").toString() != "eof")
             return;
+        m_playback.m_startPending = false;
         emit m_playback.playbackEnded();
         m_playback.m_listening.flush(true);
         m_playback.m_playing = false;
         if (!m_playback.m_sleepTimer.trackEnded())
             m_playback.next(true);
     } else if (kind == "error") {
+        m_playback.m_startPending = false;
         if (!m_playback.m_ready) {
             m_playback.m_initializationError = event.value("message").toString();
             emit m_playback.engineInitializationChanged();

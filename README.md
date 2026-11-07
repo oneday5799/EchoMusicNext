@@ -16,7 +16,7 @@
   <img src="https://img.shields.io/badge/License-GPLv3-orange" alt="License">
 </p>
 
-> 当前版本为 **0.1.0，开发中**。功能、平台适配和发布部署持续完善。
+> 当前主程序版本见根目录 [VERSION](VERSION)，项目仍在开发中。功能、平台适配和发布部署持续完善。
 
 ---
 
@@ -69,9 +69,9 @@
 
 #### Linux
 
-适配目标为 **Ubuntu 22.04+ 或等价 glibc 2.35+ 环境**，覆盖 x64、ARM64 及 X11 / Wayland。需要 Qt、音频、图形和桌面集成开发库；软件包列表见[构建指南](docs/build.md)与 [CI 配置](.github/workflows/build.yml)。
+适配目标为 **x64：Ubuntu 22.04+ / glibc 2.35+；ARM64：Ubuntu 24.04+ / glibc 2.39+**，覆盖 X11 / Wayland。需要 Qt、音频、图形和桌面集成开发库；软件包列表见[构建指南](docs/build.md)与 [CI 配置](.github/workflows/build.yml)。
 
-Linux SDK 使用独立源码构建流程，以匹配 glibc 基线。以上均为适配目标，具体支持状态以对应平台的实际验证结果为准。
+Linux x64、ARM64 均下载官方 Qt 6.12.0 预编译 SDK；源码 SDK 仅在显式指定 `--source` 时构建。以上均为适配目标，具体支持状态以对应平台的实际验证结果为准。
 
 ### 本地开发
 
@@ -90,7 +90,7 @@ Linux SDK 使用独立源码构建流程，以匹配 glibc 基线。以上均为
    python3.12 scripts/install-qt.py
    ```
 
-   Windows 使用对应 Python 3.12+ 的 `python` 命令。Windows/macOS 默认准备官方预编译 SDK，Linux 准备源码 SDK。已安装 SDK 的路径和检查方式见[构建指南](docs/build.md)。
+   Windows 使用对应 Python 3.12+ 的 `python` 命令。Windows、macOS、Linux 均默认准备官方基础 SDK，并单独重编带 generator GC 修复的 QtQml。已安装 SDK 的路径和检查方式见[构建指南](docs/build.md)。
 
 3. **构建并启动**
 
@@ -144,7 +144,7 @@ cmake --build --preset release --target echomusicnext
 
 ## 🏗️ 编译发布
 
-项目使用 [GitHub Actions](.github/workflows/build.yml) 构建 Windows、macOS、Linux 的 x64 / ARM64 安装包。普通代码推送不触发桌面构建；可手动构建并下载保留 7 天的产物，推送 `v*` 版本标签则在六个平台全部通过后发布 GitHub Release。分享页面仍独立手动发布。
+项目使用 [GitHub Actions](.github/workflows/build.yml) 构建 Windows、macOS、Linux 的 x64 / ARM64 安装包。普通代码推送不触发桌面构建；可手动构建并下载保留7天的产物。发版时修改根目录`VERSION`和`CHANGELOG.md`，推送后手动运行工作流并勾选`publish`，六个平台全部通过后自动创建对应tag并发布GitHub Release；原有`v*`标签触发方式继续保留。分享页面仍独立手动发布。
 
 **手动构建：**
 
@@ -160,7 +160,7 @@ ctest --preset release
 python3.12 scripts/build.py --preset release --distribution
 ```
 
-分发模式启用安装更新与重启等生命周期行为。安装包制作、版本标签规则和平台依赖见[构建指南](docs/build.md)。版本标签须与 CMake 和 Cargo 中声明的版本一致，可附预发布后缀。
+分发模式启用安装更新与重启等生命周期行为。安装包制作、版本标签规则和平台依赖见[构建指南](docs/build.md)。主程序版本统一读取根目录`VERSION`，支持预发布后缀；CMake和Cargo版本无需手动同步，标签只用于标记同一发行版本。
 
 ## 📦 构建产物
 

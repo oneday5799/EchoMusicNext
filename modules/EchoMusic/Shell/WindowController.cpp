@@ -1,5 +1,6 @@
 #include "SettingsKeys.h"
 #include "WindowController.h"
+#include "QuickAnimationDriver.h"
 #include "WindowPresentationDiagnostics.h"
 #include "WindowResizeSync.h"
 #include "PlaybackService.h"
@@ -177,6 +178,7 @@ void WindowController::attach(QQuickWindow *window)
     if (!window)
         return;
     m_window = window;
+    installQuickAnimationDriverGuard(*window);
     m_appIcons.attach(window);
     connect(window, &QWindow::activeChanged, this, [this] {
         if (mainWindowActive())
@@ -506,6 +508,7 @@ void WindowController::attachPluginWindow(QQuickWindow *window)
 {
     if (!window)
         return;
+    installQuickAnimationDriverGuard(*window);
     m_pluginWindows.removeIf([](const auto &item) { return !item; });
     if (m_pluginWindows.contains(window))
         return;
@@ -615,17 +618,23 @@ void WindowController::setRememberSize(bool remember)
 void WindowController::minimize()
 {
     updateNormalGeometry();
-    if (m_window)
+    if (m_window) {
+        m_backdrop.prepareWindowTransition();
         // Keep the pre-minimize state, including content fullscreen, so its
         // retirement and the later taskbar/tray restore retain the host state.
         m_window->setWindowStates(m_window->windowStates() | Qt::WindowMinimized);
+    }
 }
 void WindowController::toggleMaximized()
 {
     if (!m_window)
         return;
     updateNormalGeometry();
-    if (maximized() || fullscreen())
+    const bool maximizing = !(maximized() || fullscreen());
+    // Maximizes run caption-less so they land on the bare work area; windowed
+    // restores keep the transition caption (see maximizeInfoToWork).
+    m_backdrop.prepareWindowTransition(maximizing);
+    if (!maximizing)
         m_window->showNormal();
     else
         m_window->showMaximized();
@@ -690,6 +699,10 @@ void WindowController::endContentFullscreen(QObject *owner)
         m_backgroundState = restoreState(state);
     if (!fullscreen())
         return;
+    // No prepareWindowTransition here: the call would be swallowed by its
+    // fullscreen() guard, and the exit's maximize (setWindowStates below)
+    // runs after Qt restores the pre-fullscreen style - caption-less, so it
+    // lands on the bare work area without the ring.
     m_window->setWindowStates(state);
     // Combined state bits can change while the effective state stays Minimized,
     // in which case QWindow::windowStateChanged does not notify our projections.
@@ -776,12 +789,16 @@ void WindowController::showWindow()
     if (!m_background)
         m_backgroundState = restoreState(m_window->windowStates());
     setBackground(false);
-    if (m_backgroundState == Qt::WindowMaximized)
+    if (m_backgroundState == Qt::WindowMaximized) {
+        // Maximize must start caption-less (prepareWindowTransition's maximizing
+        // branch): a caption would land the resize-border ring over the taskbar.
+        m_backdrop.prepareWindowTransition(true);
         m_window->showMaximized();
-    else if (m_backgroundState == Qt::WindowFullScreen)
+    } else if (m_backgroundState == Qt::WindowFullScreen) {
         m_window->showFullScreen();
-    else
+    } else {
         m_window->showNormal();
+    }
     m_window->raise();
     m_window->requestActivate();
 }

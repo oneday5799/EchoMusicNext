@@ -13,6 +13,12 @@ ItemDelegate {
     property bool resourceActive: true
     readonly property bool currentSong: service.playback.trackId === entry.resourceId
     readonly property bool pendingPlay: currentSong && service.playback.loading
+    EchoMotionScope {
+        id: motion
+        target: card
+        active: card.resourceActive
+        animations: [rowFill, playReveal]
+    }
     implicitHeight: 62
     padding: 8
     hoverEnabled: true
@@ -20,6 +26,15 @@ ItemDelegate {
     background: Rectangle {
         radius: Theme.controlRadius
         color: card.hovered || card.visualFocus ? Theme.rowHover : Theme.hotCard
+        Behavior on color {
+            enabled: motion.allowed
+            ColorAnimation {
+                id: rowFill
+                duration: Theme.fastDuration
+                easing.type: Easing.BezierSpline
+                easing.bezierCurve: Theme.easeStandard
+            }
+        }
     }
     contentItem: RowLayout {
         spacing: 10
@@ -31,26 +46,34 @@ ItemDelegate {
                 source: card.entry.coverUrl
                 resourceActive: card.resourceActive
             }
-            EchoIconButton {
+            EchoPlaybackButton {
+                id: playButton
                 objectName: "homeSongPlay"
                 anchors.fill: parent
-                padding: 14
-                glyph: card.pendingPlay ? "" : card.currentSong && card.service.playback.playing ? "pause" : "play"
-                foreground: "white"
-                text: card.pendingPlay ? qsTr("加载中") : card.currentSong && card.service.playback.playing ? qsTr("暂停") : qsTr("播放")
+                padding: 16
+                playing: card.currentSong && card.service.playback.playing
+                loading: card.pendingPlay
+                enabled: !loading
+                visualContentActive: card.resourceActive
+                foreground: card.currentSong || hoverHighlighted || visualFocus ? Theme.accentText : "white"
                 hoverBackground: false
-                visible: card.hovered || card.visualFocus || hovered || card.pendingPlay || card.currentSong && card.service.playback.playing
+                readonly property bool shown: card.hovered || card.visualFocus || hovered || card.pendingPlay || card.currentSong && card.service.playback.playing
+                opacity: shown ? 1 : 0
+                visible: opacity > 0
+                scaleFeedback: true
+                visualScale: scaleAnimationAllowed ? down ? 0.9 : hovered ? 1.08 : shown ? 1 : 0.92 : 1
+                Behavior on opacity {
+                    enabled: motion.allowed
+                    NumberAnimation {
+                        id: playReveal
+                        duration: Theme.fastDuration
+                        easing.type: Easing.BezierSpline
+                        easing.bezierCurve: Theme.easeStandard
+                    }
+                }
                 background: Rectangle {
                     radius: Theme.mediaRadius
                     color: "#66000000"
-                }
-                EchoSpinner {
-                    anchors.centerIn: parent
-                    width: 18
-                    height: 18
-                    color: "white"
-                    visible: card.pendingPlay
-                    resourceActive: card.resourceActive
                 }
                 onClicked: {
                     if (card.pendingPlay)
@@ -103,6 +126,7 @@ ItemDelegate {
         }
     }
     TapHandler {
-        onDoubleTapped: card.service.play(card.service.styleSongs, card.entry.resourceId, false)
+        onDoubleTapped: if (!card.pendingPlay)
+            card.service.play(card.service.styleSongs, card.entry.resourceId, false)
     }
 }

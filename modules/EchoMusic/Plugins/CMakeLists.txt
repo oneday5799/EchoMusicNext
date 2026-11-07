@@ -17,10 +17,12 @@ qt_add_qml_module(
     QML_FILES
     PluginManagementPage.qml
     PluginCard.qml
+    PluginIconImage.qml
     PluginActionButton.qml
     PluginMarketplaceSkeleton.qml
     PluginSourceDialog.qml
     PluginGrantsDialog.qml
+    PluginUiInspectorDialog.qml
     PluginDataDialog.qml
     PluginShareResolvePage.qml
     PluginUninstallDialog.qml
@@ -44,7 +46,7 @@ target_link_libraries(
             echo_build_options
 )
 
-target_link_libraries(echo_plugins PRIVATE echo_settings_keys)
+target_link_libraries(echo_plugins PRIVATE echo_settings_keys echo_log_redaction)
 
 target_sources(
     echo_plugins PRIVATE PluginRuntimeHelpers_p.h PluginRuntimeActivation.cpp
@@ -53,6 +55,11 @@ target_sources(
 
 target_sources(
     echo_plugins
-    PRIVATE PluginManagerHelpers_p.h PluginManagerCatalog.cpp PluginManagerInstallation.cpp
-            PluginManagerSharing.cpp PluginNetworkFailure.cpp PluginNetworkFailure.h
+    PRIVATE PluginManagerHelpers_p.h
+            PluginManagerCatalog.cpp
+            PluginManagerInstallation.cpp
+            PluginManagerSharing.cpp
+            PluginManagerTasks.cpp
+            PluginNetworkFailure.cpp
+            PluginNetworkFailure.h
 )

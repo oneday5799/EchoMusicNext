@@ -41,6 +41,7 @@
 #include <QTemporaryDir>
 #include <QtTest>
 #include <ctime>
+#include <functional>
 #ifdef Q_OS_MACOS
 #include <mach/mach.h>
 #endif
@@ -361,44 +362,71 @@ QQuickItem *visualInBounds(QQuickItem *item, const QString &name, const QRectF &
             return found;
     return nullptr;
 }
-void click(QQuickWindow *window, QQuickItem *item)
+QQuickItem *interact(QQuickWindow *window, const std::function<QQuickItem *()> &resolve, bool press)
 {
-    QPointer<QQuickItem> target(item);
-    QVERIFY2(target, "Native click target must be mounted");
-    if (target->window())
+    QPointer<QQuickItem> target = resolve();
+    if (target && target->window())
         window = target->window();
-    QVERIFY(Test::prepareNativeInput(window));
+    if (!Test::prepareNativeInput(window)) {
+        QTest::qFail("Native interaction window must be active", __FILE__, __LINE__);
+        return nullptr;
+    }
     QRectF previous;
+    QPoint previousOrigin;
+    QPointer<QQuickItem> previousTarget;
     int stable = 0;
     bool settled = false;
-    for (int turn = 0; turn < 60 && target; ++turn) {
-        QSignalSpy frames(window, &QQuickWindow::frameSwapped);
+    for (int turn = 0; turn < 60; ++turn) {
+        Test::FrameSpy frames(window);
         window->update();
         if (frames.isEmpty() && !frames.wait(1000))
             break;
-        if (!target)
-            break;
+        // Projection/restore can legitimately replace a delegate during polish.
+        // Resolve its current instance rather than waiting on a retired one.
+        target = resolve();
+        if (!target) {
+            stable = 0;
+            previousTarget.clear();
+            continue;
+        }
         const auto bounds = target->mapRectToScene(target->boundingRect());
+        const auto origin = window->mapToGlobal(QPoint());
         const bool ready = target->window() == window && target->isVisible() && !bounds.isEmpty() &&
                            QRectF(QPointF(), window->size()).contains(bounds.center()) &&
                            window->contentItem()->size() == QSizeF(window->size());
-        stable = ready && bounds == previous ? stable + 1 : 0;
+        stable = ready && target == previousTarget && bounds == previous && origin == previousOrigin
+                     ? stable + 1
+                     : 0;
         if (stable >= 2) {
             settled = true;
             break;
         }
         previous = bounds;
+        previousOrigin = origin;
+        previousTarget = target;
     }
-    QVERIFY2(settled, qPrintable(QString("Native click geometry did not settle for %1: %2,%3 %4x%5")
-                                     .arg(target ? target->objectName() : "retired")
-                                     .arg(previous.x())
-                                     .arg(previous.y())
-                                     .arg(previous.width())
-                                     .arg(previous.height())));
+    if (!settled) {
+        QTest::qFail(qPrintable(QString("Native click geometry did not settle for %1: %2,%3 %4x%5")
+                                    .arg(target ? target->objectName() : "retired")
+                                    .arg(previous.x())
+                                    .arg(previous.y())
+                                    .arg(previous.width())
+                                    .arg(previous.height())),
+                     __FILE__, __LINE__);
+        return nullptr;
+    }
     const auto point =
         target->mapToScene(QPointF(target->width() / 2, target->height() / 2)).toPoint();
     Test::moveNativePointer(window, point);
-    QTest::mouseClick(window, Qt::LeftButton, Qt::NoModifier, point);
+    if (press)
+        QTest::mouseClick(window, Qt::LeftButton, Qt::NoModifier, point);
+    return target;
+}
+void click(QQuickWindow *window, QQuickItem *item)
+{
+    QPointer<QQuickItem> target(item);
+    QVERIFY2(target, "Native click target must be mounted");
+    interact(window, [target] { return target.data(); }, true);
 }
 QList<QObject *> popups(QObject *host)
 {
@@ -535,6 +563,7 @@ Window {
                         const auto placeholderInk =
                             Test::renderedInkBounds(emptyFrame, pixels, foreground);
                         QVERIFY(placeholderInk);
+                        QVERIFY(Test::prepareNativeInput(window));
                         area->forceActiveFocus();
                         area->setProperty("cursorVisible", true);
                         QTRY_VERIFY(area->hasActiveFocus());
@@ -548,10 +577,10 @@ Window {
                         if (lineHeight > 0)
                             QTRY_VERIFY(qAbs(placeholder->y() + placeholder->baselineOffset() -
                                              nativeBaseline) < .01);
-                        auto *cursor = visual(area, "textCursor");
-                        QTRY_VERIFY((cursor = visual(area, "textCursor")));
+                        QPointer<QQuickItem> cursor;
                         QQuickItem *glyph = nullptr;
-                        QTRY_VERIFY((glyph = visual(cursor, "textCursorGlyph")));
+                        QTRY_VERIFY((cursor = visual(area, "textCursor")) &&
+                                    (glyph = visual(cursor, "textCursorGlyph")));
                         const qreal caretBaseline =
                             glyph->mapToItem(area, {0, 0}).y() +
                             QFontMetricsF(area->property("font").value<QFont>()).ascent();
@@ -888,7 +917,7 @@ Window {
                     QVERIFY(
                         document->textDocument()->toPlainText().endsWith(QStringLiteral("展开")));
                     if (!captures.isEmpty()) {
-                        QSignalSpy frames(window, &QQuickWindow::frameSwapped);
+                        Test::FrameSpy frames(window);
                         window->update();
                         QTRY_VERIFY(!frames.isEmpty());
                         QVERIFY(window->grabWindow().save(captures +
@@ -1076,6 +1105,7 @@ Window {
         PlaybackServiceTestAccess::current(playback);
         const auto queueSize = playback.queue()->rowCount();
         QSignalSpy opened(&shell, &ShellController::songPageOpened);
+        QSignalSpy mvOpened(&shell, &ShellController::mvPageOpened);
         QVERIFY(shell.invokePlayerCommand(ShellController::Comments));
         QCOMPARE(router.current()->name(), QString("song-comments"));
         QCOMPARE(router.current()->resourceId(), QString("32042818"));
@@ -1120,8 +1150,23 @@ Window {
         QCOMPARE(popup.size(), 1);
         QCOMPARE(popup[0][0].toString(), QString("comments"));
         QCOMPARE(router.current()->name(), QString("song-detail"));
+        const auto *beforeDetails = router.current();
+        const auto openedBefore = opened.size();
+        QVERIFY(shell.invokePlayerCommand(ShellController::SongDetails));
+        QCOMPARE(popup.last()[0].toString(), QString("song-details"));
+        QCOMPARE(router.current(), beforeDetails);
+        QCOMPARE(opened.size(), openedBefore);
+        QVERIFY(shell.invokePlayerCommand(ShellController::Mv));
+        QCOMPARE(router.current()->name(), QString("mv-detail"));
+        QCOMPARE(mvOpened.size(), 1);
+        PlaybackTrack missingId;
+        missingId.id = "missing-catalog-id";
+        playback.songCommands()->openMv(missingId);
+        QCOMPARE(mvOpened.size(), 1);
         service.shutdown();
         router.shutdown();
+        playback.songCommands()->openMv(playback.currentTrack());
+        QCOMPARE(mvOpened.size(), 1);
         playback.shutdown();
         api.shutdown();
     }
@@ -1542,7 +1587,7 @@ Window {
             qreal previousExtent = -1;
             int stable = 0;
             for (int turn = 0; turn < 60; ++turn) {
-                QSignalSpy rendered(window, &QQuickWindow::frameSwapped);
+                Test::FrameSpy rendered(window);
                 window->update();
                 if (rendered.isEmpty() && !rendered.wait(1000))
                     return false;
@@ -1785,7 +1830,7 @@ Window {
         QTRY_VERIFY2(visual(window->contentItem(), "songArtistLink") &&
                          visual(window->contentItem(), "songAlbumLink"),
                      qPrintable(errors.join('\n')));
-        QSignalSpy headerFrame(window, &QQuickWindow::frameSwapped);
+        Test::FrameSpy headerFrame(window);
         window->update();
         QTRY_VERIFY(headerFrame.size() > 0);
         auto *hiddenChips = visual(window->contentItem(), "commentFilterChips", true);
@@ -1870,7 +1915,7 @@ Window {
                 click(window, clippedArtist);
                 QCOMPARE(router.current(), originalRoute.data());
                 for (const auto &target : {QString("3520"), QString("6743")}) {
-                    QSignalSpy readyFrame(window, &QQuickWindow::frameSwapped);
+                    Test::FrameSpy readyFrame(window);
                     window->update();
                     QTRY_VERIFY(readyFrame.size() > 0);
                     const auto artistRowReady = [&] {
@@ -1910,7 +1955,7 @@ Window {
                         visual(visual(window->contentItem(), "songArtistLink"), "artistLink-1"));
                 }
                 window->update();
-                QSignalSpy swapped(window, &QQuickWindow::frameSwapped);
+                Test::FrameSpy swapped(window);
                 QTRY_VERIFY_WITH_TIMEOUT(swapped.size() > 0, 3000);
                 auto frame = window->grabWindow();
                 QVERIFY(!frame.isNull());
@@ -1990,7 +2035,7 @@ Window {
             // Category replacement can preserve a viewport offset while the
             // virtual rows are reflowing. Use an on-screen native target.
             QVERIFY(QMetaObject::invokeMethod(commentList, "positionViewAtBeginning"));
-            QSignalSpy commentFrame(window, &QQuickWindow::frameSwapped);
+            Test::FrameSpy commentFrame(window);
             window->update();
             QTRY_VERIFY(commentFrame.size() > 0);
             QTRY_VERIFY(reply = commentControl("commentReply"));
@@ -2031,7 +2076,7 @@ Window {
                         commentList->parentItem()->property("pageContainer").value<QObject *>();
                     QVERIFY(container);
                     QVERIFY(QMetaObject::invokeMethod(container, "resetPosition"));
-                    QSignalSpy commentFrame(window, &QQuickWindow::frameSwapped);
+                    Test::FrameSpy commentFrame(window);
                     window->update();
                     QTRY_VERIFY(commentFrame.size() > 0);
                     auto *header = visual(window->contentItem(), "songPageHeader");
@@ -2056,7 +2101,7 @@ Window {
                     auto *selectedTab = visual(subTabs, "tab-" + QString::number(tab));
                     QVERIFY(selection && selectedTab);
                     QTRY_VERIFY(qAbs(selection->x() - selectedTab->x()) < .01);
-                    QSignalSpy settledFrame(window, &QQuickWindow::frameSwapped);
+                    Test::FrameSpy settledFrame(window);
                     window->update();
                     QTRY_VERIFY(settledFrame.size() > 0);
                     auto frame = window->grabWindow();
@@ -2089,7 +2134,7 @@ Window {
                 QTRY_VERIFY(qAbs(label->mapToScene(QPointF()).x() -
                                  content->mapToScene(QPointF()).x()) < .01);
                 QCOMPARE(toggle->property("leftPadding").toReal(), 0.);
-                QSignalSpy frame(window, &QQuickWindow::frameSwapped);
+                Test::FrameSpy frame(window);
                 window->update();
                 QTRY_VERIFY(frame.size() > 0);
                 if (!artifacts.isEmpty())
@@ -2109,17 +2154,22 @@ Window {
             auto *controller = route == "album-detail"
                                    ? albums.contextFor(router.current())->comments()
                                    : playlists.contextFor(router.current())->comments();
+            auto *detailRoute = router.current();
             DetailsTestAccess::comments(*controller, 30);
-            // RouteHost retains a bounded LRU. Wait for this active context's
-            // page and its incubated tab delegates, not a retired page's ids.
-            QQuickItem *activePage = nullptr;
-            QTRY_VERIFY((activePage = visual(window->contentItem(), route == "album-detail"
-                                                                        ? "albumDetailPage"
-                                                                        : "playlistDetailPage")) &&
-                        activePage->property("context").value<RouteContext *>() ==
-                            router.current());
-            QQuickItem *catalog = nullptr;
-            QTRY_VERIFY((catalog = visual(activePage, "songCatalogView")));
+            // The LRU retains domain contexts, while every return recreates
+            // the page and its delegates. Reacquire the current visual tree.
+            QPointer<QQuickItem> activePage, catalog;
+            const auto currentCatalog = [&] {
+                activePage =
+                    visual(window->contentItem(),
+                           route == "album-detail" ? "albumDetailPage" : "playlistDetailPage");
+                if (!activePage ||
+                    activePage->property("context").value<RouteContext *>() != router.current())
+                    return false;
+                catalog = visual(activePage, "songCatalogView");
+                return bool(catalog);
+            };
+            QTRY_VERIFY(currentCatalog());
             QTRY_VERIFY(visual(catalog, "commentDraft"));
             QCOMPARE(catalog->property("toolbarHeight").toReal(), 56.);
             QTRY_VERIFY(visual(window->contentItem(), "detailTabIndicator"));
@@ -2142,13 +2192,18 @@ Window {
                 {"album_id", "960399"},
                 {"artists", QJsonArray{QJsonObject{{"id", 3520}, {"name", "Artist"}}}}}});
             for (const auto &entry : {QString("songDetailsAction"), QString("songMvAction")}) {
-                QTRY_VERIFY(visual(window->contentItem(), entry));
-                auto *button = visual(window->contentItem(), entry);
-                Test::moveNativePointer(
-                    window, button->mapToScene(QPointF(button->width() / 2, button->height() / 2))
-                                .toPoint());
-                QTRY_VERIFY(button->opacity() > .9);
+                QTRY_VERIFY(currentCatalog());
+                QPointer<QQuickItem> button;
+                QTRY_VERIFY((button = visual(catalog, entry)) && button->isEnabled());
+                button = interact(
+                    window,
+                    [&]() -> QQuickItem * {
+                        return currentCatalog() ? visual(catalog, entry) : nullptr;
+                    },
+                    false);
+                QTRY_VERIFY(button && button->opacity() > .9);
                 QCOMPARE(button->property("hoverBackground").toBool(), false);
+                QPointer<QQuickItem> retiredPage = activePage;
                 click(window, button);
                 QCOMPARE(router.current()->name(), entry == "songDetailsAction"
                                                        ? QString("song-comments")
@@ -2165,10 +2220,17 @@ Window {
                 }
                 QVERIFY(playback.currentTrack()
                             .id.isEmpty()); // Row action never changes the playing song.
+                QTRY_VERIFY(retiredPage.isNull());
                 router.back();
                 QTRY_COMPARE(router.current()->name(), route);
+                QCOMPARE(router.current(), detailRoute);
+                QTRY_VERIFY(currentCatalog());
             }
-            click(window, visual(window->contentItem(), "detailTab-1"));
+            QPointer<QQuickItem> commentsTab;
+            QTRY_VERIFY((commentsTab = visual(catalog, "detailTab-1")) && commentsTab->isEnabled());
+            QSignalSpy commentsPicked(commentsTab, SIGNAL(clicked()));
+            click(window, commentsTab);
+            QTRY_COMPARE(commentsPicked.size(), 1);
             QTRY_COMPARE(router.current()->query().value("tab").toString(), QString("comments"));
             QTRY_VERIFY(visual(window->contentItem(), "commentDraft"));
             for (bool dark : {false, true})
@@ -2504,7 +2566,7 @@ Window {
                     auto *container =
                         list->parentItem()->property("pageContainer").value<QObject *>();
                     QVERIFY(QMetaObject::invokeMethod(container, "resetPosition"));
-                    QSignalSpy frame(window, &QQuickWindow::frameSwapped);
+                    Test::FrameSpy frame(window);
                     window->update();
                     QTRY_VERIFY(frame.size() > 0);
                     if (!artifacts.isEmpty())

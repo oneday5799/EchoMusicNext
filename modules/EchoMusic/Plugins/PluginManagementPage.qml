@@ -29,6 +29,7 @@ Item {
             manager.refreshCatalog();
     }
     function closeDialogs() {
+        inspectorOwner.close();
         sourcesOwner.close();
         uninstallOwner.close();
         failureOwner.close();
@@ -52,6 +53,15 @@ Item {
         }
     }
     Connections {
+        target: page.manager
+        function onChanged() {
+            // A startup check only follows installed plugins. If this page was
+            // opened during that request, finish loading the full market here.
+            if (!page.manager.catalogLoading)
+                page.openMarketplace();
+        }
+    }
+    Connections {
         target: page.manager.runtime
         function onCatalogChanged() {
             if (page.settingsScope && !page.settingsScope.active) {
@@ -68,12 +78,7 @@ Item {
             }
         }
     }
-    EchoBackToTop {
-        anchors.fill: parent
-        z: 50
-        scrollView: list
-        viewActive: page.context.active
-    }
+
     PluginGridModel {
         id: rows
         source: page.marketplace ? page.manager.catalog : page.manager.runtime
@@ -137,6 +142,14 @@ Item {
                         Layout.fillWidth: false
                         Layout.fillHeight: false
                         spacing: 8
+                        PluginActionButton {
+                            objectName: "pluginUiInspectorAction"
+                            iconOnly: true
+                            text: qsTr("界面扩展检查器")
+                            tooltipText: text
+                            glyph: "search"
+                            onClicked: inspectorOwner.open()
+                        }
                         PluginActionButton {
                             objectName: "pluginInstallPackage"
                             iconOnly: true
@@ -245,240 +258,247 @@ Item {
                 color: Theme.subtleBorder
             }
         }
-        ListView {
-            id: list
-            objectName: "pluginCardList"
+        EchoPageScrollContainer {
+            id: viewport
             Layout.fillWidth: true
             Layout.fillHeight: true
-            model: rows
-            reuseItems: true
-            EchoViewPoolGuard {
-                targetView: list
-            }
-            cacheBuffer: 320
-            spacing: 14
-            clip: true
-            boundsBehavior: Flickable.StopAtBounds
-            bottomMargin: 24
-            ScrollBar.vertical: EchoPageScrollBar {
-                view: list
-                viewActive: page.context.active
-            }
-            header: Item {
-                width: list.width
-                height: headerContent.implicitHeight + 20 + (heading.visible ? 14 : 0)
-                ColumnLayout {
-                    id: headerContent
-                    x: 24
-                    y: 20
-                    width: list.width - 48
-                    spacing: 14
-                    Flow {
+            pageActive: page.context.active
+            scrollView: list
+            ListView {
+                id: list
+                objectName: "pluginCardList"
+                anchors.fill: parent
+                model: rows
+                reuseItems: true
+                EchoViewPoolGuard {
+                    targetView: list
+                }
+                cacheBuffer: 320
+                spacing: 14
+                clip: true
+                boundsBehavior: Flickable.StopAtBounds
+                bottomMargin: 24
+                ScrollBar.vertical: EchoPageScrollBar {
+                    view: list
+                    container: viewport
+                    viewActive: page.context.active
+                }
+                header: Item {
+                    width: list.width
+                    height: headerContent.implicitHeight + 20 + (heading.visible ? 14 : 0)
+                    ColumnLayout {
+                        id: headerContent
+                        x: 24
+                        y: 20
+                        width: list.width - 48
+                        spacing: 14
+                        Flow {
 
-                        Layout.fillWidth: true
-                        visible: page.marketplace
-                        spacing: 10
-                        EchoTextField {
-                            objectName: "pluginMarketplaceSearch"
-                            width: page.compactLayout ? parent.width : Math.min(352, parent.width)
-                            clearable: true
-                            placeholderText: qsTr("搜索插件、作者或标签")
-                            text: page.manager.search
-                            onTextEdited: page.manager.search = text
-                        }
-                        RowLayout {
-                            width: page.compactLayout ? parent.width : Math.min(318, parent.width)
+                            Layout.fillWidth: true
+                            visible: page.marketplace
                             spacing: 10
-                            EchoSelect {
-                                Layout.preferredWidth: parent.width - 46
-                                options: page.manager.sourceOptions
-                                value: page.manager.sourceFilter
-                                Accessible.name: qsTr("筛选插件源")
-                                onValueEdited: nextValue => page.manager.sourceFilter = nextValue
+                            EchoTextField {
+                                objectName: "pluginMarketplaceSearch"
+                                width: page.compactLayout ? parent.width : Math.min(352, parent.width)
+                                clearable: true
+                                placeholderText: qsTr("搜索插件、作者或标签")
+                                text: page.manager.search
+                                onTextEdited: page.manager.search = text
+                            }
+                            RowLayout {
+                                width: page.compactLayout ? parent.width : Math.min(318, parent.width)
+                                spacing: 10
+                                EchoSelect {
+                                    Layout.preferredWidth: parent.width - 46
+                                    options: page.manager.sourceOptions
+                                    value: page.manager.sourceFilter
+                                    Accessible.name: qsTr("筛选插件源")
+                                    onValueEdited: nextValue => page.manager.sourceFilter = nextValue
+                                }
+                                PluginActionButton {
+                                    objectName: "pluginSourceManage"
+                                    iconOnly: true
+                                    glyph: "cloud"
+                                    text: qsTr("管理插件源")
+                                    tooltipText: text
+                                    onClicked: sourcesOwner.open()
+                                }
                             }
                             PluginActionButton {
-                                objectName: "pluginSourceManage"
-                                iconOnly: true
-                                glyph: "cloud"
-                                text: qsTr("管理插件源")
-                                tooltipText: text
-                                onClicked: sourcesOwner.open()
+                                visible: page.manager.updateCount > 0 || page.manager.updatingAll
+                                accent: true
+                                implicitHeight: 36
+                                leftPadding: 16
+                                rightPadding: 16
+                                font: Theme.font(12, Theme.blackWeight)
+                                text: page.manager.updateAllLabel
+                                glyph: "arrow-bar-down"
+                                loading: page.manager.updatingAll
+                                enabled: !page.manager.busy && !page.manager.catalogLoading
+                                onClicked: page.manager.updateAll()
                             }
                         }
-                        PluginActionButton {
-                            visible: page.manager.updateCount > 0 || page.manager.updatingAll
-                            accent: true
-                            implicitHeight: 36
-                            leftPadding: 16
-                            rightPadding: 16
-                            font: Theme.font(12, Theme.blackWeight)
-                            text: page.manager.updateAllLabel
-                            glyph: "arrow-bar-down"
-                            loading: page.manager.updatingAll
-                            enabled: !page.manager.busy && !page.manager.catalogLoading
-                            onClicked: page.manager.updateAll()
-                        }
-                    }
-                    ColumnLayout {
-                        Layout.fillWidth: true
-                        visible: page.marketplace && page.manager.sourceError.length > 0
-                        spacing: 8
-                        Repeater {
-                            model: page.manager.sources
-                            delegate: Rectangle {
-                                id: sourceFailure
-                                required property var pluginRecord
-                                objectName: "pluginSourceFailure-" + pluginRecord.id
-                                Layout.fillWidth: true
-                                visible: !!pluginRecord.enabled && !!pluginRecord.lastError
-                                implicitHeight: Math.max(36, sourceErrorRow.implicitHeight + 16)
-                                radius: Theme.controlRadius
-                                color: Theme.withAlpha("#f59e0b", 0.08)
-                                border.color: Theme.withAlpha("#f59e0b", 0.22)
-                                RowLayout {
-                                    id: sourceErrorRow
-                                    x: 12
-                                    y: 8
-                                    width: parent.width - 24
-                                    spacing: 8
-                                    EchoIcon {
-                                        name: "alert-triangle"
-                                        Layout.preferredWidth: 15
-                                        Layout.preferredHeight: 15
-                                        color: Theme.dark ? "#fbbf24" : "#b45309"
-                                    }
-                                    Label {
-                                        Layout.fillWidth: true
-                                        text: sourceFailure.pluginRecord.name + "：" + sourceFailure.pluginRecord.lastError
-                                        color: Theme.dark ? "#fbbf24" : "#b45309"
-                                        font: Theme.font(12, Theme.semiboldWeight)
-                                        wrapMode: Text.Wrap
-                                    }
-                                    PluginActionButton {
-                                        objectName: "pluginSourceErrorDetailsAction"
-                                        text: qsTr("详情")
-                                        visible: !!sourceFailure.pluginRecord.lastErrorDetail
-                                        onClicked: networkFailureOwner.open({
-                                            failure: Object.assign({
-                                                sourceName: sourceFailure.pluginRecord.name
-                                            }, sourceFailure.pluginRecord.lastErrorDetail)
-                                        })
+                        ColumnLayout {
+                            Layout.fillWidth: true
+                            visible: page.marketplace && page.manager.sourceError.length > 0
+                            spacing: 8
+                            Repeater {
+                                model: page.manager.sources
+                                delegate: Rectangle {
+                                    id: sourceFailure
+                                    required property var pluginRecord
+                                    objectName: "pluginSourceFailure-" + pluginRecord.id
+                                    Layout.fillWidth: true
+                                    visible: !!pluginRecord.enabled && !!pluginRecord.lastError
+                                    implicitHeight: Math.max(36, sourceErrorRow.implicitHeight + 16)
+                                    radius: Theme.controlRadius
+                                    color: Theme.withAlpha("#f59e0b", 0.08)
+                                    border.color: Theme.withAlpha("#f59e0b", 0.22)
+                                    RowLayout {
+                                        id: sourceErrorRow
+                                        x: 12
+                                        y: 8
+                                        width: parent.width - 24
+                                        spacing: 8
+                                        EchoIcon {
+                                            name: "alert-triangle"
+                                            Layout.preferredWidth: 15
+                                            Layout.preferredHeight: 15
+                                            color: Theme.dark ? "#fbbf24" : "#b45309"
+                                        }
+                                        Label {
+                                            Layout.fillWidth: true
+                                            text: sourceFailure.pluginRecord.name + "：" + sourceFailure.pluginRecord.lastError
+                                            color: Theme.dark ? "#fbbf24" : "#b45309"
+                                            font: Theme.font(12, Theme.semiboldWeight)
+                                            wrapMode: Text.Wrap
+                                        }
+                                        PluginActionButton {
+                                            objectName: "pluginSourceErrorDetailsAction"
+                                            text: qsTr("详情")
+                                            visible: !!sourceFailure.pluginRecord.lastErrorDetail
+                                            onClicked: networkFailureOwner.open({
+                                                failure: Object.assign({
+                                                    sourceName: sourceFailure.pluginRecord.name
+                                                }, sourceFailure.pluginRecord.lastErrorDetail)
+                                            })
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    RowLayout {
-                        id: heading
-                        objectName: "pluginCatalogHeading"
-                        Layout.fillHeight: false
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 21
-                        visible: page.marketplace || page.manager.runtime.count > 0
-                        spacing: 16
-                        Label {
-                            text: page.marketplace ? qsTr("在线插件") : qsTr("已安装插件")
-                            color: Theme.text
-                            font: Theme.font(14, Theme.boldWeight)
-                        }
-                        Item {
+                        RowLayout {
+                            id: heading
+                            objectName: "pluginCatalogHeading"
+                            Layout.fillHeight: false
                             Layout.fillWidth: true
+                            Layout.preferredHeight: 21
+                            visible: page.marketplace || page.manager.runtime.count > 0
+                            spacing: 16
+                            Label {
+                                text: page.marketplace ? qsTr("在线插件") : qsTr("已安装插件")
+                                color: Theme.text
+                                font: Theme.font(14, Theme.boldWeight)
+                            }
+                            Item {
+                                Layout.fillWidth: true
+                            }
+                            Label {
+                                Layout.minimumWidth: 0
+                                Layout.fillWidth: page.compactLayout
+                                horizontalAlignment: Text.AlignRight
+                                text: page.marketplace ? qsTr("%1 个可浏览").arg(page.manager.catalog.count) + " · " + page.manager.sourceSummary + (page.manager.fetchedAt ? " · " + new Date(page.manager.fetchedAt).toLocaleString(Qt.locale(), "yyyy/M/d HH:mm:ss") : "") : qsTr("%1/%2 个已启用").arg(page.manager.runtime.enabledCount).arg(page.manager.runtime.count)
+                                color: Theme.secondaryText
+                                font: Theme.font(12, Theme.semiboldWeight)
+                                wrapMode: Text.Wrap
+                            }
+                        }
+                        Loader {
+                            Layout.fillWidth: true
+                            active: page.initialLoading && page.context.active
+                            visible: active
+                            Layout.preferredHeight: active && item ? (item as Item).implicitHeight : 0
+                            sourceComponent: PluginMarketplaceSkeleton {
+                                columns: rows.columns
+                                resourceActive: page.context.active
+                            }
+                        }
+                    }
+                }
+                delegate: Item {
+                    id: row
+                    required property var cards
+                    width: list.width
+                    // Native layout observes child insertion and implicit size changes,
+                    // including Repeater delegates completed after async page creation.
+                    height: cardLayout.implicitHeight
+                    RowLayout {
+                        id: cardLayout
+                        x: 24
+                        spacing: 14
+                        Repeater {
+                            id: cardRepeater
+                            model: row.cards
+                            delegate: PluginCard {
+                                required property var modelData
+                                objectName: "pluginCard-" + (modelData.id || "invalid")
+                                Layout.preferredWidth: Math.max(0, (list.width - 48 - (rows.columns - 1) * 14) / rows.columns)
+                                Layout.fillHeight: true
+                                record: modelData
+                                marketplace: page.marketplace
+                                manager: page.manager
+                                onDataRequested: installation => dataOwner.open({
+                                        installationId: installation
+                                    })
+                                onUninstallRequested: installation => {
+                                    page.uninstallId = installation;
+                                    uninstallOwner.open();
+                                }
+                                onFailureRequested: installation => {
+                                    page.failureId = installation;
+                                    failureOwner.open();
+                                }
+                                onSettingsRequested: installation => {
+                                    page.settingsId = installation;
+                                    page.settingsScope = page.manager.requestSettings(installation);
+                                    if (page.settingsScope)
+                                        pluginSettingsOwner.open();
+                                }
+                            }
+                        }
+                    }
+                }
+                footer: Item {
+                    width: list.width
+                    height: rows.count === 0 && !page.initialLoading ? 245 : 0
+                    ColumnLayout {
+                        anchors.centerIn: parent
+                        visible: parent.height > 0
+                        spacing: 0
+                        EchoIcon {
+                            objectName: "pluginEmptyIcon"
+                            Layout.alignment: Qt.AlignHCenter
+                            name: page.marketplace ? "cloud" : "puzzle"
+                            Layout.preferredWidth: 48
+                            Layout.preferredHeight: 48
+                            color: Theme.withAlpha(Theme.text, 0.2)
                         }
                         Label {
-                            Layout.minimumWidth: 0
-                            Layout.fillWidth: page.compactLayout
-                            horizontalAlignment: Text.AlignRight
-                            text: page.marketplace ? qsTr("%1 个可浏览").arg(page.manager.catalog.count) + " · " + page.manager.sourceSummary + (page.manager.fetchedAt ? " · " + new Date(page.manager.fetchedAt).toLocaleString(Qt.locale(), "yyyy/M/d HH:mm:ss") : "") : qsTr("%1/%2 个已启用").arg(page.manager.runtime.enabledCount).arg(page.manager.runtime.count)
+                            text: page.marketplace ? qsTr("暂无在线插件") : qsTr("暂无插件")
+                            Layout.topMargin: 16
+                            font: Theme.font(16, Theme.mediumWeight)
                             color: Theme.secondaryText
-                            font: Theme.font(12, Theme.semiboldWeight)
+                            Layout.alignment: Qt.AlignHCenter
+                        }
+                        Label {
+                            Layout.topMargin: 8
+                            Layout.maximumWidth: list.width - 48
                             wrapMode: Text.Wrap
+                            horizontalAlignment: Text.AlignHCenter
+                            text: page.marketplace ? qsTr("添加插件源或刷新在线列表后再试") : qsTr("安装 .echomod 插件包，或放入上方目录后刷新")
+                            font: Theme.font(14, Theme.regularWeight)
+                            color: Theme.secondaryText
                         }
-                    }
-                    Loader {
-                        Layout.fillWidth: true
-                        active: page.initialLoading && page.context.active
-                        visible: active
-                        Layout.preferredHeight: active && item ? (item as Item).implicitHeight : 0
-                        sourceComponent: PluginMarketplaceSkeleton {
-                            columns: rows.columns
-                            resourceActive: page.context.active
-                        }
-                    }
-                }
-            }
-            delegate: Item {
-                id: row
-                required property var cards
-                width: list.width
-                // Native layout observes child insertion and implicit size changes,
-                // including Repeater delegates completed after async page creation.
-                height: cardLayout.implicitHeight
-                RowLayout {
-                    id: cardLayout
-                    x: 24
-                    spacing: 14
-                    Repeater {
-                        id: cardRepeater
-                        model: row.cards
-                        delegate: PluginCard {
-                            required property var modelData
-                            objectName: "pluginCard-" + (modelData.id || "invalid")
-                            Layout.preferredWidth: Math.max(0, (list.width - 48 - (rows.columns - 1) * 14) / rows.columns)
-                            Layout.fillHeight: true
-                            record: modelData
-                            marketplace: page.marketplace
-                            manager: page.manager
-                            onDataRequested: installation => dataOwner.open({
-                                    installationId: installation
-                                })
-                            onUninstallRequested: installation => {
-                                page.uninstallId = installation;
-                                uninstallOwner.open();
-                            }
-                            onFailureRequested: installation => {
-                                page.failureId = installation;
-                                failureOwner.open();
-                            }
-                            onSettingsRequested: installation => {
-                                page.settingsId = installation;
-                                page.settingsScope = page.manager.requestSettings(installation);
-                                if (page.settingsScope)
-                                    pluginSettingsOwner.open();
-                            }
-                        }
-                    }
-                }
-            }
-            footer: Item {
-                width: list.width
-                height: rows.count === 0 && !page.initialLoading ? 245 : 0
-                ColumnLayout {
-                    anchors.centerIn: parent
-                    visible: parent.height > 0
-                    spacing: 0
-                    EchoIcon {
-                        objectName: "pluginEmptyIcon"
-                        Layout.alignment: Qt.AlignHCenter
-                        name: page.marketplace ? "cloud" : "puzzle"
-                        Layout.preferredWidth: 48
-                        Layout.preferredHeight: 48
-                        color: Theme.withAlpha(Theme.text, 0.2)
-                    }
-                    Label {
-                        text: page.marketplace ? qsTr("暂无在线插件") : qsTr("暂无插件")
-                        Layout.topMargin: 16
-                        font: Theme.font(16, Theme.mediumWeight)
-                        color: Theme.secondaryText
-                        Layout.alignment: Qt.AlignHCenter
-                    }
-                    Label {
-                        Layout.topMargin: 8
-                        Layout.maximumWidth: list.width - 48
-                        wrapMode: Text.Wrap
-                        horizontalAlignment: Text.AlignHCenter
-                        text: page.marketplace ? qsTr("添加插件源或刷新在线列表后再试") : qsTr("安装 .echomod 插件包，或放入上方目录后刷新")
-                        font: Theme.font(14, Theme.regularWeight)
-                        color: Theme.secondaryText
                     }
                 }
             }
@@ -608,6 +628,13 @@ Item {
                 onVisibleChanged: if (visible)
                     EchoPopupCoordinator.popupOpening(null, page)
             }
+        }
+    }
+    EchoPopupLoader {
+        id: inspectorOwner
+        hostItem: page
+        sourceComponent: Component {
+            PluginUiInspectorDialog {}
         }
     }
 }

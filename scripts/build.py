@@ -15,6 +15,8 @@ def build_app(
     jobs=None,
     configure_only=False,
     distribution=False,
+    no_tests=False,
+    no_ffi_check=False,
 ):
     prefix = Path(qt_prefix) if qt_prefix else preferred_prefix()
     try:
@@ -25,6 +27,9 @@ def build_app(
     previous = cached_prefix(build)
     command = ["cmake", "--preset", preset, f"-DCMAKE_PREFIX_PATH={prefix}"]
     command.append(f"-DECHO_DISTRIBUTION_BUILD={'ON' if distribution else 'OFF'}")
+    command.append(f"-DECHO_CHECK_FFI_HEADER={'OFF' if no_ffi_check else 'ON'}")
+    if no_tests:
+        command.append("-DBUILD_TESTING=OFF")
     # CMake caches Qt6_DIR and each module path. Switching a kit must clear all
     # of them together; overriding only CMAKE_PREFIX_PATH mixes old/new kits.
     if previous and previous != prefix:
@@ -52,6 +57,12 @@ def main():
     parser.add_argument("--jobs", type=int)
     parser.add_argument("--configure-only", action="store_true")
     parser.add_argument(
+        "--no-tests", action="store_true", help="Do not configure test targets for this build"
+    )
+    parser.add_argument(
+        "--no-ffi-check", action="store_true", help="Skip the development FFI header check"
+    )
+    parser.add_argument(
         "--distribution",
         action="store_true",
         help="Enable packaged lifecycle actions, including diagnostic relaunch",
@@ -65,6 +76,8 @@ def main():
         args.jobs,
         args.configure_only,
         args.distribution,
+        args.no_tests,
+        args.no_ffi_check,
     )
 
 

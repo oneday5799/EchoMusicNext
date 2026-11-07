@@ -36,6 +36,12 @@ qt_add_qml_module(
     graphics/GpuRhiPasses.cpp
     graphics/GpuRhiRenderer.cpp
     graphics/GpuRhiOutput.cpp
+    EchoUiBatch.h
+    EchoUiBatch.cpp
+    EchoUiContribution.h
+    EchoUiContribution.cpp
+    EchoUiModelContribution.h
+    EchoUiModelContribution.cpp
     EchoUiPartRef.h
     EchoUiPartRef.cpp
     EchoPluginUiParts.h
@@ -66,6 +72,7 @@ qt_add_qml_module(
     EchoPluginAudio.cpp
     EchoPluginOperation.h
     EchoPluginOperation.cpp
+    EchoPluginScriptValue_p.h
     EchoPluginPromise.h
     EchoPluginRegistration.h
     EchoPluginRegistration.cpp
@@ -152,6 +159,8 @@ qt_add_qml_module(
     PluginSdkContract.h
     PluginSdkContract.cpp
     QML_FILES
+    EchoUiContributionItem.qml
+    EchoUiPartPalette.qml
     EchoPluginDialogOwner.qml
     EchoPluginPage.qml
     EchoPluginPlaybackControls.qml
@@ -191,7 +200,7 @@ if(WIN32)
     target_compile_definitions(echo_plugin_sdk PRIVATE _WIN32_WINNT=0x0A00 WINVER=0x0A00)
 endif()
 
-target_link_libraries(echo_plugin_sdk PRIVATE echo_settings_keys)
+target_link_libraries(echo_plugin_sdk PRIVATE echo_settings_keys echo_log_redaction)
 
 # QRhi is intentionally isolated inside the version-pinned host implementation.
 target_link_libraries(echo_plugin_sdk PRIVATE Qt6::GuiPrivate Qt6::QuickPrivate)

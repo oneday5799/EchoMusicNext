@@ -25,16 +25,8 @@ configure_file(
     "${PROJECT_SOURCE_DIR}/cmake/EchoBuildInfo.h.in"
     "${CMAKE_BINARY_DIR}/generated/EchoBuildInfo.h" @ONLY
 )
-# Preserve optimized native symbols in Release as well as RelWithDebInfo.
-if(MSVC)
-    add_compile_options("$<$<CONFIG:Release>:/Zi>")
-    add_link_options(
-        "$<$<CONFIG:Release>:/DEBUG:FULL>" "$<$<CONFIG:Release>:/OPT:REF>"
-        "$<$<CONFIG:Release>:/OPT:ICF>"
-    )
-elseif(APPLE)
-    add_compile_options("$<$<CONFIG:Release>:-g>")
-else()
-    add_compile_options("$<$<CONFIG:Release>:-g1>")
+# Use the toolchain's normal configuration flags without adding Release debug
+# information. ELF build IDs identify native crash modules without debug data.
+if(UNIX AND NOT APPLE)
     add_link_options(-Wl,--build-id=sha1)
 endif()

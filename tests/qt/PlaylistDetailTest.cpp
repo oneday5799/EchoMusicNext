@@ -23,6 +23,9 @@
 #include <QSignalSpy>
 #include <QTemporaryDir>
 #include <QtTest>
+#ifdef Q_OS_MACOS
+#include <mach/mach.h>
+#endif
 using namespace EchoMusic;
 namespace EchoMusic
 {
@@ -273,6 +276,27 @@ int playlistVisualCount(QQuickItem *item, const QString &name)
         count += playlistVisualCount(child, name);
     return count;
 }
+class PageReadyTiming final : public QObject
+{
+    Q_OBJECT
+public:
+    QElapsedTimer clock;
+    QList<qint64> samples;
+    bool armed = false;
+    void start()
+    {
+        clock.start();
+        armed = true;
+    }
+public slots:
+    void presented(const QString &)
+    {
+        if (armed) {
+            samples.append(clock.elapsed());
+            armed = false;
+        }
+    }
+};
 class PlaylistDetailTest : public QObject
 {
     Q_OBJECT
@@ -856,13 +880,14 @@ Window {
  id: window
  required property SongCatalogModel songs
  required property SongCatalogActions actions
- property bool busy: false
+ property bool busy: true
  property string errorText: ""
  color: Theme.main
  visible: true; width: 1000; height: 700
  SongCatalogView {
   anchors.fill: parent
   collection: window.songs; actions: window.actions; loading: window.busy
+  resourceActive: !window.busy
   errorMessage: window.errorText
   headerComponent: Component { SongDetailHeader { heading: "Refresh lifecycle" } }
  }
@@ -885,9 +910,24 @@ Window {
             song["metadata"] = value["metadata"];
             page.append(song);
         }
-        songs.appendSongs(page);
+        QVERIFY(QTest::qWaitForWindowExposed(window));
+        auto *catalog = playlistVisual(window->contentItem(), "songCatalogView");
+        QVERIFY(catalog);
+        QTRY_COMPARE(catalog->property("scrollTop").toReal(), 0.);
+        QJsonArray initialPage;
+        for (int i = 30; i < page.size(); ++i)
+            initialPage.append(page[i]);
+        songs.appendSongs(initialPage);
+        window->setProperty("busy", false);
         QTRY_VERIFY(playlistVisual(window->contentItem(), "songDelegate"));
         drainIncubation();
+        QTest::qWait(350);
+        QCOMPARE(catalog->property("scrollTop").toReal(), 0.);
+        // A later globally sorted page can insert songs before the first
+        // accepted page. The expanded header remains part of logical top.
+        songs.replaceSongs(page, true);
+        QTest::qWait(350);
+        QCOMPARE(catalog->property("scrollTop").toReal(), 0.);
         auto *list = playlistVisual(window->contentItem(), "discoverySongs");
         QVERIFY(list);
         QSignalSpy modelChanges(list, SIGNAL(modelChanged()));
@@ -1434,7 +1474,7 @@ Window {
  visible:true; width:1150; height:800
  Rectangle {anchors.fill:parent;color:Theme.main}
  Item {width:parent.width/window.settings.uiScale;height:parent.height/window.settings.uiScale;scale:window.settings.uiScale;transformOrigin:Item.TopLeft
- RouteHost {anchors.fill:parent;router:window.router;settings:window.settings} }
+ RouteHost {objectName:"cacheTimingHost";anchors.fill:parent;router:window.router;settings:window.settings} }
 })",
                           QUrl("qrc:/playlist-detail-runtime.qml"));
         QScopedPointer<QObject> root(component.createWithInitialProperties(
@@ -1539,6 +1579,9 @@ Window {
         auto *view = playlistVisual(window->contentItem(), "songCatalogView");
         QVERIFY(view);
         QTRY_COMPARE_WITH_TIMEOUT(view->property("scrollTop").toReal(), 0., 3000);
+        // Static ink/color measurements must not sample an unfinished entry.
+        // The cache/navigation portion below explicitly enables motion again.
+        theme.setMotionEnabled(false);
         for (bool dark : {false, true})
             for (double scale : {1., 1.25})
                 for (int width : {1150, 650}) {
@@ -1698,6 +1741,161 @@ Window {
         const int rows = playlistVisualCount(window->contentItem(), "songDelegate");
         QVERIFY(rows > 0 && rows < 100);
         qInfo("Playlist %d songs: %d instantiated rows", context->songs()->totalCount(), rows);
+        if (!live) {
+            // Exercise the production page, not only the lifetime probe: a
+            // complete catalog and its operations survive 19 other cached routes.
+            theme.setMotionEnabled(true);
+            auto *originalRoute = router.current();
+            context->songs()->setQuery("Song");
+            context->songs()->toggleSelected("13");
+            context->songs()->toggleSort(1);
+            const auto sortField = context->songs()->sortField();
+            const auto sortDirection = context->songs()->sortDirection();
+            const auto footprint = []() -> qint64 {
+#ifdef Q_OS_MACOS
+                task_vm_info_data_t info{};
+                mach_msg_type_number_t size = TASK_VM_INFO_COUNT;
+                if (task_info(mach_task_self(), TASK_VM_INFO, reinterpret_cast<task_info_t>(&info),
+                              &size) == KERN_SUCCESS)
+                    return static_cast<qint64>(info.phys_footprint);
+#endif
+                return -1;
+            };
+            auto *list = playlistVisual(window->contentItem(), "discoverySongs");
+            QVERIFY(list);
+            QVERIFY(QMetaObject::invokeMethod(list, "forceLayout"));
+            list->setProperty("contentY", 500.);
+            QTRY_COMPARE(list->property("contentY").toReal(), 500.);
+            // Native positioning may rebase originY when the recreated view
+            // starts directly at its saved row instead of laying out row zero.
+            const auto savedRowPosition =
+                list->property("contentY").toReal() - list->property("originY").toReal();
+            QTRY_VERIFY(!originalRoute->viewState()
+                             ->load("scroll:page-scroll")
+                             .value("anchor")
+                             .toMap()
+                             .value("id")
+                             .toString()
+                             .isEmpty());
+            QSignalSpy modelResets(context->songs(), &QAbstractItemModel::modelReset);
+            QPointer<QQuickItem> retired =
+                playlistVisual(window->contentItem(), "playlistDetailPage");
+            for (int i = 0; i < 19; ++i) {
+                QVERIFY(router.navigate("playlist-detail", {}, QString("cache-page-%1").arg(i)));
+                auto *cached = service.contextFor(router.current());
+                PlaylistDetailContextTestAccess::seed(*cached, QString("Cached %1").arg(i), "");
+                QJsonArray values;
+                for (int j = 1; j <= 100; ++j) {
+                    const auto entry = playlistSong(j);
+                    auto song = entry["song"].toObject();
+                    song["metadata"] = entry["metadata"];
+                    values.append(song);
+                }
+                cached->songs()->replaceSongs(values);
+                PlaylistDetailContextTestAccess::markClosed(*cached);
+                QTRY_VERIFY(retired.isNull());
+                QTRY_VERIFY(playlistVisual(window->contentItem(), "playlistDetailPage"));
+                QTRY_COMPARE(playlistVisualCount(window->contentItem(), "playlistDetailPage"), 1);
+                retired = playlistVisual(window->contentItem(), "playlistDetailPage");
+            }
+            QCOMPARE(router.mountedCount(), 20);
+            QVERIFY(router.navigate("playlist-detail", {}, global));
+            QCOMPARE(router.current(), originalRoute);
+            QCOMPARE(service.contextFor(router.current()), context);
+            QTRY_VERIFY(retired.isNull());
+            QTRY_COMPARE(playlistVisualCount(window->contentItem(), "playlistDetailPage"), 1);
+            QTRY_VERIFY((list = playlistVisual(window->contentItem(), "discoverySongs")));
+            QTRY_VERIFY(qAbs(list->property("contentY").toReal() -
+                             list->property("originY").toReal() - savedRowPosition) < .5);
+            QCOMPARE(context->songs()->totalCount(), 10000);
+            QCOMPARE(context->songs()->query(), QString("Song"));
+            QCOMPARE(context->songs()->selectedIds(), QStringList{"13"});
+            QCOMPARE(context->songs()->sortField(), sortField);
+            QCOMPARE(context->songs()->sortDirection(), sortDirection);
+            QCOMPARE(modelResets.size(), 0);
+            qInfo("20 cached catalogs / 11900 rows: one visual page, original "
+                  "data/filter/selection/sort/scroll retained");
+            qInfo() << "page_cache_footprint_after_fill_bytes" << footprint();
+            PageReadyTiming timing;
+            auto *timingHost = playlistVisual(window->contentItem(), "cacheTimingHost");
+            QVERIFY(timingHost);
+            QVERIFY(
+                connect(timingHost, SIGNAL(pageReady(QString)), &timing, SLOT(presented(QString))));
+            for (int pass = 0; pass < 3; ++pass) {
+                for (int i = 0; i < 19; ++i) {
+                    QPointer<QQuickItem> old =
+                        playlistVisual(window->contentItem(), "playlistDetailPage");
+                    timing.start();
+                    QVERIFY(
+                        router.navigate("playlist-detail", {}, QString("cache-page-%1").arg(i)));
+                    QTRY_VERIFY(old.isNull());
+                    QTRY_VERIFY(playlistVisual(window->contentItem(), "playlistDetailPage"));
+                    QTRY_COMPARE(playlistVisualCount(window->contentItem(), "playlistDetailPage"),
+                                 1);
+                    QTRY_VERIFY(!timing.armed);
+                }
+                QVERIFY(router.navigate("playlist-detail", {}, global));
+                QTRY_COMPARE(playlistVisualCount(window->contentItem(), "playlistDetailPage"), 1);
+                QTRY_VERIFY((list = playlistVisual(window->contentItem(), "discoverySongs")));
+                QTRY_VERIFY(qAbs(list->property("contentY").toReal() -
+                                 list->property("originY").toReal() - savedRowPosition) < .5);
+                QCOMPARE(service.contextFor(router.current()), context);
+                QCOMPARE(modelResets.size(), 0);
+                qInfo() << "page_cache_roundtrip_pass" << pass + 1 << "contexts"
+                        << router.mountedCount() << "visual_pages"
+                        << playlistVisualCount(window->contentItem(), "playlistDetailPage")
+                        << "footprint_bytes" << footprint();
+            }
+            QCOMPARE(timing.samples.size(), 57);
+            std::sort(timing.samples.begin(), timing.samples.end());
+            qInfo() << "cached_page_ready_ms" << "samples" << timing.samples.size() << "median"
+                    << timing.samples[timing.samples.size() / 2] << "p95"
+                    << timing.samples[timing.samples.size() * 95 / 100] << "maximum"
+                    << timing.samples.last();
+            // A background catalog edit must preserve the visible song, not
+            // merely the old pixel coordinate after a preceding row disappears.
+            const auto removedId = context->songs()->item(0).value("resourceId").toString();
+            const auto rowHeight = playlistVisual(window->contentItem(), "songDelegate")->height();
+            QPointer<QQuickItem> editedVisual =
+                playlistVisual(window->contentItem(), "playlistDetailPage");
+            QVERIFY(router.navigate("playlist-detail", {}, "cache-page-0"));
+            QTRY_VERIFY(playlistVisual(window->contentItem(), "playlistDetailPage"));
+            QJsonArray changed;
+            for (int j = 1; j <= 10000; ++j) {
+                if (QString::number(j) == removedId)
+                    continue;
+                const auto entry = playlistSong(j);
+                auto song = entry["song"].toObject();
+                song["metadata"] = entry["metadata"];
+                changed.append(song);
+            }
+            QSignalSpy removedRows(context->songs(), &QAbstractItemModel::rowsRemoved);
+            context->songs()->replaceSongs(changed, true);
+            QCOMPARE(context->songs()->totalCount(), 9999);
+            QCOMPARE(removedRows.size(), 1);
+            QCOMPARE(modelResets.size(), 0);
+            // Loader detaches/hides immediately; Qt may defer QObject
+            // deletion until this GUI turn returns. It cannot be reused.
+            QVERIFY(!editedVisual || !editedVisual->isVisible());
+            QVERIFY(router.navigate("playlist-detail", {}, global));
+            QTRY_VERIFY(editedVisual.isNull());
+            QTRY_VERIFY((list = playlistVisual(window->contentItem(), "discoverySongs")));
+            // A reconstructed native view can have a rebased origin; the
+            // logical row position must remain stable on repeated returns.
+            QTRY_VERIFY(qAbs(list->property("contentY").toReal() -
+                             list->property("originY").toReal() - (savedRowPosition - rowHeight)) <
+                        .5);
+            QVERIFY(router.navigate("playlist-detail", {}, "cache-page-0"));
+            QTRY_VERIFY(editedVisual.isNull());
+            QTRY_COMPARE(playlistVisualCount(window->contentItem(), "playlistDetailPage"), 1);
+            QVERIFY(router.navigate("playlist-detail", {}, global));
+            QTRY_COMPARE(playlistVisualCount(window->contentItem(), "playlistDetailPage"), 1);
+            QTRY_VERIFY((list = playlistVisual(window->contentItem(), "discoverySongs")));
+            QTRY_VERIFY(qAbs(list->property("contentY").toReal() -
+                             list->property("originY").toReal() - (savedRowPosition - rowHeight)) <
+                        .5);
+            QCOMPARE(modelResets.size(), 0);
+        }
         QVERIFY2(errors.isEmpty(), qPrintable(errors.join('\n')));
         root.reset();
         service.shutdown();

@@ -4,9 +4,20 @@
 #include "EchoPluginViewContext.h"
 #include "AppearanceHost.h"
 #include "EchoUiPartRegistry.h"
+#include "EchoUiPartRegistration.h"
+#include "EchoPluginUiParts.h"
+#include "EchoUiContribution.h"
 #include <QWheelEvent>
 namespace
 {
+bool routeTransitioning(QQuickItem *page)
+{
+    const auto *entry = page->findChild<QObject *>("routeEntryAnimation");
+    const auto *exit = page->findChild<QObject *>("routeExitAnimation");
+    return (entry && entry->property("running").toBool()) ||
+           (exit && exit->property("running").toBool()) ||
+           page->property("waitingEnter").toBool() || page->property("waitingExit").toBool();
+}
 QByteArray appearanceVisual = R"(
 import QtQuick
 import EchoMusic.PluginSdk
@@ -39,6 +50,16 @@ QString appearancePackage(Host &host, const QByteArray &body, const QString &id 
     const auto path =
         pluginPackage(host.temporary.path(), id, "export function activate(c) {" + body + "}",
                       {{"capabilities", capabilities}});
+    write(path + "/Wrapper.qml", R"(
+import QtQuick
+import EchoMusic.PluginSdk
+Item {
+ required property EchoPluginContext plugin
+ required property EchoUiPartRef part
+ objectName: "appearanceCompositionWrapper"
+ EchoUiHostContent { part: parent.part; anchors.fill: parent; anchors.margins: 8 }
+}
+)");
     write(path + "/Visual.qml", appearanceVisual);
     auto redirect = appearanceVisual;
     redirect.replace("Component.onCompleted: {",
@@ -256,6 +277,11 @@ void PluginRuntimeTest::appearanceProductionThemeSkinAndMini()
     QTRY_VERIFY(miniHost->property("loaded").toBool());
     QPointer<QQuickItem> miniVisual = visual(mini->contentItem(), "actualAppearanceVisual");
     QVERIFY(miniVisual);
+    auto *parts = host.runtime.context(installation)->ui()->parts();
+    auto *miniPart = parts->queryUnique(
+        {{"key", "actualAppearanceVisual"}, {"owner", "test.appearance"}, {"surface", "mini"}});
+    QVERIFY(miniPart && miniPart->registration()->target() == miniVisual);
+    QVERIFY(miniPart->persistent());
     QVERIFY(miniVisual->property("creationWidth").toReal() > 0);
     QPointer<AppearanceConfiguration> configuration =
         miniVisual->property("configuration").value<AppearanceConfiguration *>();
@@ -299,7 +325,8 @@ void PluginRuntimeTest::appearanceProductionThemeSkinAndMini()
     QVERIFY(!oldScope->ui()->setState({{"stale", true}}));
     QTRY_VERIFY(oldSessionVisual.isNull());
     QTRY_VERIFY(miniHost->property("loaded").toBool());
-    auto *miniCard = miniHost->parentItem();
+    auto *miniCard = visual(mini->contentItem(), "miniPlayerCard");
+    QVERIFY(miniCard);
     miniCard->setOpacity(0);
     QTRY_VERIFY(!miniHost->property("loaded").toBool());
     QCOMPARE(registry->styleCount(), 0);
@@ -361,11 +388,30 @@ void PluginRuntimeTest::appearanceProductionThemeSkinAndMini()
     QVERIFY(chrome);
     QVERIFY(!chrome->isVisible());
     auto *skinVisual = visual(skinHost, "actualAppearanceVisual");
+    auto *skinPart = parts->queryUnique(
+        {{"key", "actualAppearanceVisual"}, {"owner", "test.appearance"}, {"surface", "playback"}});
+    QVERIFY(skinPart && skinPart->registration()->target() == skinVisual);
     QVERIFY(skinVisual);
     QVERIFY(skinVisual->mapRectToScene(skinVisual->boundingRect()).width() >= 1000);
     QVERIFY(skinVisual->mapRectToScene(skinVisual->boundingRect()).height() >= 700);
     if (!captures.isEmpty())
         QVERIFY(window->grabWindow().save(captures + "/playback-takeover.png"));
+
+    QPointer<QQuickItem> originalSkin = skinVisual;
+    auto *wrapper =
+        scope->ui()->parts()->contribute("skin-wrapper", {{"role", "playback.page"}},
+                                         {{"operation", "wrap"}, {"component", "Wrapper.qml"}});
+    QVERIFY(wrapper);
+    auto keepWrapper = host.engine.newQObject(wrapper);
+    QTRY_VERIFY(visual(window->contentItem(), "appearanceCompositionWrapper"));
+    QTRY_VERIFY(skinHost->property("loaded").toBool());
+    QVERIFY(originalSkin);
+    QCOMPARE(visual(skinHost, "actualAppearanceVisual"), originalSkin.data());
+    wrapper->dispose();
+    QTRY_VERIFY(!visual(window->contentItem(), "appearanceCompositionWrapper"));
+    QTRY_VERIFY(skinHost->property("loaded").toBool());
+    QVERIFY(originalSkin);
+    QCOMPARE(visual(skinHost, "actualAppearanceVisual"), originalSkin.data());
 
     QCOMPARE(skinVisual->property("configuration").value<AppearanceConfiguration *>()->values(),
              catalog->skin()->configuration()->values());
@@ -610,6 +656,8 @@ void PluginRuntimeTest::appearanceMaterialsAndRouteLifecycle()
         {"pageTransition", QVariantMap{{"appear", false},
                                        {"durationMs", 400},
                                        {"easing", QVariantList{.2, 0, .2, 1}},
+                                       {"enterY", 24},
+                                       {"enterScale", .96},
                                        {"enterOpacity", 0}}}};
     QString error;
     QVERIFY2(EchoPluginAppearance::validateVisuals(visuals, error), qPrintable(error));
@@ -621,11 +669,15 @@ void PluginRuntimeTest::appearanceMaterialsAndRouteLifecycle()
     QVERIFY(!host.theme.floatingFrosted());
     write(host.temporary.path() + "/Route.qml", R"(import QtQuick
 import EchoMusic.Shell
-Item { required property RouteContext context; required property RouteController router; required property ShellSettings settings; objectName: context.name; }
+Item {
+ required property RouteContext context; required property RouteController router; required property ShellSettings settings
+ objectName: context.name
+ Rectangle { y: 110; width: parent.width; height: parent.height - y; color: context.name === "material-one" ? "steelblue" : "coral" }
+}
 )");
     const auto route = QUrl::fromLocalFile(host.temporary.path() + "/Route.qml");
-    host.router.registerPage({"material-one", "/material-one", route, {}, false, false, false, {}});
-    host.router.registerPage({"material-two", "/material-two", route, {}, false, false, false, {}});
+    host.router.registerPage({"material-one", "/material-one", route, {}, true, false, false, {}});
+    host.router.registerPage({"material-two", "/material-two", route, {}, true, false, false, {}});
     QVERIFY(host.router.navigate("material-one"));
     QQmlComponent component(&host.engine);
     component.setData(R"(import QtQuick
@@ -667,15 +719,90 @@ Window {
                                              qRound(50 * window->effectiveDevicePixelRatio()));
         QVERIFY(qAbs(pixel.alpha() - 64) <= 1);
     }
+    QPointer<QQuickItem> first(page);
     QVERIFY(host.router.navigate("material-two"));
     QTRY_VERIFY(visual(window->contentItem(), "material-two"));
+    auto *customEntry = visual(window->contentItem(), "material-two")->parentItem();
+    QVERIFY(routeTransitioning(customEntry));
+    QVERIFY(customEntry->opacity() < 1.); // appear=false only suppresses the initial page.
+    QVERIFY(customEntry->mapToItem(routeHost, QPointF()).y() > 0);
+    QVERIFY(first); // The short exit transition still owns its visual item.
+    QVERIFY(host.router.navigate("material-one"));
+    QTRY_COMPARE(visual(window->contentItem(), "material-one"), first.data());
+    QTest::qWait(450);
+    QVERIFY(first); // A canceled exit must not unload a rapidly reactivated page.
+    QVERIFY(host.router.navigate("material-two"));
+    QTRY_VERIFY(visual(window->contentItem(), "material-two"));
+    QTRY_VERIFY_WITH_TIMEOUT(first.isNull(), 1200);
+    QCOMPARE(host.router.mountedCount(), 2);
+    QPointer<QQuickItem> outgoing(visual(window->contentItem(), "material-two"));
+    QVERIFY(host.router.navigate("material-one"));
+    QTRY_VERIFY(visual(window->contentItem(), "material-one"));
     window->hide();
+    QTRY_VERIFY(outgoing.isNull());
     QVERIFY(!routeHost->property("presentationLive").toBool());
-    auto *second = visual(window->contentItem(), "material-two");
+    auto *second = visual(window->contentItem(), "material-one");
     QCOMPARE(second->parentItem()->opacity(), 1.);
     host.theme.setFloatingFrosted(false);
     host.theme.overrides().remove("material");
     QVERIFY(!host.theme.floatingFrosted());
     QCOMPARE(panel->property("blurSigma").toDouble(), 24.);
     QCOMPARE(panel->property("paintedColor").value<QColor>().alpha(), 255);
+    // Revoking a plugin recipe restores entry-only default fading.
+    window->show();
+    QPointer<QQuickItem> defaultOutgoing(second);
+    QVERIFY(host.router.navigate("material-two"));
+    QTRY_VERIFY(visual(window->contentItem(), "material-two"));
+    auto *defaultEntry = visual(window->contentItem(), "material-two")->parentItem();
+    QVERIFY(defaultEntry->property("animateRoute").toBool());
+    QVERIFY(!defaultEntry->property("customizedRoute").toBool());
+    QCOMPARE(defaultEntry->property("durationMs").toInt(), 220);
+    QVERIFY(routeTransitioning(defaultEntry));
+    QVERIFY(defaultEntry->opacity() < 1.);
+    QVERIFY(defaultEntry->isEnabled());
+    QVERIFY(!defaultEntry->property("waitingEnter").toBool());
+    QVERIFY(!defaultEntry->property("waitingExit").toBool());
+    QTRY_VERIFY(defaultOutgoing.isNull());
+    const auto captures = qEnvironmentVariable("ECHO_MOTION_ARTIFACT_DIR");
+    if (!captures.isEmpty()) {
+        QDir().mkpath(captures);
+        QTest::qWait(35);
+        QVERIFY(window->grabWindow().save(captures + "/route-default-enter.png"));
+    }
+    host.theme.setMotionEnabled(false);
+    QCOMPARE(defaultEntry->opacity(), 1.);
+    QTRY_VERIFY(!routeTransitioning(defaultEntry));
+    if (!captures.isEmpty())
+        QVERIFY(window->grabWindow().save(captures + "/route-default-after.png"));
+    QVERIFY(host.router.navigate("material-one"));
+    QTRY_VERIFY(visual(window->contentItem(), "material-one"));
+    QCOMPARE(visual(window->contentItem(), "material-one")->parentItem()->opacity(), 1.);
+    host.theme.setMotionEnabled(true);
+    const auto setMode = [&](const QString &mode) {
+        const QVariantMap transition{{"mode", mode},      {"durationMs", 240}, {"enterOpacity", 0},
+                                     {"leaveOpacity", 0}, {"enterX", 32},      {"leaveX", -16}};
+        const QVariantMap variant{{"pageTransition", transition}};
+        QVERIFY(host.theme.overrides().put("motion-mode", {{"light", variant}, {"dark", variant}},
+                                           0, {}));
+    };
+    setMode("out-in");
+    QVERIFY(host.router.navigate("material-two"));
+    QTRY_VERIFY(visual(window->contentItem(), "material-two"));
+    auto *modeEntry = visual(window->contentItem(), "material-two")->parentItem();
+    QVERIFY(modeEntry->property("waitingEnter").toBool());
+    QTRY_VERIFY(!routeTransitioning(modeEntry));
+    setMode("in-out");
+    QPointer<QQuickItem> held(visual(window->contentItem(), "material-two"));
+    QVERIFY(host.router.navigate("material-one"));
+    QTRY_VERIFY(visual(window->contentItem(), "material-one"));
+    QVERIFY(held && held->parentItem()->property("waitingExit").toBool());
+    QTRY_VERIFY(held.isNull());
+    // A canceled incoming page cannot strand an in-out outgoing visual.
+    QVERIFY(host.router.navigate("material-two"));
+    QVERIFY(host.router.navigate("material-one"));
+    QVERIFY(host.router.navigate("material-two"));
+    QTRY_VERIFY(visual(window->contentItem(), "material-two"));
+    auto *finalEntry = visual(window->contentItem(), "material-two")->parentItem();
+    QTRY_VERIFY(!routeTransitioning(finalEntry));
+    QTRY_VERIFY(!visual(window->contentItem(), "material-one"));
 }

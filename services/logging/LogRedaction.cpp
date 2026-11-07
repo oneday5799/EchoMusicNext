@@ -17,6 +17,11 @@ bool sensitiveKey(const QString &key)
         "dev",        "username",   "dfid",          "mid",       "uuid",    "guid",
         "mac"};
     const auto lower = key.toLower();
+    if (lower == QStringLiteral("keyword") || lower == QStringLiteral("keywords"))
+        return false;
+    if (lower == QStringLiteral("sign") || lower == QStringLiteral("auth") ||
+        lower == QStringLiteral("ssa-code"))
+        return true;
     for (const auto &fragment : fragments)
         if (lower.contains(fragment))
             return true;
@@ -77,5 +82,12 @@ QString safeLogMessage(const QString &message)
         message.contains('?'))
         return QStringLiteral("[redacted sensitive log]");
     return message;
+}
+QString safeLogField(const QString &message, qsizetype limit)
+{
+    const auto safe = safeLogMessage(message);
+    return safe.size() > limit
+               ? safe.left(qMax(qsizetype(0), limit)) + QStringLiteral(" [truncated]")
+               : safe;
 }
 } // namespace EchoMusic

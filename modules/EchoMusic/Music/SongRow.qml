@@ -7,6 +7,48 @@ import EchoMusic.Controls
 
 ItemDelegate {
     id: row
+    EchoMotionScope {
+        id: motionScope
+        target: row
+        active: row.resourceActive && (!row.ListView.view || row.y + row.height > row.ListView.view.contentY && row.y < row.ListView.view.contentY + row.ListView.view.height)
+        animations: [removal, rowFill]
+    }
+    // Keep the departing delegate only for its finite native remove phase.
+    // No business operation waits for the visual, including history deletion.
+    Connections {
+        target: row.ListView
+        function onRemove(): void {
+            if (motionScope.allowed) {
+                row.ListView.delayRemove = true;
+                removal.start();
+            }
+        }
+        function onReused(): void {
+            removal.stop();
+            row.opacity = 1;
+            row.scale = 1;
+        }
+    }
+    ParallelAnimation {
+        id: removal
+        onStopped: row.ListView.delayRemove = false
+        NumberAnimation {
+            target: row
+            property: "opacity"
+            to: 0
+            duration: Theme.songRemoveDuration
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: Theme.easeSongRemove
+        }
+        NumberAnimation {
+            target: row
+            property: "scale"
+            to: 0.85
+            duration: Theme.songRemoveDuration
+            easing.type: Easing.BezierSpline
+            easing.bezierCurve: Theme.easeSongRemove
+        }
+    }
     EchoUiPart {
         id: publicRow
         target: row
@@ -16,7 +58,7 @@ ItemDelegate {
         properties: ["foreground", "secondaryForeground", "background", "radius", "borderColor", "borderWidth", "font", "fontSize", "fontWeight", "letterSpacing"]
         actions: ["play", "details", "favorite", "album"]
         onActionRequested: (action, arguments) => {
-            if (action === "play" && row.playbackAvailable)
+            if (action === "play" && row.playbackAvailable && !row.pendingPlay)
                 row.playRequested(row.resourceId);
             else if (action === "details")
                 row.detailsRequested(row.resourceId);
@@ -48,6 +90,8 @@ ItemDelegate {
     property bool favorite: false
     property bool active: false
     property bool playing: false
+    property bool playbackLoading: false
+    readonly property bool pendingPlay: active && playbackLoading
     property bool catalogPlayable: true
     // The context target keeps a distinct background until its menu closes.
     // This fill takes precedence over the current-song selection background.
@@ -61,7 +105,7 @@ ItemDelegate {
     signal commentsRequested(string id)
     signal mvRequested(string id)
     // Context menus support pointer, Menu and Shift+F10 invocation.
-    // Inline icons keep the MV, details and favorite order.
+    // Inline icons keep the MV, comments and favorite order.
     signal moreRequested(string id, real sceneX, real sceneY)
     signal playRequested(string id)
     Keys.onPressed: event => {
@@ -73,15 +117,8 @@ ItemDelegate {
     }
     component RowAction: EchoIconButton {
         visualContentActive: row.resourceActive && row.visible && (opacity > 0 || activeFocus)
-        foreground: hovered ? Theme.accentText : Theme.secondaryText
-        scale: hovered && enabled && row.resourceActive && Theme.store.motionEnabled ? 1.1 : 1
-        Behavior on scale {
-            enabled: row.resourceActive && Theme.store.motionEnabled
-            NumberAnimation {
-                duration: Theme.fastDuration
-                easing.type: Easing.OutCubic
-            }
-        }
+        foreground: hoverHighlighted || visualFocus ? Theme.accentText : Theme.secondaryText
+        scaleFeedback: true
     }
     height: 60
     padding: 0
@@ -94,6 +131,15 @@ ItemDelegate {
         color: publicRow.value("background", row.contextTarget ? Theme.colors.hover : row.active ? Theme.selected : row.hovered || row.visualFocus ? Theme.rowHover : "transparent")
         border.color: publicRow.value("borderColor", "transparent")
         border.width: publicRow.value("borderWidth", 0)
+        Behavior on color {
+            enabled: motionScope.allowed
+            ColorAnimation {
+                id: rowFill
+                duration: Theme.fastDuration
+                easing.type: Easing.BezierSpline
+                easing.bezierCurve: Theme.easeStandard
+            }
+        }
     }
     contentItem: RowLayout {
         spacing: 0
@@ -115,20 +161,21 @@ ItemDelegate {
                 font: publicRow.styledFont(row.geometry.numberFont)
                 visible: !row.hovered && !row.visualFocus && !row.active
             }
-            EchoIconButton {
+            EchoPlaybackButton {
                 objectName: "songIndexPlay"
                 visualContentActive: row.resourceActive && visible
+                scaleFeedback: true
                 hoverBackground: false
                 x: 1
                 anchors.verticalCenter: parent.verticalCenter
                 width: 30
                 height: 30
                 padding: 8
-                glyph: row.active && row.playing ? "pause" : "play"
-                text: row.active && row.playing ? qsTr("暂停") : qsTr("播放")
-                foreground: row.active ? Theme.accentText : Theme.iconMain
-                visible: row.hovered || row.visualFocus || row.active
-                enabled: row.playbackAvailable && (row.active || row.catalogPlayable)
+                playing: row.active && row.playing
+                loading: row.pendingPlay
+                foreground: row.active || hoverHighlighted || visualFocus ? Theme.accentText : Theme.iconMain
+                visible: row.hovered || row.visualFocus || row.active || row.pendingPlay
+                enabled: row.playbackAvailable && (row.active || row.catalogPlayable) && !loading
                 onClicked: row.playRequested(row.resourceId)
             }
         }

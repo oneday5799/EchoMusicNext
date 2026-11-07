@@ -41,21 +41,30 @@ RoutePage {
         return String(Math.floor(seconds / 60)).padStart(2, "0") + ":" + String(seconds % 60).padStart(2, "0");
     }
     function updatePresentation(): void {
-        detail.setPresented(page.videoPresented);
-        detail.barrage.setEnabled(page.settings.mvBarrageEnabled);
+        if (page.detail) {
+            page.detail.setPresented(page.videoPresented);
+            if (page.settings)
+                page.detail.barrage.setEnabled(page.settings.mvBarrageEnabled);
+        }
         if (!page.pageActive) {
             resumeBarrageComposer = false;
-            barrageOwner.close();
-            fullscreenOwner.close();
+            // Route presentation can change before recipe construction or
+            // after child retirement. Each owner enforces its own availability.
+            if (barrageOwner)
+                barrageOwner.close();
+            if (fullscreenOwner)
+                fullscreenOwner.close();
         }
     }
     onPageActiveChanged: updatePresentation()
-    onVisibleChanged: updatePresentation()
+    onVideoPresentedChanged: updatePresentation()
+    onDetailChanged: updatePresentation()
+    onSettingsChanged: updatePresentation()
     Component.onCompleted: updatePresentation()
     Connections {
-        target: page.detail.barrage
+        target: page.detail ? page.detail.barrage : null
         function onVerificationStarted(): void {
-            if (barrageOwner.visible) {
+            if (barrageOwner && barrageOwner.visible) {
                 page.resumeBarrageComposer = true;
                 barrageOwner.close();
             }
@@ -73,7 +82,7 @@ RoutePage {
             // reopen. The owner still enforces route/window availability.
             if (resume)
                 Qt.callLater(function () {
-                    if (page.pageActive)
+                    if (page && page.pageActive && barrageOwner)
                         barrageOwner.open();
                 });
         }
@@ -81,13 +90,8 @@ RoutePage {
     Connections {
         target: page.settings
         function onChanged(): void {
-            page.detail.barrage.setEnabled(page.settings.mvBarrageEnabled);
-        }
-    }
-    Connections {
-        target: page.Window.window
-        function onVisibilityChanged(): void {
-            page.updatePresentation();
+            if (page.detail && page.settings)
+                page.detail.barrage.setEnabled(page.settings.mvBarrageEnabled);
         }
     }
     EchoPageScrollContainer {

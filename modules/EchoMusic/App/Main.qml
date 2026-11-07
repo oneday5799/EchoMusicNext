@@ -54,6 +54,7 @@ ApplicationWindow {
             backupConfirmationOwner.close();
     }
     readonly property bool startupPending: startup !== null && !startup.entered
+    readonly property bool startupCoverNeeded: startup !== null && (startupPending || !mainShell || !mainShell.initialPageReady)
     readonly property MainShell mainShell: shellLoader.item as MainShell
     property PluginManager pluginManager: null
     required property RouteController router
@@ -64,6 +65,7 @@ ApplicationWindow {
     required property AccountController accountController
     required property LibraryController libraryController
     property PlaybackDiscussion playbackDiscussion: null
+    property DetailsService songDetails: null
     property PlaybackService playbackService: null
     readonly property real uiScale: shellSettings.uiScale
     property NetworkPreferences networkPreferences: null
@@ -78,6 +80,25 @@ ApplicationWindow {
     property SettingsDataService settingsDataService: null
     property RelaunchService relaunchService: null
     property LogService logService: null
+    // Application-owned recovery remains reachable even if a plugin hides the
+    // shell or replaces its controls. No contribution can target this surface.
+    Shortcut {
+        sequences: ["Ctrl+Shift+F12", "Meta+Shift+F12"]
+        context: Qt.ApplicationShortcut
+        onActivated: {
+            EchoUiPartRegistry.enabled = false;
+            uiRecoveryOwner.open();
+        }
+    }
+    EchoPopupLoader {
+        id: uiRecoveryOwner
+        hostItem: mainWindow.contentItem
+        sourceComponent: Component {
+            PluginUiInspectorDialog {
+                uiScale: mainWindow.uiScale
+            }
+        }
+    }
     EchoPopupLoader {
         id: backupConfirmationOwner
         hostItem: mainWindow.contentItem
@@ -208,23 +229,23 @@ ApplicationWindow {
     }
     Shortcut {
         sequences: [StandardKey.Find]
-        enabled: !mainWindow.startupPending
+        enabled: !startupLoader.active
         onActivated: if (mainWindow.mainShell)
             mainWindow.mainShell.focusSearch()
     }
     Shortcut {
         sequence: "Alt+Left"
-        enabled: !mainWindow.startupPending
+        enabled: !startupLoader.active
         onActivated: mainWindow.router.back()
     }
     Shortcut {
         sequence: "Alt+Right"
-        enabled: !mainWindow.startupPending
+        enabled: !startupLoader.active
         onActivated: mainWindow.router.forward()
     }
     Shortcut {
         sequences: [StandardKey.Refresh]
-        enabled: !mainWindow.startupPending
+        enabled: !startupLoader.active
         onActivated: mainWindow.router.refresh()
     }
     Shortcut {
@@ -255,7 +276,10 @@ ApplicationWindow {
         height: mainWindow.height / mainWindow.uiScale
         scale: mainWindow.uiScale
         transformOrigin: Item.TopLeft
-        active: mainWindow.startupPending
+        z: 1000
+        active: mainWindow.startupCoverNeeded || opacity > 0
+        enabled: mainWindow.startupPending
+        opacity: mainWindow.startupCoverNeeded ? 1 : 0
         sourceComponent: StartupPage {
             startup: mainWindow.startup
             settings: mainWindow.shellSettings
@@ -274,7 +298,8 @@ ApplicationWindow {
         // interactive surface at all while the page is up; it is fully covered
         // anyway, and the page restores this the moment it hides.
         readonly property bool playbackPagePresent: playbackPageLoader.item !== null && (playbackPageLoader.item as PlaybackPage).visible
-        enabled: !playbackPagePresent
+        readonly property bool initialPageReady: initialRouteHost.initialPageReady
+        enabled: !playbackPagePresent && !startupLoader.active
         function focusSearch() {
             titleBar.focusSearch();
         }
@@ -344,119 +369,132 @@ ApplicationWindow {
                 }
             }
         }
-        RowLayout {
-            id: shellContent
-            objectName: "shellContent"
-            visible: !mainWindow.playbackCoversShell
-            // Keep route/service state alive while its covered scenegraph is culled.
-            // A painted login cover blocks clicks but not hover delivery.
-            // Disable the covered shell, including already-open tooltips.
-            enabled: !mainWindow.accountController.loginOpen && !mainWindow.verificationBlocking
+        EchoUiPartHost {
+            partRole: "shell.content"
+            partKey: "main"
             anchors.fill: parent
-            spacing: 0
-            Rectangle {
-                Layout.preferredWidth: mainWindow.shellSettings.sidebarCollapsed ? 80 : 230
-                Layout.fillHeight: true
-                color: "transparent"
-                EchoWindowDragArea {
-                    width: parent.width
-                    height: Math.max(46, 35 / mainWindow.shellSettings.uiScale)
-                    onMoveRequested: mainWindow.windowService.startSystemMove()
-                    onDoubleClickRequested: mainWindow.windowService.toggleMaximized()
-                }
-                Behavior on Layout.preferredWidth {
-                    enabled: mainWindow.shellSettings.motionEnabled
-                    NumberAnimation {
-                        duration: Theme.panelDuration
-                        easing.type: Easing.OutCubic
-                    }
-                }
-                Sidebar {
-                    anchors.fill: parent
-                    router: mainWindow.router
-                    settings: mainWindow.shellSettings
-                    uiScale: mainWindow.shellSettings.uiScale
-                    accountController: mainWindow.accountController
-                    libraryController: mainWindow.libraryController
-                }
-            }
-            ColumnLayout {
-                id: workspace
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.topMargin: frame.narrow ? 4 : 8
-                Layout.bottomMargin: frame.narrow ? 4 : 8
-                Layout.rightMargin: frame.narrow ? 4 : 8
-                spacing: frame.narrow ? 6 : 10
+            visible: !mainWindow.playbackCoversShell
+            EchoUiRow {
+                id: shellContent
+                partRole: "layout.shell"
+                partKey: "content"
+                objectName: "shellContent"
+                visible: !mainWindow.playbackCoversShell
+                // Keep route/service state alive while its covered scenegraph is culled.
+                // A painted login cover blocks clicks but not hover delivery.
+                // Disable the covered shell, including already-open tooltips.
+                enabled: !mainWindow.accountController.loginOpen && !mainWindow.verificationBlocking
+                anchors.fill: parent
+                spacing: 0
                 Rectangle {
-                    id: mainPanel
-                    objectName: "mainPanelSurface"
-                    Layout.fillWidth: true
+                    Layout.preferredWidth: mainWindow.shellSettings.sidebarCollapsed ? 80 : 230
                     Layout.fillHeight: true
                     color: "transparent"
-                    radius: Theme.shellRadius
-                    ColumnLayout {
+                    EchoWindowDragArea {
+                        width: parent.width
+                        height: Math.max(46, 35 / mainWindow.shellSettings.uiScale)
+                        onMoveRequested: mainWindow.windowService.startSystemMove()
+                        onDoubleClickRequested: mainWindow.windowService.toggleMaximized()
+                    }
+                    Behavior on Layout.preferredWidth {
+                        enabled: mainWindow.shellSettings.motionEnabled
+                        NumberAnimation {
+                            duration: Theme.panelDuration
+                            easing.type: Easing.OutCubic
+                        }
+                    }
+                    Sidebar {
                         anchors.fill: parent
-                        spacing: 0
-                        TitleBar {
-                            id: titleBar
-                            objectName: "shellTitleBar"
-                            Layout.fillWidth: true
-                            Layout.preferredHeight: implicitHeight
-                            router: mainWindow.router
-                            windowService: mainWindow.windowService
-                            window: mainWindow
-                            uiScale: mainWindow.shellSettings.uiScale
-                            controller: mainWindow.shellController
-                            settings: mainWindow.shellSettings
-                            searchControl: Component {
-                                SearchBox {
-                                    id: titlebarSearch
-                                    service: mainWindow.searchService
-                                    router: mainWindow.router
-                                    titlebarSurface: titleBar
-                                    window: mainWindow
-                                    uiScale: mainWindow.shellSettings.uiScale
-                                    Connections {
-                                        target: titleBar
-                                        function onFocusSearchRequested() {
-                                            titlebarSearch.focusSearch();
+                        router: mainWindow.router
+                        settings: mainWindow.shellSettings
+                        uiScale: mainWindow.shellSettings.uiScale
+                        accountController: mainWindow.accountController
+                        libraryController: mainWindow.libraryController
+                    }
+                }
+                EchoUiColumn {
+                    id: workspace
+                    partRole: "layout.shell"
+                    partKey: "workspace"
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.topMargin: frame.narrow ? 4 : 8
+                    Layout.bottomMargin: frame.narrow ? 4 : 8
+                    Layout.rightMargin: frame.narrow ? 4 : 8
+                    spacing: frame.narrow ? 6 : 10
+                    Rectangle {
+                        id: mainPanel
+                        objectName: "mainPanelSurface"
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        color: "transparent"
+                        radius: Theme.shellRadius
+                        EchoUiColumn {
+                            partRole: "layout.shell"
+                            partKey: "mainPanel"
+                            anchors.fill: parent
+                            spacing: 0
+                            TitleBar {
+                                id: titleBar
+                                objectName: "shellTitleBar"
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: implicitHeight
+                                router: mainWindow.router
+                                windowService: mainWindow.windowService
+                                window: mainWindow
+                                uiScale: mainWindow.shellSettings.uiScale
+                                controller: mainWindow.shellController
+                                settings: mainWindow.shellSettings
+                                searchControl: Component {
+                                    SearchBox {
+                                        id: titlebarSearch
+                                        service: mainWindow.searchService
+                                        router: mainWindow.router
+                                        titlebarSurface: titleBar
+                                        window: mainWindow
+                                        uiScale: mainWindow.shellSettings.uiScale
+                                        Connections {
+                                            target: titleBar
+                                            function onFocusSearchRequested() {
+                                                titlebarSearch.focusSearch();
+                                            }
                                         }
                                     }
                                 }
                             }
-                        }
-                        RouteHost {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            router: mainWindow.router
-                            settings: mainWindow.shellSettings
+                            RouteHost {
+                                id: initialRouteHost
+                                Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                router: mainWindow.router
+                                settings: mainWindow.shellSettings
+                            }
                         }
                     }
-                }
-                // Material belongs to the surface, never to business content opacity.
-                Rectangle {
-                    id: playerPanel
-                    objectName: "playerPanelSurface"
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 88
-                    color: "transparent"
-                    radius: Theme.shellRadius
-                    PlayerBar {
-                        id: playerBar
-                        coverItem.opacity: playbackPageLoader.item && (playbackPageLoader.item as PlaybackPage).coverMoving ? 0 : 1
-                        // Frost hides the shell before the cover flight takes its
-                        // snapshot. Keep only this small static source until the
-                        // transition ends, then release it with the hidden bar.
-                        coverItem.resourceActive: playerBar.visible || playbackPageLoader.item !== null && (playbackPageLoader.item as PlaybackPage).visible && !(playbackPageLoader.item as PlaybackPage).opened
-                        manageCapacity: !playbackPageLoader.item || !(playbackPageLoader.item as PlaybackPage).visible
-                        onPlaybackPageRequested: {
-                            playbackPageLoader.open();
+                    // Material belongs to the surface, never to business content opacity.
+                    Rectangle {
+                        id: playerPanel
+                        objectName: "playerPanelSurface"
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 88
+                        color: "transparent"
+                        radius: Theme.shellRadius
+                        PlayerBar {
+                            id: playerBar
+                            coverItem.opacity: playbackPageLoader.item && (playbackPageLoader.item as PlaybackPage).coverMoving ? 0 : 1
+                            // Frost hides the shell before the cover flight takes its
+                            // snapshot. Keep only this small static source until the
+                            // transition ends, then release it with the hidden bar.
+                            coverItem.resourceActive: playerBar.visible || playbackPageLoader.item !== null && (playbackPageLoader.item as PlaybackPage).visible && !(playbackPageLoader.item as PlaybackPage).opened
+                            manageCapacity: !playbackPageLoader.item || !(playbackPageLoader.item as PlaybackPage).visible
+                            onPlaybackPageRequested: {
+                                playbackPageLoader.open();
+                            }
+                            anchors.fill: parent
+                            controller: mainWindow.shellController
+                            router: mainWindow.router
+                            uiScale: mainWindow.shellSettings.uiScale
                         }
-                        anchors.fill: parent
-                        controller: mainWindow.shellController
-                        router: mainWindow.router
-                        uiScale: mainWindow.shellSettings.uiScale
                     }
                 }
             }
@@ -571,6 +609,37 @@ ApplicationWindow {
                     }
                 }
                 discussionComponent: mainWindow.playbackDiscussion ? discussionRecipe : null
+                EchoPopupLoader {
+                    id: songDetailsOwner
+                    objectName: "playbackSongDetailDrawerOwner"
+                    hostItem: nativePlaybackPage.contentItem
+                    sourceComponent: PlaybackSongDetailDrawer {
+                        router: mainWindow.router
+                        uiScale: mainWindow.uiScale
+                        onPageRequested: playbackPageLoader.close()
+                        Component.onDestruction: if (mainWindow.songDetails)
+                            mainWindow.songDetails.closePlaybackDetails(detailContext)
+                    }
+                }
+                Connections {
+                    target: mainWindow.shellController
+                    function onPlaybackPopupRequested(kind): void {
+                        if (kind !== "song-details" || !nativePlaybackPage.discussionActive || !mainWindow.songDetails || !songDetailsOwner.available)
+                            return;
+                        if (songDetailsOwner.item) {
+                            songDetailsOwner.open();
+                            return;
+                        }
+                        const detail = mainWindow.songDetails.openPlaybackDetails();
+                        if (detail) {
+                            songDetailsOwner.open({
+                                detailContext: detail
+                            });
+                            if (!songDetailsOwner.item)
+                                mainWindow.songDetails.closePlaybackDetails(detail);
+                        }
+                    }
+                }
                 Component {
                     id: discussionRecipe
                     PlaybackDiscussionHost {
@@ -726,7 +795,14 @@ ApplicationWindow {
             function onSongPageOpened() {
                 playbackPageLoader.close();
             }
+            function onMvPageOpened() {
+                playbackPageLoader.close();
+            }
             function onPlaybackPopupRequested(kind) {
+                // This surface belongs to the open playback page, not the
+                // generic transport-options popup below.
+                if (kind === "song-details")
+                    return;
                 if (kind === "lyric-skins" && playbackPageLoader.item) {
                     (playbackPageLoader.item as PlaybackPage).openSkins();
                 } else if ((kind === "comments" || kind === "barrage") && playbackPageLoader.item) {

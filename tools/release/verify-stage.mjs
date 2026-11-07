@@ -1,7 +1,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-export function verifyStage(stage, platform, arch) {
+import { isMacosBinary, verifyMacosArchitecture } from './macos-architecture.mjs';
+export function verifyStage(stage, platform, arch, { smoke = false } = {}) {
   const binaryDirectory =
     platform === 'macOS'
       ? path.join(stage, 'echomusicnext.app/Contents/MacOS')
@@ -25,11 +26,6 @@ export function verifyStage(stage, platform, arch) {
         throw new Error('Invalid PE executable');
       return bytes.readUInt16LE(offset + 4) === (arch === 'arm64' ? 0xaa64 : 0x8664);
     }
-    if (platform === 'macOS')
-      return (
-        bytes.readUInt32LE(0) === 0xfeedfacf &&
-        bytes.readUInt32LE(4) === (arch === 'arm64' ? 0x100000c : 0x1000007)
-      );
     return (
       bytes.toString('ascii', 1, 4) === 'ELF' &&
       bytes[4] === 2 &&
@@ -52,7 +48,8 @@ export function verifyStage(stage, platform, arch) {
   if (platform === 'Windows')
     nativeExecutables.push(path.join(binaryDirectory, 'crashpad_wer.dll'));
   for (const file of nativeExecutables)
-    if (!machine(file)) throw new Error(`Packaged architecture mismatch: ${file}`);
+    if (platform === 'macOS') verifyMacosArchitecture(file, arch);
+    else if (!machine(file)) throw new Error(`Packaged architecture mismatch: ${file}`);
   function walk(directory) {
     for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
       if (
@@ -64,19 +61,8 @@ export function verifyStage(stage, platform, arch) {
       if (entry.isSymbolicLink()) continue;
       const file = path.join(directory, entry.name);
       if (entry.isDirectory()) walk(file);
-      else if (
-        platform === 'macOS' &&
-        (file.endsWith('.dylib') ||
-          file.includes('.framework/') ||
-          file === executable ||
-          nativeExecutables.includes(file))
-      ) {
-        const data = fs.readFileSync(file);
-        if (
-          data.length < 4 ||
-          ![0xfeedfacf, 0xbebafeca, 0xcafebabe, 0xbfbafeca].includes(data.readUInt32LE(0))
-        )
-          continue;
+      else if (platform === 'macOS' && entry.isFile() && isMacosBinary(file)) {
+        verifyMacosArchitecture(file, arch);
         const result = spawnSync('otool', ['-L', file], { encoding: 'utf8' });
         if (result.status !== 0) throw new Error(`Cannot inspect ${file}`);
         for (const line of result.stdout.split('\n').slice(1)) {
@@ -93,6 +79,7 @@ export function verifyStage(stage, platform, arch) {
     }
   }
   walk(stage);
+  if (!smoke) return;
   const environment = {
     ...process.env,
     QT_QPA_PLATFORM: platform === 'macOS' ? 'cocoa' : platform === 'Windows' ? 'windows' : 'xcb',
@@ -114,7 +101,8 @@ export function verifyStage(stage, platform, arch) {
     {
       env: environment,
       encoding: 'utf8',
-      timeout: 30000,
+      // The application owns a 30s deadline, followed by asynchronous shutdown.
+      timeout: 50000,
     },
   );
   if (result.stdout) console.log(result.stdout);

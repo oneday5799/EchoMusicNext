@@ -1,3 +1,4 @@
+#include "LogRedaction.h"
 #include "PluginSourceEntry.h"
 #include "PluginPaths.h"
 #include "SettingsKeys.h"
@@ -21,11 +22,15 @@
 #include <QtConcurrent>
 #include <QDateTime>
 #include <QCryptographicHash>
+#include <QLoggingCategory>
+#include <QElapsedTimer>
+#include <QUuid>
 #include "PluginManagerHelpers_p.h"
 
 namespace EchoMusic
 {
 using namespace PluginManagerDetail;
+Q_LOGGING_CATEGORY(pluginMarketplaceLog, "echo.plugins.marketplace", QtInfoMsg)
 
 bool PluginManager::safePath(const QString &path)
 {
@@ -63,7 +68,32 @@ QVariantMap PluginManager::normalizeSource(const QString &text, const QString &n
 }
 void PluginManager::setNetworkPreferences(NetworkPreferences *network)
 {
+    if (m_networkPreferences == network)
+        return;
+    disconnect(m_iconSettingsConnection);
+    disconnect(m_iconPolicyConnection);
     m_networkPreferences = network;
+    m_iconProxy = network ? network->githubProxyUrl() : QString();
+    if (network) {
+        m_iconSettingsConnection = connect(network, &NetworkPreferences::changed, this, [this] {
+            const auto proxy =
+                m_networkPreferences ? m_networkPreferences->githubProxyUrl() : QString();
+            if (m_iconProxy != proxy) {
+                m_iconProxy = proxy;
+                emit iconNetworkChanged();
+            }
+        });
+        m_iconPolicyConnection = connect(network, &NetworkPreferences::applied, this,
+                                         &PluginManager::iconNetworkChanged);
+    }
+    emit iconNetworkChanged();
+}
+QUrl PluginManager::iconRequestUrl(const QUrl &source, bool origin) const
+{
+    const auto target = !origin && m_networkPreferences
+                            ? m_networkPreferences->acceleratedGithubUrl(source)
+                            : source;
+    return m_resolveUrl ? m_resolveUrl(target) : target;
 }
 void PluginManager::get(const QUrl &url, qint64 limit, Completion complete, const QByteArray &body,
                         int timeout, ResponseValidator validate, bool fresh)
@@ -78,10 +108,22 @@ void PluginManager::get(const QUrl &url, qint64 limit, Completion complete, cons
 void PluginManager::getAttempt(const QUrl &url, const QUrl &origin, qint64 limit,
                                Completion complete, const QByteArray &body, int timeout,
                                bool fallback, ResponseValidator validate, bool fresh,
-                               const QVariantList &attempts)
+                               const QVariantList &attempts, const QString &logicalRequestId)
 {
     if (m_closing)
         return;
+    const auto requestId = logicalRequestId.isEmpty()
+                               ? QUuid::createUuid().toString(QUuid::WithoutBraces)
+                               : logicalRequestId;
+    QElapsedTimer elapsed;
+    elapsed.start();
+    qCDebug(pluginMarketplaceLog).noquote().nospace()
+        << "request started request=" << requestId
+        << " method=" << (body.isEmpty() ? "GET" : "POST") << " url="
+        << safeLogField(PluginNetworkFailure::address(
+                            url.adjusted(QUrl::RemoveQuery | QUrl::RemoveFragment)),
+                        1024)
+        << " attempt=" << attempts.size() + 1 << " fresh=" << fresh;
     QNetworkRequest request(m_resolveUrl ? m_resolveUrl(url) : url);
     request.setTransferTimeout(timeout);
     request.setRawHeader("User-Agent", "EchoMusicNext-Plugin-Marketplace/0.1");
@@ -106,58 +148,77 @@ void PluginManager::getAttempt(const QUrl &url, const QUrl &origin, qint64 limit
             reply->abort();
         }
     });
-    connect(reply, &QNetworkReply::finished, this,
-            [this, reply, bytes, limit, tooLarge, complete = std::move(complete), origin, body,
-             timeout, fallback, validate = std::move(validate), fresh, attempts] {
-                m_replies.remove(reply);
-                if (reply->isOpen())
-                    bytes->append(reply->read(limit - bytes->size() + 1));
-                const auto status =
-                    reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-                QVariantMap failure;
-                if (*tooLarge || bytes->size() > limit ||
-                    reply->error() != QNetworkReply::NoError || status != 200) {
-                    const auto *network = QNetworkInformation::instance();
-                    const bool offline =
-                        network &&
-                        network->reachability() == QNetworkInformation::Reachability::Disconnected;
-                    failure = PluginNetworkFailure::classify(
-                        reply->error(), status, reply->url(), reply->errorString(),
-                        *tooLarge || bytes->size() > limit,
-                        reply->rawHeader("X-RateLimit-Remaining") == "0" ||
-                            !reply->rawHeader("Retry-After").trimmed().isEmpty(),
-                        offline);
-                } else if (validate) {
-                    const auto error = validate(*bytes);
-                    if (!error.isEmpty()) {
-                        failure = PluginNetworkFailure::content(error, reply->url());
-                        failure["title"] = error;
-                    }
+    connect(
+        reply, &QNetworkReply::finished, this,
+        [this, reply, bytes, limit, tooLarge, complete = std::move(complete), origin, body, timeout,
+         fallback, validate = std::move(validate), fresh, attempts, requestId, elapsed] {
+            m_replies.remove(reply);
+            if (reply->isOpen())
+                bytes->append(reply->read(limit - bytes->size() + 1));
+            const auto status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+            QVariantMap failure;
+            if (*tooLarge || bytes->size() > limit || reply->error() != QNetworkReply::NoError ||
+                status != 200) {
+                const auto *network = QNetworkInformation::instance();
+                const bool offline = network && network->reachability() ==
+                                                    QNetworkInformation::Reachability::Disconnected;
+                failure = PluginNetworkFailure::classify(
+                    reply->error(), status, reply->url(), reply->errorString(),
+                    *tooLarge || bytes->size() > limit,
+                    reply->rawHeader("X-RateLimit-Remaining") == "0" ||
+                        !reply->rawHeader("Retry-After").trimmed().isEmpty(),
+                    offline);
+            } else if (validate) {
+                const auto error = validate(*bytes);
+                if (!error.isEmpty()) {
+                    failure = PluginNetworkFailure::content(error, reply->url());
+                    failure["title"] = error;
                 }
-                if (!failure.isEmpty()) {
-                    failure["host"] = reply->url().host();
-                    if (reply->url() != origin)
-                        failure["originUrl"] = PluginNetworkFailure::address(origin);
+            }
+            if (!failure.isEmpty()) {
+                failure["host"] = reply->url().host();
+                if (reply->url() != origin)
+                    failure["originUrl"] = PluginNetworkFailure::address(origin);
+            }
+            const auto error = failure.value("title").toString();
+            const auto diagnostic =
+                QStringLiteral("request finished request=%1 url=%2 status=%3 bytes=%4 "
+                               "elapsed_ms=%5 attempt=%6 fallback=%7")
+                    .arg(requestId,
+                         safeLogField(PluginNetworkFailure::address(reply->url().adjusted(
+                                          QUrl::RemoveQuery | QUrl::RemoveFragment)),
+                                      1024))
+                    .arg(status)
+                    .arg(bytes->size())
+                    .arg(elapsed.elapsed())
+                    .arg(attempts.size() + 1)
+                    .arg(!m_closing && fallback && !error.isEmpty());
+            if (!m_closing && !error.isEmpty())
+                qCWarning(pluginMarketplaceLog).noquote().nospace()
+                    << diagnostic << " category=" << failure.value("category").toString()
+                    << " error=" << safeLogField(error, 512)
+                    << " detail=" << safeLogField(failure.value("message").toString(), 512);
+            else
+                qCDebug(pluginMarketplaceLog).noquote() << diagnostic;
+            reply->deleteLater();
+            if (!m_closing && fallback && !error.isEmpty()) {
+                auto previous = attempts;
+                previous.append(failure);
+                getAttempt(origin, origin, limit, std::move(complete), body, timeout, false,
+                           std::move(validate), fresh, previous, requestId);
+            } else if (!m_closing) {
+                if (!failure.isEmpty() && !attempts.isEmpty()) {
+                    auto history = attempts;
+                    history.append(failure);
+                    failure["attempts"] = history;
                 }
-                const auto error = failure.value("title").toString();
-                reply->deleteLater();
-                if (!m_closing && fallback && !error.isEmpty()) {
-                    auto previous = attempts;
-                    previous.append(failure);
-                    getAttempt(origin, origin, limit, std::move(complete), body, timeout, false,
-                               std::move(validate), fresh, previous);
-                } else if (!m_closing) {
-                    if (!failure.isEmpty() && !attempts.isEmpty()) {
-                        auto history = attempts;
-                        history.append(failure);
-                        failure["attempts"] = history;
-                    }
-                    complete(*bytes, error, failure);
-                }
-            });
+                complete(*bytes, error, failure);
+            }
+        });
 }
 void PluginManager::fetchSource(QVariantMap source, quint64 generation,
-                                std::function<void(QVariantMap, QVariantList)> complete, bool fresh)
+                                std::function<void(QVariantMap, QVariantList)> complete, bool fresh,
+                                bool installedOnly)
 {
     const auto validateIndex = [](const QByteArray &bytes) -> QString {
         QJsonParseError parse;
@@ -170,8 +231,8 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
     };
     get(
         QUrl(raw(source, "echo-plugins.json")), 256 * 1024,
-        [this, source, generation, complete, fresh](QByteArray bytes, QString error,
-                                                    QVariantMap failure) mutable {
+        [this, source, generation, complete, fresh, installedOnly](QByteArray bytes, QString error,
+                                                                   QVariantMap failure) mutable {
             if (generation != m_generation)
                 return;
             source["catalogValid"] = false;
@@ -191,18 +252,18 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
             auto details = std::make_shared<QVariantList>();
             QSet<QString> ids;
             for (const auto &value : doc.value("plugins").toArray()) {
-                QString failure;
+                QString parseFailure;
                 auto entry =
                     PluginSourceEntry::parse(value.toObject().toVariantMap(),
-                                             source.value("repository").toString(), failure);
+                                             source.value("repository").toString(), parseFailure);
                 const auto id = entry.value("id").toString();
-                if (failure.isEmpty() && ids.contains(id))
-                    failure = tr("插件索引包含重复 ID：%1").arg(id);
-                if (!failure.isEmpty()) {
-                    errors->append(failure);
+                if (parseFailure.isEmpty() && ids.contains(id))
+                    parseFailure = tr("插件索引包含重复 ID：%1").arg(id);
+                if (!parseFailure.isEmpty()) {
+                    errors->append(parseFailure);
                     if (details->size() < 16)
                         details->append(PluginNetworkFailure::content(
-                            failure, QUrl(raw(source, "echo-plugins.json"))));
+                            parseFailure, QUrl(raw(source, "echo-plugins.json"))));
                     continue;
                 }
                 ids.insert(id);
@@ -213,7 +274,7 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
             auto next = std::make_shared<std::function<void()>>();
             std::weak_ptr<std::function<void()>> weakNext = next;
             *next = [this, source, generation, complete, entries, errors, details, results, current,
-                     weakNext, fresh]() mutable {
+                     weakNext, fresh, installedOnly]() mutable {
                 const auto next = weakNext.lock();
                 if (!next)
                     return;
@@ -221,6 +282,13 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
                     *next = {};
                     return;
                 }
+                // Startup reads each source index but only follows installed IDs
+                // to their author manifests. Opening the market still loads all.
+                while (installedOnly && *current < entries->size() &&
+                       m_runtime
+                           .installationForId(entries->at(*current).toMap().value("id").toString())
+                           .isEmpty())
+                    ++*current;
                 if (*current >= entries->size()) {
                     source["lastError"] =
                         errors->isEmpty()
@@ -240,7 +308,7 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
                         source["lastErrorDetail"] = detail;
                     }
                     source["catalogValid"] = true;
-                    source["pluginCount"] = results->size();
+                    source["pluginCount"] = installedOnly ? entries->size() : results->size();
                     source["lastFetchedAt"] = QDateTime::currentDateTime().toString(Qt::ISODate);
                     auto finish = complete;
                     *next = {};
@@ -248,11 +316,11 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
                     return;
                 }
                 const auto entry = entries->at((*current)++).toMap();
-                const auto validateManifest = [entry](const QByteArray &bytes) -> QString {
-                    const auto package = PluginPackage::inspectManifest(bytes);
-                    if (!package.error.isEmpty() && !package.incompatible)
-                        return package.error;
-                    return package.id != entry.value("id") ? tr("插件 ID 与索引不一致") : QString();
+                const auto validatePublication = [entry](const QByteArray &bytes) -> QString {
+                    QString error;
+                    PluginSourceEntry::publication(entry, bytes, error);
+                    return error.isEmpty() ? QString()
+                                           : tr("作者仓库的插件发布信息无效，请联系作者修复后刷新");
                 };
                 get(
                     QUrl(entry.value("manifestUrl").toString()), 256 * 1024,
@@ -262,7 +330,11 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
                             *next = {};
                             return;
                         }
-                        auto package = PluginPackage::inspectManifest(bytes);
+                        QString publicationError;
+                        const auto resolved =
+                            PluginSourceEntry::publication(entry, bytes, publicationError);
+                        const auto package = PluginPackage::inspectManifest(
+                            QJsonDocument::fromVariant(resolved.value("manifest")).toJson());
                         if (!failure.isEmpty()) {
                             errors->append(entry.value("id").toString() + ": " + failure);
                             if (detail.isEmpty())
@@ -276,7 +348,8 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
                                 if (cached.value("sourceId") == source.value("id") &&
                                     cached.value("id") == entry.value("id") &&
                                     cached.value("repository") == entry.value("repository") &&
-                                    cached.value("sha256") == entry.value("sha256")) {
+                                    cached.value("ref") == entry.value("ref") &&
+                                    cached.value("path") == entry.value("path")) {
                                     cached["stale"] = true;
                                     cached["refreshError"] = failure;
                                     cached["refreshErrorDetail"] = detail;
@@ -286,7 +359,7 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
                             }
                         } else {
                             auto record = package.manifest;
-                            for (auto it = entry.begin(); it != entry.end(); ++it)
+                            for (auto it = resolved.begin(); it != resolved.end(); ++it)
                                 record[it.key()] = it.value();
                             record["key"] = source.value("id").toString() + ':' + package.id;
                             record["sourceId"] = source.value("id");
@@ -310,7 +383,7 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
                         auto continueFetch = *next;
                         continueFetch();
                     },
-                    {}, 30000, validateManifest, fresh);
+                    {}, 30000, validatePublication, fresh);
             };
             auto begin = *next;
             begin();
@@ -319,9 +392,14 @@ void PluginManager::fetchSource(QVariantMap source, quint64 generation,
 }
 void PluginManager::refreshCatalog(bool force)
 {
+    refreshCatalogImpl(force, false);
+}
+void PluginManager::refreshCatalogImpl(bool force, bool installedOnly)
+{
     if (force)
         m_shareInstallError.clear();
-    if (m_closing || m_catalogLoading || m_busy || (m_loaded && !force))
+    if (m_closing || m_catalogLoading || m_busy || m_batch || m_localBatch ||
+        (m_loaded && !force && (installedOnly || m_catalogComplete)))
         return;
     m_catalogLoading = true;
     emit changed();
@@ -333,6 +411,7 @@ void PluginManager::refreshCatalog(bool force)
     if (!*pending) {
         m_catalogLoading = false;
         m_loaded = true;
+        m_catalogComplete = !installedOnly;
         rebuild();
         save();
         return;
@@ -343,7 +422,8 @@ void PluginManager::refreshCatalog(bool force)
             continue;
         fetchSource(
             source, generation,
-            [this, generation, pending, force](QVariantMap source, QVariantList plugins) {
+            [this, generation, pending, force, installedOnly](QVariantMap source,
+                                                              QVariantList plugins) {
                 if (generation != m_generation)
                     return;
                 const auto id = source.value("id");
@@ -352,20 +432,26 @@ void PluginManager::refreshCatalog(bool force)
                         value = source;
                 if (source.value("catalogValid").toBool()) {
                     for (int i = int(m_entries.size()) - 1; i >= 0; --i)
-                        if (m_entries[i].toMap().value("sourceId") == id)
+                        if (m_entries[i].toMap().value("sourceId") == id &&
+                            (!installedOnly ||
+                             !m_runtime
+                                  .installationForId(m_entries[i].toMap().value("id").toString())
+                                  .isEmpty()))
                             m_entries.removeAt(i);
                     m_entries.append(plugins);
                 }
                 if (--*pending == 0) {
                     m_catalogLoading = false;
                     m_loaded = true;
+                    m_catalogComplete = !installedOnly;
                     m_fetchedAt = QDateTime::currentDateTime().toString(Qt::ISODate);
                     save();
-                    refreshStatistics(force);
+                    if (!installedOnly)
+                        refreshStatistics(force);
                 }
                 rebuild();
             },
-            force);
+            force, installedOnly);
     }
 }
 QVariantList PluginManager::sourceOptions() const

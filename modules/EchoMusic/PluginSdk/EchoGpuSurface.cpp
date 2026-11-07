@@ -4,6 +4,7 @@
 #include "ItemPresentationObserver_p.h"
 #include "EchoPluginContext.h"
 #include "graphics/GpuRhi_p.h"
+#include <QMutexLocker>
 #include <QQuickWindow>
 #include <QRunnable>
 #include <cmath>
@@ -35,6 +36,19 @@ private:
     std::shared_ptr<GpuRenderState> m_state;
 };
 } // namespace
+std::shared_ptr<GpuRenderState> EchoGpuSurface::renderState() const
+{
+    QMutexLocker locker(&m_renderStateMutex);
+    return m_renderState;
+}
+void EchoGpuSurface::publishRenderState(std::shared_ptr<GpuRenderState> state)
+{
+    {
+        QMutexLocker locker(&m_renderStateMutex);
+        m_renderState.swap(state);
+    }
+    // The old state can own render resources. Release it only after unlocking.
+}
 EchoGpuSurface::EchoGpuSurface(QQuickItem *parent) : QQuickRhiItem(parent)
 {
     setAlphaBlending(true);
@@ -80,6 +94,13 @@ EchoGpuSurface::EchoGpuSurface(QQuickItem *parent) : QQuickRhiItem(parent)
             m_windowConnections.append(connect(
                 window, &QQuickWindow::sceneGraphInitialized, this, [this] { syncActivity(); },
                 Qt::QueuedConnection));
+            m_windowConnections.append(connect(
+                window, &QQuickWindow::frameSwapped, this,
+                [this] {
+                    if (m_fps == 0 && m_continuous && live())
+                        update();
+                },
+                Qt::QueuedConnection));
         }
         syncActivity();
     }));
@@ -103,7 +124,7 @@ EchoGpuSurface::~EchoGpuSurface()
     releaseTarget();
     releaseNative();
     if (m_graphics) {
-        m_graphics->retainState(std::atomic_load(&m_renderState));
+        m_graphics->retainState(renderState());
         m_graphics->detach(this);
     }
 }
@@ -117,7 +138,7 @@ void EchoGpuSurface::setGraphics(EchoPluginGraphics *value)
     releaseNative();
     if (m_graphics) {
         disconnect(m_graphics, nullptr, this, nullptr);
-        m_graphics->retainState(std::atomic_load(&m_renderState));
+        m_graphics->retainState(renderState());
         m_graphics->detach(this);
     }
     disconnect(m_scopeConnection);
@@ -163,7 +184,7 @@ void EchoGpuSurface::setContinuous(bool v)
 }
 void EchoGpuSurface::setFps(int v)
 {
-    v = qBound(1, v, 120);
+    v = v == 0 ? 0 : qBound(1, v, 120);
     if (m_fps == v)
         return;
     m_fps = v;
@@ -261,7 +282,8 @@ void EchoGpuSurface::syncActivity()
     const bool running = live();
     m_lastLive = running;
     m_lastPixelRatio = window() ? window()->effectiveDevicePixelRatio() : 0;
-    if (running && m_continuous) {
+    // Zero follows the window's actual frames without a polling timer.
+    if (running && m_continuous && m_fps > 0) {
         const auto interval = qMax(8, 1000 / m_fps);
         if (!m_clock.isActive() || m_clock.interval() != interval)
             m_clock.start(interval);
@@ -312,7 +334,7 @@ void EchoGpuSurface::releaseNative()
         if (submission->operation)
             submission->operation->cancel();
     }
-    const auto state = std::atomic_load(&m_renderState);
+    const auto state = renderState();
     for (const auto &request : requests)
         if (request.second)
             request.second->cancel();
@@ -331,7 +353,7 @@ void EchoGpuSurface::releaseResources()
 }
 bool EchoGpuSurface::drained() const
 {
-    const auto state = std::atomic_load(&m_renderState);
+    const auto state = renderState();
     return !state || state->objects == 0;
 }
 void EchoGpuSurface::retire()

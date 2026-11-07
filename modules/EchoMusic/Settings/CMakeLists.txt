@@ -51,7 +51,6 @@ qt_add_qml_module(
     AboutSettingsSection.qml
     SettingsTextDialog.qml
     SettingsChangelogDialog.qml
-    DataSettingsSection.qml
     SettingsBackupProviderList.qml
     SettingsBackupConfirmation.qml
     CastSettingsSection.qml
@@ -64,10 +63,10 @@ target_compile_definitions(
                           ECHO_DISTRIBUTION_BUILD=$<BOOL:${ECHO_DISTRIBUTION_BUILD}>
 )
 set_source_files_properties(
-    "${PROJECT_SOURCE_DIR}/CHANGELOG.md" PROPERTIES QT_RESOURCE_ALIAS "CHANGELOG.md"
+    "${ECHO_PACKAGED_CHANGELOG_FILE}" PROPERTIES QT_RESOURCE_ALIAS "CHANGELOG.md"
 )
 qt_add_resources(
-    echo_settings settings_changelog PREFIX "/settings" FILES "${PROJECT_SOURCE_DIR}/CHANGELOG.md"
+    echo_settings settings_changelog PREFIX "/settings" FILES "${ECHO_PACKAGED_CHANGELOG_FILE}"
 )
 target_link_libraries(
     echo_settings

@@ -7,6 +7,16 @@ import EchoMusic.Theme
 // Long menus scroll; Action entries can carry a dynamic danger property.
 Menu {
     id: menuRoot
+    EchoPopupMotion {
+        id: appearance
+        surface: menuRoot
+        fromY: 4 * menuRoot.uiScale
+        enterDuration: Theme.fastDuration
+        exitDuration: 0
+        enterCurve: Theme.easeStandard
+    }
+    enter: appearance.enter
+    exit: appearance.exit
     EchoPopupLifecycle {
         surface: menuRoot
     }
@@ -75,6 +85,8 @@ Menu {
     Component.onCompleted: menuRoot.refreshMeasuredSize()
     contentItem: ListView {
         id: entries
+        readonly property string _echoUiModelKind: "menu"
+        readonly property var _echoUiModelOwner: menuRoot
         implicitHeight: contentHeight
         model: menuRoot.contentModel
         currentIndex: menuRoot.currentIndex

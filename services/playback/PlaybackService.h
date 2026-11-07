@@ -306,7 +306,7 @@ public:
     }
     bool loading() const
     {
-        return m_loading;
+        return m_loading || m_startPending;
     }
     bool hasTrack() const
     {
@@ -551,6 +551,7 @@ private:
     void requestLyrics();
     void requestEmbeddedMetadata();
     void persist();
+    void beginHistory();
     void finishHistory();
     void publishMedia();
     ApiClient::PlaybackQuality apiQuality() const;
@@ -599,6 +600,7 @@ private:
     QTimer m_saveTimer;
     QElapsedTimer m_listenTick;
     qint64 m_listenedMs = 0;
+    bool m_historyRecorded = false;
     quint64 m_account = 0, m_restoreSequence = 0;
     int m_closedWorkers = 0;
     bool m_restoring = false, m_loaded = false, m_queueRestorePending = false;
@@ -649,5 +651,8 @@ private:
     PlayMode m_mode = ListLoop;
     bool m_playing = false, m_loading = false, m_autoplay = false, m_ready = false,
          m_closing = false, m_startupAutoPlayPending = false;
+    // Source resolution and native Play acknowledgement are separate stages.
+    // Keep presentation busy across their hand-off without blocking recovery.
+    bool m_startPending = false;
 };
 } // namespace EchoMusic

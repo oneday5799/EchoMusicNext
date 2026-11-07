@@ -1,4 +1,12 @@
 cmake_minimum_required(VERSION 3.28)
+# Let CMake de-duplicate static archives only when the linker can rescan them.
+# Traditional Unix linkers still retain the repetitions needed for resolution.
+if(POLICY CMP0156)
+    cmake_policy(SET CMP0156 NEW)
+endif()
+if(POLICY CMP0179)
+    cmake_policy(SET CMP0179 NEW)
+endif()
 if(CMAKE_HOST_APPLE
    AND NOT CMAKE_OSX_SYSROOT
    AND "$ENV{SDKROOT}" STREQUAL ""
@@ -15,9 +23,10 @@ if(CMAKE_HOST_APPLE AND NOT CMAKE_OSX_DEPLOYMENT_TARGET)
         CACHE STRING "Minimum macOS version" FORCE
     )
 endif()
+include(cmake/ApplicationVersion.cmake)
 project(
     EchoMusicNext
-    VERSION 0.1.0
+    VERSION "${ECHO_RELEASE_CORE}"
     LANGUAGES C CXX
 )
 if(APPLE)
@@ -58,6 +67,7 @@ if(UNIX AND NOT APPLE)
     find_package(Qt6 6.12.0 EXACT REQUIRED COMPONENTS WaylandClient DBus)
 endif()
 qt_standard_project_setup(REQUIRES 6.12 I18N_SOURCE_LANGUAGE zh_CN)
+include(cmake/QtRuntimePatch.cmake)
 set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
 include(CTest)
 include(cmake/Rust.cmake)
@@ -65,15 +75,8 @@ include(cmake/Rust.cmake)
 include(cmake/ProjectOptions.cmake)
 include(cmake/MsvcLinkResponse.cmake)
 include(cmake/TextSegmentation.cmake)
-set(ECHO_RELEASE_VERSION
-    "${PROJECT_VERSION}"
-    CACHE STRING "Full release version including prerelease suffix"
-)
-string(REGEX REPLACE "[-+].*$" "" ECHO_RELEASE_CORE "${ECHO_RELEASE_VERSION}")
-if(NOT ECHO_RELEASE_CORE STREQUAL PROJECT_VERSION)
-    message(FATAL_ERROR "ECHO_RELEASE_VERSION must use the declared project version")
-endif()
 option(ECHO_DISTRIBUTION_BUILD "Enable packaged application lifecycle actions" OFF)
+include(cmake/ReleaseNotes.cmake)
 include(cmake/BuildIdentity.cmake)
 include(cmake/Crashpad.cmake)
 add_subdirectory(tools/update-helper)

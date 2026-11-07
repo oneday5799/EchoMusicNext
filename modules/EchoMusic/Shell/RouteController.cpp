@@ -118,8 +118,7 @@ bool RouteController::unregisterPage(const QString &name, quint64 revision)
     emit dismissOverlays();
     const bool wasCurrent = m_current && m_current->name() == name;
     if (wasCurrent) {
-        m_current->m_active = false;
-        emit m_current->activeChanged();
+        m_current->setActive(false);
         m_current = nullptr;
     }
     for (int i = int(m_pages.size()) - 1; i >= 0; --i)
@@ -328,11 +327,9 @@ void RouteController::present(const Location &location)
     m_current = next;
     next->m_used = ++m_clock;
     if (previous) {
-        previous->m_active = false;
-        emit previous->activeChanged();
+        previous->setActive(false);
     }
-    next->m_active = true;
-    emit next->activeChanged();
+    next->setActive(true);
     emit routeChanged();
     if (previous && (!cacheable(previous) || previous->m_canonical == branch))
         removePage(int(m_pages.indexOf(previous)));
@@ -366,7 +363,9 @@ void RouteController::removePage(int row)
 void RouteController::prune()
 {
     for (int i = int(m_pages.size()) - 1; i >= 0; --i)
-        if (m_pages[i] != m_current && !cacheable(m_pages[i]))
+        if (m_pages[i] != m_current &&
+            (!cacheable(m_pages[i]) ||
+             (m_current && m_pages[i]->m_canonical == m_current->m_canonical)))
             removePage(i);
     while (m_pages.size() > m_max + (m_current && !cacheable(m_current) ? 1 : 0)) {
         int oldest = -1;
@@ -463,8 +462,7 @@ void RouteController::resetAccount(bool preserveRoute)
     auto *previous = m_current;
     m_current = nullptr;
     if (previous) {
-        previous->m_active = false;
-        emit previous->activeChanged();
+        previous->setActive(false);
     }
     for (int i = int(m_pages.size()) - 1; i >= 0; --i)
         removePage(i);
@@ -480,8 +478,7 @@ void RouteController::shutdown()
     }
     m_closed = true;
     if (m_current) {
-        m_current->m_active = false;
-        emit m_current->activeChanged();
+        m_current->setActive(false);
     }
     m_current = nullptr;
     for (int i = int(m_pages.size()) - 1; i >= 0; --i)

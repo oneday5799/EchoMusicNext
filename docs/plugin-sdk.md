@@ -16,6 +16,12 @@
 
 注册、订阅、任务和界面实例由插件 scope 管理；停用、重载、更新和退出时撤销并排空。异步结果受取消及账号世代约束，旧会话结果不能继续更新当前状态。原生 DSP 另受平台、架构和 C ABI 兼容性检查。
 
+命令回调参数、`EchoPluginOperation.result` 与 `awaitOperation()` 交付的 JSON 数组在 JS/QML 中均为原生 Array，包含顶层、嵌套和空数组，可直接使用 `Array.isArray()`、`map()` 等标准方法。结果首次读取时转换，同一操作复用该快照；SDK 文件、窗口、数据库等资源句柄保留类型、身份及方法。私有 KV 的缺失键返回 `undefined`，已存 `null` 保持 `null`；读取失败进入 Failed，`awaitOperation()` 拒绝并提供 `error.code`，不能把失败当作缺失键覆盖已存数据。
+
+`ctx.registerCommand()` 注册的内部命令只在本插件的激活上下文内执行；设置页和对话框的 `plugin.executeCommand()` 路由到所属插件。不同插件可以使用相同内部命令名，跨插件调用仍使用显式公开目录与依赖契约。
+
+排查命令路由时开启宿主 Debug 日志，`echo.plugins.commands` 的 `dispatch` 记录操作 ID、插件 ID、安装身份、作用域、激活代次与命令名；不记录命令参数或结果。可据 `command=play` 等记录确认实际执行者。
+
 ## 界面与频谱
 
 现有接口支持页面、设置、标题栏及播放栏贡献，以及播放命令、私有存储、网络、任务、依赖和插件间服务。公开区域的局部样式/结构扩展、主题中心候选与完整播放页皮肤使用不同的注册协议；文件、网络和其它扩展的可用性以宿主导出契约为准。
@@ -26,7 +32,7 @@
 
 声明 `audio.spectrum` feature 和 `audioSpectrum` capability 后，可订阅播放器实际输出的 PCM 频谱。订阅提供帧、状态及暂停/释放操作；`dispose` 后句柄失效。多个订阅共享分析，暂停或没有可见订阅时停止采集与 FFT 请求。
 
-支持 fps 1–60、binCount 8–512、fftSize 256–8192 的指定二次幂、smoothing 0–0.95、log / linear / mel 频率映射及可选波形。帧包含 source、state、时间、采样率、FFT 大小、频段、peak / rms 等资料。当前通过有界 JSON 传输，不提供零复制二进制 buffer。高级 GPU 绘图使用 `ctx.graphics` 和 `EchoGpuSurface`，支持纹理、缓冲、渲染/计算管线和局部 HDR 输入的 SDR 映射；默认 SDR，不修改宿主窗口。当前没有局部 HDR 实屏输出后端。硬件状态与接口 feature 分开查询，详见[绘图指南](https://github.com/hoowhoami/EchoMusicNextPlugins/blob/main/docs/graphics.md)。
+支持 fps 0（不额外限帧）或 1–60、binCount 8–512、fftSize 256–8192 的指定二次幂、smoothing 0–0.95、log / linear / mel 频率映射及可选波形。帧包含 source、state、时间、采样率、FFT 大小、频段、peak / rms 等资料。当前通过有界 JSON 传输，不提供零复制二进制 buffer。高级 GPU 绘图使用 `ctx.graphics` 和 `EchoGpuSurface`，支持纹理、缓冲、渲染/计算管线和局部 HDR 输入的 SDR 映射；默认 SDR，不修改宿主窗口。当前没有局部 HDR 实屏输出后端。硬件状态与接口 feature 分开查询，详见[绘图指南](https://github.com/hoowhoami/EchoMusicNextPlugins/blob/main/docs/graphics.md)。
 
 原生点图元使用通用 `PointMesh` 和 `graphics.pointMesh`，顶点数量/数据有界，几何归场景图；输入布局、错误及平台边界见[点网格说明](plugin-point-mesh.md)。
 
@@ -38,7 +44,7 @@
 
 `ctx.ui.parts`提供类型化区域引用的`query/queryAll/observe/mount`；`ctx.ui.styles.registerRule(id, selector, values, priority)`注册逐属性视觉规则，返回可更新、调整优先级及撤销的句柄。manifest以`ui.parts`、`ui.styles`协商能力，SDK版本保持1.0.0。
 
-区域以role/key/surface/window或具体实例id选择，不查询宿主私有对象。样式在原有绑定中解析，较高priority优先，同级按插件ID与规则ID确定；停用、失败、重载和卸载恢复下一层或宿主当前基础值。精确实例规则随实例失效撤销。布局/业务状态不属于样式字段。
+区域以稳定address、scope/ancestor/resourceKey、role/key/surface/window或具体实例id选择，不向插件暴露宿主对象指针。原生 Qt Quick 树在扩展使用期间按需发现，Row/Column/Grid/Flow 与 Layout 共用布局适配；现有按钮的 before/after 插入不需要逐入口补插槽。`parentOf` 可锚定当前按钮组，`properties/insertionPositions/layoutEngine/composable` 描述真实能力。`EchoUiPartPalette` 使用目标呈现色板。样式在原有绑定中解析，较高priority优先，同级按插件ID与规则ID确定；停用、失败、重载和卸载恢复下一层或宿主当前基础值。精确实例规则随实例失效撤销。布局/业务状态不属于样式字段。
 
 当前公开目录：
 
@@ -70,13 +76,17 @@
 
 `ui.presentationClosing` 提供无载荷的 `page.aboutToClose` 同步通知：普通外观关闭、隐藏、替换时，先允许当前有效呈现提交拖动草稿，再沿用原撤销和排空。回调不能等待异步任务；停用、账号变化或 scope 已失效时不触发，组件销毁之后不恢复权限。通知仅公开 typed view 信号，不向插件交付宿主 QObject 或窗口句柄。
 
-`ui.presentationVisibility` 提供 author-owned `PresentationScope` QQuickItem 容器。只读 `presented` 随祖先裁剪、几何、透明度、显隐、Item rotation/scale 和窗口隐藏/最小化更新，可作为内部预览 Loader 的按需创建条件；不暴露宿主对象、不轮询、不判断遮挡。自定义 transform 列表不在当前通知契约内。它不授予操作权限，需结合当前呈现 active 状态。
+`ui.presentationVisibility` 提供 author-owned `PresentationScope` QQuickItem 容器。只读 `presented` 随祖先裁剪、几何、透明度、显隐、Item rotation/scale、自定义原生 transform 和窗口隐藏/最小化更新，可作为内部预览 Loader 的按需创建条件；不暴露宿主对象、不轮询、不判断遮挡。它不授予操作权限，需结合当前呈现 active 状态。
 
 `player.snapshot/lyricsInfo/lyricSnapshot/on/control`提供曲目、模式、质量、音效、收藏、FM和歌词时间上下文；`appearance.snapshot/fonts`提供语义外观和完整字体链。`windows.snapshot/command`调用现有浮窗控制器；共享`EchoPluginPlaybackControls/EchoPluginProgress/EchoPluginLyricsView`可用于整页皮肤及Mini。作者签名与例子见[外观文档](https://github.com/hoowhoami/EchoMusicNextPlugins/blob/main/docs/appearance.md)，执行证据与平台边界见[本轮记录](internal/verification/2026-10-21-plugin-p0.md)。
 
 `lyrics.onSnapshot`在同一歌词文档内复用只读的`lines`及嵌套数据，换行只更新当前行等轻量信息；歌词内容、过滤或偏移变化后发布新的行数组。需要改写数据时先自行复制，避免在每次回调中深度遍历不变的整首歌词。订阅释放后宿主回收其缓存，调用者显式保留的旧快照继续保持原值。
 
 音源解析/转换（playback.audioSource）与多队列（playback.queues）已接入正常播放、预加载及宿主队列目录。作者用法见[音源与队列](https://github.com/hoowhoami/EchoMusicNextPlugins/blob/main/docs/audio-sources-and-queues.md)。
+
+自定义曲目的 `sourceId` 由宿主添加插件所有者限定：例如本插件入队 `local:folder:song`，音源/歌词回调接收 `<插件ID>/local:folder:song`。匹配和解析须处理该限定身份；需要解析内部格式时只剥离自身插件前缀，不能把其它插件的来源当成本插件曲目。
+
+`ctx.playlist.replace/append` 的每批曲目最多10000条、紧凑 JSON 总量4MiB；单曲 `cover` 最多16384个 UTF-16 字符，`title/artist/album` 各最多1024。输入校验失败返回 `InvalidArgument`，曲目错误包含从0开始的索引和字段，例如 `tracks[4].cover length 808887 exceeds limit 16384`；整次命令不修改队列，不跳过歌曲或调整播放索引。队列应保存较短的图片地址，避免把大幅 Base64 内嵌图直接写进 cover。界面的空/失败封面可使用已有 `ctx.cover.setFallback` 返回至多1MiB字符的图片地址或 data:image URL；这是共享封面控件的呈现兜底，不会把图片写回队列 cover。
 
 `ctx.lyrics`支持LRC/KRC/YRC resolver、来源预览、类型化快照与临时写入。手动来源优先，切歌/账号取消，停用撤回写入与来源结果；作者用法见[歌词接口](https://github.com/hoowhoami/EchoMusicNextPlugins/blob/main/docs/lyrics.md)。
 
@@ -165,3 +175,44 @@ Qt组件纹理可通过EchoGpuSurface.importTextureSource借用到RHI采样：�
 `ctx.ui.showDialog({ component: 'Panel.qml', width: 400, modal: true, closeOnMask: true })` 返回 operation，正文准备完成后得到 `EchoPluginDialog` 句柄；`close()` 关闭，`active`/`closed` 通知生命周期。可选 `title` 默认插件名，width 为160..2048逻辑px并受主窗口约束。QML 根必须是 Item，声明 `required property EchoPluginContext plugin` 和 `required property EchoPluginDialog dialog`，通过 `dialog.close()` 关闭。默认模态、Escape关闭及点击遮罩关闭，使用共享主题、应用缩放和浮层；不离开路由、不创建OS窗口。取消打开operation、账号变化、调用者退休或宿主隐藏会清理，最小化保留实例。最多同时8个弹窗，正文自行提供自然高度及必要滚动。
 
 `ctx.clipboard.write(text)` 返回可等待的operation，写系统文本剪贴板，上限1MiB UTF-8，可传空文本；不读取剪贴板、不需要焦点。账号变化/停用会取消尚未执行的写入。三项能力可分别通过 `kugou.authSnapshot`、`ui.dialogs`、`clipboard.write` feature 声明。
+
+### 页面切换动画
+
+普通页面默认在恢复就绪后立即接管并启用交互，同时播放220ms新页淡入；旧页立即卸载，不等待动画结束才响应导航。主题的light/dark配置及`ctx.theme.setOverride`都可通过已有`pageTransition`配方覆盖时长、四点Bezier曲线、进入/退出透明度、X/Y位移、缩放及`parallel`/`out-in`/`in-out`顺序；无需CSS或DOM。`enabled:false`明确关闭，`appear:false`仅跳过首次呈现，后续导航仍播放。先出后进/先进后出等待实际动画完成，不以固定延迟猜测页面加载；快速导航取消旧等待。隐藏/最小化、减少动效及贡献替换/撤销结束当前动画，撤销最后一个贡献恢复仅新页淡入，不修改用户持久主题配置。
+
+```ts
+const lease = await awaitOperation(ctx.theme.setOverride('page-motion', {
+  light: { pageTransition: {
+    enabled: true, appear: true, mode: 'parallel', durationMs: 240,
+    easing: [0.2, 0, 0, 1], enterOpacity: 0, leaveOpacity: 0,
+    enterX: 16, enterY: 0, leaveX: -8, leaveY: 0,
+    enterScale: 0.98, leaveScale: 1,
+  } },
+  dark: { pageTransition: { enabled: true, durationMs: 220, enterOpacity: 0 } },
+}, 10));
+// 与其它临时外观贡献共用appearance授权、优先级及scope回收。
+lease.dispose();
+```
+
+完整类型仍唯一维护于作者仓库`PageTransitionDefinition`；宿主不执行旧Vue/CSS动画，执行证据及平台边界见[动画验证](internal/verification/2026-11-05-motion-parity.md)。
+
+## 日志与问题排查
+
+插件诊断复用应用运行日志，同时写入终端与日志文件。默认 `info` 记录插件发现、启停、依赖阻塞、安装及事务结果；SDK operation 失败、生命周期和回调异常、市场请求失败默认记录警告。
+
+在“设置 → 实验室 → 临时诊断日志”点击“10 分钟”，或把日志级别设为 `debug`，可查看 operation 创建/终态、私有命令分发，以及市场请求、HTTP 状态、耗时与原站回退。启动问题可使用同处的“诊断并重启/开启启动诊断”。日志目录由“查看运行日志”打开。
+
+日志分类使用 `echo.plugins.runtime`、`echo.plugins.operations`、`echo.plugins.commands` 和 `echo.plugins.marketplace`。SDK operation 记录关联 `plugin`、`installation`、`scope`、`activation`、`operation` 和原生 SDK `action`；命令分发另带 `command`。市场回退的两次尝试共用 `request` 编号，使用 `attempt` 区分。
+
+宿主不记录命令参数、operation 返回值、请求/响应正文或网络请求的查询串；错误字段经统一脱敏并限制长度，超限标记 `[truncated]`。普通成功和取消的 operation 明细只在 debug 可见。插件自行通过 JS/QML `console` 输出内容时也会进入现有日志出口，作者应避免输出凭证或完整业务数据。
+
+
+2026-11-07界面P0：地址按原逻辑归属范围建立，空名/重名/未知业务资源只使用实例地址；queryUnique拒绝零匹配及歧义。原生List/Grid/Table复用和模型代际同步退休整棵语义子树。所有插件呈现入口登记所属插件/区域；普通Item的before/after经共享原生锚点组布局，保留源父项、anchors及输入padding绑定，装饰层不参与排位。作者定义、类型与用法统一见作者仓库`docs/ui-parts.md`；本机验收边界见[五项P0验证](internal/verification/2026-11-07-ui-extension-p0.md)。
+
+### 原生状态、模型与成组提交
+
+公开区域提供 `stateSchema/actionSchema`、原生属性通知、状态选择器、坐标转换和逐字段 `visualSources`。共享 Qt 控件的内容、背景及指示器可按需借入组合；编辑内容和密码不会加入状态快照。设置/选择/滚动/焦点动作沿原生 Qt 路径执行，撤下后恢复原绑定与焦点关系。
+
+`ui.models` 对应 `parts.contributeModel`：原生 List/Grid/Table 与数值、列表、JS 数组模型保留原始数据和原委托，插件行追加，Table 支持追加列；共享菜单使用 Qt Action，Tab 保留宿主索引并接实际正文，设置章节进入同一目录、搜索和正文 Loader。单元格随复用退休，账号变化或插件停用回收贡献。
+
+`ui.transactions` 对应 `parts.applyBatch(id, entries)`：对当前目标快照准备并提交多条样式及结构贡献，返回可更新/取消/撤销的组句柄；失败的更新保留当前组。可见组件先在隐藏作用域中完成创建，提交前检查目标与资源预算，提交中验证布局容量。未来页面实例仍使用持续匹配的 `contribute`。完整参数、边界和用法统一见作者仓库 `docs/ui-parts.md`；本段描述实现契约，当前执行进度见本轮验证记录。
