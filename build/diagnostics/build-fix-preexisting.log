@@ -1,0 +1,22 @@
+[0/21] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe run --locked -p ffi-header --target-dir D:/Code/EchoMusicNext/target --release -- --check"
+    Finished `release` profile [optimized] target(s) in 0.30s
+     Running `target\release\ffi-header.exe --check`
+[3/21] Generating qt.conf file
+[4/21] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe build --locked -p echo-ffi --target-dir D:/Code/EchoMusicNext/target --release"
+warning: unused import: `PlayerErrorCode`
+ --> crates\echo-audio\src\output\mod.rs:8:21
+  |
+8 | use crate::events::{PlayerErrorCode, PlayerEvent};
+  |                     ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `echo-audio` (lib) generated 1 warning (run `cargo fix --lib -p echo-audio` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.94s
+[6/20] Automatic MOC and UIC for target echo-desktop-pages-test
+[7/19] Automatic MOC and UIC for target echo-shell-test
+[8/18] Running AUTOMOC file extraction for target echo-shell-test
+[9/11] Linking CXX executable echo-shell-test.exe
+[10/11] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesPopups.cpp.obj
+[11/11] Linking CXX executable echo-desktop-pages-test.exe
+BUILD_OK

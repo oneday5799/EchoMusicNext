@@ -1,0 +1,26 @@
+[0/15] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe run --locked -p ffi-header --target-dir D:/Code/EchoMusicNext/target --release -- --check"
+    Finished `release` profile [optimized] target(s) in 0.30s
+     Running `target\release\ffi-header.exe --check`
+[1/15] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe build --locked -p echo-ffi --target-dir D:/Code/EchoMusicNext/target --release"
+warning: unused import: `PlayerErrorCode`
+ --> crates\echo-audio\src\output\mod.rs:8:21
+  |
+8 | use crate::events::{PlayerErrorCode, PlayerEvent};
+  |                     ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `echo-audio` (lib) generated 1 warning (run `cargo fix --lib -p echo-audio` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.95s
+[3/14] Automatic MOC and UIC for target echo-shell-test
+[4/13] Running AUTOMOC file extraction for target echo-shell-test
+[5/13] Running moc --collect-json for target echo-shell-test
+[6/13] Automatic QML type registration for target echo-shell-test
+[7/13] Generating .rcc/qmlcache/echo-shell-test_ShellHarness_qml.cpp, .rcc/qmlcache/echo-shell-test_ShellHarness_qml.cpp.aotstats
+[8/13] Generating .rcc/qmlcache/echo-shell-test_ProbePage_qml.cpp, .rcc/qmlcache/echo-shell-test_ProbePage_qml.cpp.aotstats
+[9/13] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\echo-shell-test_qmltyperegistrations.cpp.obj
+[10/13] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\.rcc\qmlcache\echo-shell-test_ShellHarness_qml.cpp.obj
+[11/13] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\.rcc\qmlcache\echo-shell-test_ProbePage_qml.cpp.obj
+[12/13] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\ShellTest.cpp.obj
+[13/13] Linking CXX executable echo-shell-test.exe
+BUILD_OK

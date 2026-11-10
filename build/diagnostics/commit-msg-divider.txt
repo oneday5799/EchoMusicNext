@@ -1,0 +1,9 @@
+fix(music): 歌单工具栏分割线接入设备相位补偿
+
+吸顶工具栏的落点随滚动与窗口缩放在多个逻辑行之间变化，纯
+Rectangle 在 1.25 这类分数 DPR 下每个落点的设备相位都不同，
+线条在清晰与跨行模糊之间跳变。songCatalogTabDivider 与
+songListHeaderDivider 直接改用 EchoDivider；songCatalogTabUnderline
+沿用 EchoDivider 外层布局、内层补偿的惯用法，高度按
+round(2*densityY)/densityY 锁定为整设备像素，药丸粗细不再随
+落点漂移。

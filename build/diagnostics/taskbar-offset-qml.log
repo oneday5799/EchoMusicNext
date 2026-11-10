@@ -1,0 +1,42 @@
+[0/15] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe run --locked -p ffi-header --target-dir D:/Code/EchoMusicNext/target --release -- --check"
+    Finished `release` profile [optimized] target(s) in 0.29s
+     Running `target\release\ffi-header.exe --check`
+[1/15] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe build --locked -p echo-ffi --target-dir D:/Code/EchoMusicNext/target --release"
+warning: unused import: `PlayerErrorCode`
+ --> crates\echo-audio\src\output\mod.rs:8:21
+  |
+8 | use crate::events::{PlayerErrorCode, PlayerEvent};
+  |                     ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `echo-audio` (lib) generated 1 warning (run `cargo fix --lib -p echo-audio` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 0.93s
+[3/14] Automatic MOC and UIC for target echo-playback-page-test
+[4/13] Running AUTOMOC file extraction for target echo-playback-page-test
+[5/12] Automatic QML type registration for target echo-playback-page-test
+[6/12] Generating .rcc/qmlcache/echo-playback-page-test_PlaybackBackgroundHarness_qml.cpp, .rcc/qmlcache/echo-playback-page-test_PlaybackBackgroundHarness_qml.cpp.aotstats
+[7/12] Generating .rcc/qmlcache/echo-playback-page-test_PlaybackPageHarness_qml.cpp, .rcc/qmlcache/echo-playback-page-test_PlaybackPageHarness_qml.cpp.aotstats
+[8/12] Building CXX object tests\qt\CMakeFiles\echo-playback-page-test.dir\echo-playback-page-test_qmltyperegistrations.cpp.obj
+[9/12] Building CXX object tests\qt\CMakeFiles\echo-playback-page-test.dir\.rcc\qmlcache\echo-playback-page-test_PlaybackPageHarness_qml.cpp.obj
+[10/12] Building CXX object tests\qt\CMakeFiles\echo-playback-page-test.dir\.rcc\qmlcache\echo-playback-page-test_PlaybackBackgroundHarness_qml.cpp.obj
+[11/12] Building CXX object tests\qt\CMakeFiles\echo-playback-page-test.dir\PlaybackPageTest.cpp.obj
+[12/12] Linking CXX executable echo-playback-page-test.exe
+BUILD_OK
+********* Start testing of PlaybackPageTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+PASS   : PlaybackPageTest::initTestCase()
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFontDatabase: Cannot find font directory D:/Code/EchoMusicNext/build/qt-official/6.12.0/msvc2022_64/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.118800), must be greater than 0
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.216000), must be greater than 0
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.132000), must be greater than 0
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.118800), must be greater than 0
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.216000), must be greater than 0
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.132000), must be greater than 0
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.118800), must be greater than 0
+QWARN  : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins() QFont::setPointSizeF: Point size <= 0 (-0.216000), must be greater than 0
+PASS   : PlaybackPageTest::secondaryColorsResolveAcrossPageSkins()
+PASS   : PlaybackPageTest::cleanupTestCase()
+Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 1353ms
+********* Finished testing of PlaybackPageTest *********

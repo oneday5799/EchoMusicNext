@@ -1,0 +1,5 @@
+[0/57] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe run --locked -p ffi-header --target-dir D:/Code/EchoMusicNext/target --release -- --check"
+    Finished `release` profile [optimized] target(s) in 0.39s
+     Running `target\release\ffi-header.exe --check`
+[8/57] Building CXX object modules\EchoMusic\Controls\CMakeFiles\echo_controls.dir\.qt\rcc\qrc_echo_controls_raw_qml_0.cpp.obj
+[9/57] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe build --locked -p echo-ffi --target-dir D:/Code/EchoMusicNext/target --release"

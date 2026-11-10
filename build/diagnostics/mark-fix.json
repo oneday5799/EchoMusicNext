@@ -1,0 +1,113 @@
+{
+  "sha": "9eca4322acef46f67405e891d9a61661a4fc26ee",
+  "node_id": "C_kwDOAJbDGdoAKDllY2E0MzIyYWNlZjQ2ZjY3NDA1ZTg5MWQ5YTYxNjYxYTRmYzI2ZWU",
+  "commit": {
+    "author": {
+      "name": "Ulf Hermann",
+      "email": "ulf.hermann@qt.io",
+      "date": "2026-10-21T12:14:06Z"
+    },
+    "committer": {
+      "name": "Ulf Hermann",
+      "email": "ulf.hermann@qt.io",
+      "date": "2026-10-23T08:01:18Z"
+    },
+    "message": "QtQml: Check function for null before marking generator frames\n\nAmends commit 65c743820a26b83836589ed6c84d1e91f0ab2a2f.\n\nFixes: QTBUG-151511\nOriginal-patch-by: Rafał Mikrut\nPick-to: 6.8\nChange-Id: I2467db18ffe140ccb0ffbb2ed3bf413954bc336b\nReviewed-by: Fabian Kosmale <fabian.kosmale@qt.io>\n(cherry picked from commit 3c20488ac4a676c612cef9539144194a4fb86801)\nReviewed-by: Sami Shalayel <sami.shalayel@qt.io>",
+    "tree": {
+      "sha": "b768d11894c1def5c50f2acb72072ae08ca818d4",
+      "url": "https://api.github.com/repos/qt/qtdeclarative/git/trees/b768d11894c1def5c50f2acb72072ae08ca818d4"
+    },
+    "url": "https://api.github.com/repos/qt/qtdeclarative/git/commits/9eca4322acef46f67405e891d9a61661a4fc26ee",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/qt/qtdeclarative/commits/9eca4322acef46f67405e891d9a61661a4fc26ee",
+  "html_url": "https://github.com/qt/qtdeclarative/commit/9eca4322acef46f67405e891d9a61661a4fc26ee",
+  "comments_url": "https://api.github.com/repos/qt/qtdeclarative/commits/9eca4322acef46f67405e891d9a61661a4fc26ee/comments",
+  "author": {
+    "login": "ulfhermannqt",
+    "id": 240439932,
+    "node_id": "U_kgDODlTSfA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/240439932?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/ulfhermannqt",
+    "html_url": "https://github.com/ulfhermannqt",
+    "followers_url": "https://api.github.com/users/ulfhermannqt/followers",
+    "following_url": "https://api.github.com/users/ulfhermannqt/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ulfhermannqt/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/ulfhermannqt/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ulfhermannqt/subscriptions",
+    "organizations_url": "https://api.github.com/users/ulfhermannqt/orgs",
+    "repos_url": "https://api.github.com/users/ulfhermannqt/repos",
+    "events_url": "https://api.github.com/users/ulfhermannqt/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/ulfhermannqt/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "ulfhermannqt",
+    "id": 240439932,
+    "node_id": "U_kgDODlTSfA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/240439932?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/ulfhermannqt",
+    "html_url": "https://github.com/ulfhermannqt",
+    "followers_url": "https://api.github.com/users/ulfhermannqt/followers",
+    "following_url": "https://api.github.com/users/ulfhermannqt/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ulfhermannqt/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/ulfhermannqt/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ulfhermannqt/subscriptions",
+    "organizations_url": "https://api.github.com/users/ulfhermannqt/orgs",
+    "repos_url": "https://api.github.com/users/ulfhermannqt/repos",
+    "events_url": "https://api.github.com/users/ulfhermannqt/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/ulfhermannqt/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "9b150968b529ae1a9eb82d3ff6385ecc68be62dd",
+      "url": "https://api.github.com/repos/qt/qtdeclarative/commits/9b150968b529ae1a9eb82d3ff6385ecc68be62dd",
+      "html_url": "https://github.com/qt/qtdeclarative/commit/9b150968b529ae1a9eb82d3ff6385ecc68be62dd"
+    }
+  ],
+  "stats": {
+    "total": 43,
+    "additions": 42,
+    "deletions": 1
+  },
+  "files": [
+    {
+      "sha": "6fe55ebbeaaed9164f9d48023d3fb64243552afa",
+      "filename": "src/qml/memory/qv4mm.cpp",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/qt/qtdeclarative/blob/9eca4322acef46f67405e891d9a61661a4fc26ee/src%2Fqml%2Fmemory%2Fqv4mm.cpp",
+      "raw_url": "https://github.com/qt/qtdeclarative/raw/9eca4322acef46f67405e891d9a61661a4fc26ee/src%2Fqml%2Fmemory%2Fqv4mm.cpp",
+      "contents_url": "https://api.github.com/repos/qt/qtdeclarative/contents/src%2Fqml%2Fmemory%2Fqv4mm.cpp?ref=9eca4322acef46f67405e891d9a61661a4fc26ee",
+      "patch": "@@ -1503,7 +1503,7 @@ void MemoryManager::collectFromJSStack(MarkStack *markStack) const\n         if (frame->isJSTypesFrame()) {\n             // Generator frames don't live on the JS stack, but in a heap object that the\n             // interpreter writes to without write barrier.\n-            if (frame->v4Function->isGenerator())\n+            if (frame->v4Function && frame->v4Function->isGenerator())\n                 static_cast<const JSTypesStackFrame *>(frame)->markJSFrame(markStack);\n             continue;\n         }"
+    },
+    {
+      "sha": "9e7afbc0e20bf2dab6f5f2f5a3daa4a6857cf416",
+      "filename": "tests/auto/qml/qv4mm/tst_qv4mm.cpp",
+      "status": "modified",
+      "additions": 41,
+      "deletions": 0,
+      "changes": 41,
+      "blob_url": "https://github.com/qt/qtdeclarative/blob/9eca4322acef46f67405e891d9a61661a4fc26ee/tests%2Fauto%2Fqml%2Fqv4mm%2Ftst_qv4mm.cpp",
+      "raw_url": "https://github.com/qt/qtdeclarative/raw/9eca4322acef46f67405e891d9a61661a4fc26ee/tests%2Fauto%2Fqml%2Fqv4mm%2Ftst_qv4mm.cpp",
+      "contents_url": "https://api.github.com/repos/qt/qtdeclarative/contents/tests%2Fauto%2Fqml%2Fqv4mm%2Ftst_qv4mm.cpp?ref=9eca4322acef46f67405e891d9a61661a4fc26ee",
+      "patch": "@@ -92,6 +92,8 @@ private slots:\n     void destroyOnEngineShutdown();\n     void generatorFrameMarking_data();\n     void generatorFrameMarking();\n+    void defaultDerivedConstructorDuringGc_data();\n+    void defaultDerivedConstructorDuringGc();\n };\n \n tst_qv4mm::tst_qv4mm()\n@@ -2111,6 +2113,45 @@ void tst_qv4mm::generatorFrameMarking()\n     QVERIFY(trackedGeneratorLocal->inUse());\n }\n \n+void tst_qv4mm::defaultDerivedConstructorDuringGc_data()\n+{\n+    QTest::addColumn<QString>(\"source\");\n+    QTest::addRow(\"base finishes gc\") << uR\"(\n+        class Base { constructor() { __finishGc(); } }\n+        class Derived extends Base {}\n+        new Derived();\n+    )\"_s;\n+    QTest::addRow(\"two levels\") << uR\"(\n+        class Base { constructor() { __finishGc(); } }\n+        class Middle extends Base {}\n+        class Derived extends Middle {}\n+        new Derived();\n+    )\"_s;\n+    QTest::addRow(\"inside generator\") << uR\"(\n+        class Base { constructor() { __finishGc(); } }\n+        class Derived extends Base {}\n+        function* g() { const d = new Derived(); yield d; }\n+        g().next();\n+    )\"_s;\n+}\n+\n+void tst_qv4mm::defaultDerivedConstructorDuringGc()\n+{\n+    QFETCH(QString, source);\n+\n+    QJSEngine jsEngine;\n+    QV4::ExecutionEngine *v4 = jsEngine.handle();\n+    v4->globalObject->defineDefaultProperty(u\"__finishGc\"_s, method_finish_gc);\n+\n+    auto *sm = v4->memoryManager->gcStateMachine.get();\n+    sm->reset();\n+    v4->memoryManager->gcBlocked = QV4::MemoryManager::Unblocked;\n+    runGcUntil(sm, QV4::GCState::MarkReady);\n+\n+    const QJSValue result = jsEngine.evaluate(source);\n+    QVERIFY2(!result.isError(), qPrintable(result.toString()));\n+}\n+\n QTEST_MAIN(tst_qv4mm)\n \n #include \"tst_qv4mm.moc\""
+    }
+  ]
+}

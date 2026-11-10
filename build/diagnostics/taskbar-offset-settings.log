@@ -1,0 +1,10 @@
+********* Start testing of DesktopPagesTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+QINFO  : DesktopPagesTest::initTestCase() Fixture proxy baseline type 3 uses system configuration true
+PASS   : DesktopPagesTest::initTestCase()
+QWARN  : DesktopPagesTest::lyricSettingsShareCoverPickerAndExcludeTaskbar() QFontDatabase: Cannot find font directory D:/Code/EchoMusicNext/build/qt-official/6.12.0/msvc2022_64/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+PASS   : DesktopPagesTest::lyricSettingsShareCoverPickerAndExcludeTaskbar()
+PASS   : DesktopPagesTest::cleanupTestCase()
+Totals: 3 passed, 0 failed, 0 skipped, 0 blacklisted, 1652ms
+********* Finished testing of DesktopPagesTest *********

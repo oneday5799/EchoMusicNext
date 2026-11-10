@@ -1,0 +1,1 @@
+Get "https://api.github.com/repos/qt/qtdeclarative/contents/src/quick/items/qquickcanvasitem.cpp": proxyconnect tcp: dial tcp 127.0.0.1:7890: connectex: No connection could be made because the target machine actively refused it.

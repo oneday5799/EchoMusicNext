@@ -1,0 +1,24 @@
+{
+  "node_id": "TA_kwDOAJbDGdoAKGMzYWI2ZDMwOTRlOGI4NDNjNmZjM2UwNGVkM2UwZjQwZDQwOTI0NDc",
+  "sha": "c3ab6d3094e8b843c6fc3e04ed3e0f40d4092447",
+  "url": "https://api.github.com/repos/qt/qtdeclarative/git/tags/c3ab6d3094e8b843c6fc3e04ed3e0f40d4092447",
+  "tagger": {
+    "name": "Antti Kokko",
+    "email": "antti.kokko@qt.io",
+    "date": "2026-09-30T09:00:58Z"
+  },
+  "object": {
+    "sha": "4332fbbb4c340463dc8cee36dda0c85d932122d8",
+    "type": "commit",
+    "url": "https://api.github.com/repos/qt/qtdeclarative/git/commits/4332fbbb4c340463dc8cee36dda0c85d932122d8"
+  },
+  "tag": "v6.12.0",
+  "message": "Qt 6.12.0 release\n",
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null,
+    "verified_at": null
+  }
+}

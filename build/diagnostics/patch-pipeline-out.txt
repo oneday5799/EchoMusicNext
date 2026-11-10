@@ -1,0 +1,304 @@
++ git apply --unsafe-paths --directory=D:/Code/EchoMusicNext/build/qt-qv4-gc/8fe07e58a14e/qtdeclarative-4332fbbb4c340463dc8cee36dda0c85d932122d8 --check D:\Code\EchoMusicNext\tools\qt\patches\qtdeclarative-6.12.0-qv4-generator-gc.patch
++ git apply --unsafe-paths --directory=D:/Code/EchoMusicNext/build/qt-qv4-gc/8fe07e58a14e/qtdeclarative-4332fbbb4c340463dc8cee36dda0c85d932122d8 D:\Code\EchoMusicNext\tools\qt\patches\qtdeclarative-6.12.0-qv4-generator-gc.patch
++ cmake -S D:\Code\EchoMusicNext\build\qt-qv4-gc\8fe07e58a14e\qtdeclarative-4332fbbb4c340463dc8cee36dda0c85d932122d8 -B D:\Code\EchoMusicNext\build\qt-qv4-gc\8fe07e58a14e\build -G Ninja -DCMAKE_TOOLCHAIN_FILE=D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64/lib/cmake/Qt6/qt.toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DQT_BUILD_EXAMPLES=OFF -DQT_BUILD_TESTS=OFF -DQT_BUILD_TOOLS_BY_DEFAULT=OFF -DCMAKE_INSTALL_PREFIX=D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64
+-- The CXX compiler identification is MSVC 19.44.35228.0
+-- The C compiler identification is MSVC 19.44.35228.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.44.35207/bin/Hostx64/x64/cl.exe - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - not found
+-- Found Threads: TRUE
+-- Performing Test HAVE_STDATOMIC
+-- Performing Test HAVE_STDATOMIC - Success
+-- Found WrapAtomic: TRUE
+-- CMAKE_BUILD_TYPE was already explicitly set to: 'Release'
+
+-- Configuration summary has been written to D:/Code/EchoMusicNext/build/qt-qv4-gc/8fe07e58a14e/build/config.summary
+
+-- Configuring done (103.8s)
+-- Generating done (24.0s)
+-- Build files have been written to: D:/Code/EchoMusicNext/build/qt-qv4-gc/8fe07e58a14e/build
++ cmake --build D:\Code\EchoMusicNext\build\qt-qv4-gc\8fe07e58a14e\build --target Qml --parallel 6
+[1/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate_resources_1.dir\.qt\rcc\qrc_jsRootMetaTypes_init.cpp.obj
+[2/270] Copying Qml qml sources into build dir
+[3/270] Running syncqt.cpp for module: QtQmlIntegration
+[4/270] Running syncqt.cpp for module: QtQmlTypeRegistrar
+[5/270] Copying Qml qml resources into build dir
+[6/270] Generating ../../mkspecs/modules/qt_lib_qml_private.pri
+[7/270] Automatic MOC for target QmlTypeRegistrarPrivate
+[8/270] Populating .qmlls.build.ini file at D:/Code/EchoMusicNext/build/qt-qv4-gc/8fe07e58a14e/build/.qt/.qmlls.build.ini
+[9/270] Generating qqmljsgrammar.cpp, qqmljsgrammar_p.h, qqmljsparser_p.h, qqmljsparser.cpp
+[10/270] Running AUTOMOC file extraction for target QmlTypeRegistrarPrivate
+[11/270] Running rcc for resource jsRootMetaTypes
+[12/270] Generating prl file for target QmlTypeRegistrarPrivate
+[13/270] Running moc --collect-json for target QmlTypeRegistrarPrivate
+[14/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\QmlTypeRegistrarPrivate_autogen\mocs_compilation.cpp.obj
+[15/270] Running syncqt.cpp for module: QtQml
+[16/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\qqmljsstreamwriter.cpp.obj
+[17/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\.qt\rcc\qrc_jsRootMetaTypes.cpp.obj
+[18/270] Generating .generated/release/RegExpJitTables.h
+[19/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\qqmltypesclassdescription.cpp.obj
+[20/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\qqmltypescreator.cpp.obj
+[21/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\qqmltyperegistrarutils.cpp.obj
+[22/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\qmetatypesjsonprocessor.cpp.obj
+[23/270] Building CXX object src\qmltyperegistrar\CMakeFiles\QmlTypeRegistrarPrivate.dir\qqmltyperegistrar.cpp.obj
+[24/270] Linking CXX static library lib\Qt6QmlTypeRegistrar.lib
+[25/270] Automatic MOC for target qmltyperegistrar
+[26/270] Generating qmltyperegistrar_resource.rc
+[27/270] Building CXX object tools\qmltyperegistrar\CMakeFiles\qmltyperegistrar.dir\qmltyperegistrar_autogen\mocs_compilation.cpp.obj
+[28/270] Building RC object tools\qmltyperegistrar\CMakeFiles\qmltyperegistrar.dir\qmltyperegistrar_resource.rc.res
+[29/270] Building CXX object tools\qmltyperegistrar\CMakeFiles\qmltyperegistrar.dir\qmltyperegistrar.cpp.obj
+[30/270] Linking CXX executable bin\qmltyperegistrar.exe
+[31/270] Automatic MOC for target Qml
+[32/270] Running AUTOMOC file extraction for target Qml
+[33/270] Running rcc for resource qmake_QML
+[34/270] Generating Qml_resource.rc
+[35/270] Generating prl file for target Qml
+[36/270] Running moc --collect-json for target Qml
+[37/270] Automatic QML type registration for target Qml
+[38/270] Building RC object src\qml\CMakeFiles\Qml.dir\Qml_resource.rc.res
+[39/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\ARM64\A64DOpcode.cpp.obj
+[40/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\assembler\ARMv7Assembler.cpp.obj
+[41/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\ARM64Disassembler.cpp.obj
+[42/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\ARMv7\ARMv7DOpcode.cpp.obj
+[43/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\assembler\LinkBuffer.cpp.obj
+[44/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\ARMv7Disassembler.cpp.obj
+[45/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\Mips32Disassembler.cpp.obj
+[46/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\UDis86Disassembler.cpp.obj
+[47/270] Building CXX object src\qml\CMakeFiles\Qml.dir\Qml_autogen\mocs_compilation.cpp.obj
+[48/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\Disassembler.cpp.obj
+[49/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\disassembler\mips32\Mips32Opcode.cpp.obj
+[50/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\stubs\Options.cpp.obj
+[51/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\stubs\WTFStubs.cpp.obj
+[52/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\stubs\yarr\YarrUnicodeProperties.cpp.obj
+[53/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\wtf\FilePrintStream.cpp.obj
+[54/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\wtf\PageAllocationAligned.cpp.obj
+[55/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\wtf\PageBlock.cpp.obj
+[56/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\wtf\PrintStream.cpp.obj
+[57/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\yarr\YarrCanonicalizeUCS2.cpp.obj
+[58/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\yarr\YarrCanonicalizeUnicode.cpp.obj
+[59/270] Building CXX object src\qml\CMakeFiles\Qml.dir\common\qjsnumbercoercion.cpp.obj
+[60/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\yarr\YarrInterpreter.cpp.obj
+[61/270] Building CXX object src\qml\CMakeFiles\Qml.dir\common\qqmlsignalnames.cpp.obj
+[62/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\yarr\YarrSyntaxChecker.cpp.obj
+[63/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\yarr\YarrPattern.cpp.obj
+[64/270] Building CXX object src\qml\CMakeFiles\Qml.dir\common\qv4compileddata.cpp.obj
+[65/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qv4bytecodegenerator.cpp.obj
+[66/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qv4bytecodehandler.cpp.obj
+[67/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\yarr\YarrJIT.cpp.obj
+[68/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compat\removed_api.cpp.obj
+[69/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qqmlirbuilder.cpp.obj
+[70/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qv4compilercontext.cpp.obj
+[71/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qv4compiler.cpp.obj
+[72/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qv4compilerscanfunctions.cpp.obj
+[73/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qv4instr_moth.cpp.obj
+[74/270] Building CXX object src\qml\CMakeFiles\Qml.dir\compiler\qv4codegen.cpp.obj
+[75/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsapi\qjslist.cpp.obj
+[76/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsapi\qjsprimitivevalue.cpp.obj
+[77/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsapi\qjsengine.cpp.obj
+[78/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsapi\qjsmanagedvalue.cpp.obj
+[79/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsapi\qjsvalueiterator.cpp.obj
+[80/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsapi\qjsvalue.cpp.obj
+[81/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4argumentsobject.cpp.obj
+[82/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4arraybuffer.cpp.obj
+[83/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4arraydata.cpp.obj
+[84/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4arrayiterator.cpp.obj
+[85/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4compilationunitmapper.cpp.obj
+[86/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4atomics.cpp.obj
+[87/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4arrayobject.cpp.obj
+[88/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4booleanobject.cpp.obj
+[89/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4context.cpp.obj
+[90/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4debugging.cpp.obj
+[91/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4dataview.cpp.obj
+[92/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4domerrors.cpp.obj
+[93/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4dateobject.cpp.obj
+[94/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4estable.cpp.obj
+[95/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4executableallocator.cpp.obj
+[96/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4errorobject.cpp.obj
+[97/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4executablecompilationunit.cpp.obj
+[98/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4generatorobject.cpp.obj
+[99/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4engine.cpp.obj
+[100/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4function.cpp.obj
+[101/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4globalobject.cpp.obj
+[102/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4functionobject.cpp.obj
+[103/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4identifierhash.cpp.obj
+[104/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4identifiertable.cpp.obj
+[105/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4internalclass.cpp.obj
+[106/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4iterator.cpp.obj
+[107/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4include.cpp.obj
+[108/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4jscall.cpp.obj
+[109/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4jsonobject.cpp.obj
+[110/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4lookup.cpp.obj
+[111/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4managed.cpp.obj
+[112/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4mapiterator.cpp.obj
+[113/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4mapobject.cpp.obj
+[114/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4mathobject.cpp.obj
+[115/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4memberdata.cpp.obj
+[116/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4module.cpp.obj
+[117/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4numberobject.cpp.obj
+[118/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4object.cpp.obj
+[119/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4objectiterator.cpp.obj
+[120/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4objectproto.cpp.obj
+[121/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4persistent.cpp.obj
+[122/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4propertykey.cpp.obj
+[123/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4promiseobject.cpp.obj
+[124/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4proxy.cpp.obj
+[125/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4qmetaobjectwrapper.cpp.obj
+[126/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4qmlcontext.cpp.obj
+[127/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4referenceobject.cpp.obj
+[128/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4reflect.cpp.obj
+[129/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4qobjectwrapper.cpp.obj
+[130/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4regexp.cpp.obj
+[131/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4regexpobject.cpp.obj
+[132/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4resolvedtypereference.cpp.obj
+[133/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4runtimecodegen.cpp.obj
+[134/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4sparsearray.cpp.obj
+[135/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4runtime.cpp.obj
+[136/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4sequenceobject.cpp.obj
+[137/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4setiterator.cpp.obj
+[138/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4script.cpp.obj
+[139/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4setobject.cpp.obj
+[140/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4sqlerrors.cpp.obj
+[141/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4stackframe.cpp.obj
+[142/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4stringiterator.cpp.obj
+[143/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4string.cpp.obj
+[144/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4symbol.cpp.obj
+[145/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4stringobject.cpp.obj
+[146/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4typedarray.cpp.obj
+[147/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4urlobject.cpp.obj
+[148/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4value.cpp.obj
+[149/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4variantobject.cpp.obj
+[150/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4variantassociationobject.cpp.obj
+[151/270] Building CXX object src\qml\CMakeFiles\Qml.dir\parser\qqmljsastvisitor.cpp.obj
+[152/270] Building CXX object src\qml\CMakeFiles\Qml.dir\parser\qqmljsast.cpp.obj
+[153/270] Building CXX object src\qml\CMakeFiles\Qml.dir\memory\qv4stacklimits.cpp.obj
+[154/270] Building CXX object src\qml\CMakeFiles\Qml.dir\memory\qv4writebarrier.cpp.obj
+[155/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\ftw\qintrusivelist.cpp.obj
+[156/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\ftw\qhashedstring.cpp.obj
+[157/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlabstracturlinterceptor.cpp.obj
+[158/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4vme_moth.cpp.obj
+[159/270] Building CXX object src\qml\CMakeFiles\Qml.dir\memory\qv4mm.cpp.obj
+[160/270] Building CXX object src\qml\CMakeFiles\Qml.dir\parser\qqmljslexer.cpp.obj
+[161/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlabstractbinding.cpp.obj
+[162/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlboundsignal.cpp.obj
+[163/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlapplicationengine.cpp.obj
+[164/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqml.cpp.obj
+[165/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlbinding.cpp.obj
+[166/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlbuiltinfunctions.cpp.obj
+[167/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlcontextdata.cpp.obj
+[168/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlcontext.cpp.obj
+[169/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlcomponent.cpp.obj
+[170/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlcustomparser.cpp.obj
+[171/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmldata.cpp.obj
+[172/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmldatablob.cpp.obj
+[173/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlerror.cpp.obj
+[174/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlextensioninterface.cpp.obj
+[175/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmldelayedcallqueue.cpp.obj
+[176/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlextensionplugin.cpp.obj
+[177/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmldirdata.cpp.obj
+[178/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlexpression.cpp.obj
+[179/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlfinalizer.cpp.obj
+[180/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlfile.cpp.obj
+[181/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlengine.cpp.obj
+[182/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlfileselector.cpp.obj
+[183/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlglobal.cpp.obj
+[184/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlimport.cpp.obj
+[185/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlirloader.cpp.obj
+[186/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlincubator.cpp.obj
+[187/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlinfo.cpp.obj
+[188/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmllist.cpp.obj
+[189/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmljavascriptexpression.cpp.obj
+[190/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmllistwrapper.cpp.obj
+[191/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlmoduleregistration.cpp.obj
+[192/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlnetworkaccessmanagerfactory.cpp.obj
+[193/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlmetaobject.cpp.obj
+[194/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlmetatypedata.cpp.obj
+[195/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlobjectorgadget.cpp.obj
+[196/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlnotifier.cpp.obj
+[197/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlmetatype.cpp.obj
+[198/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlparserstatus.cpp.obj
+[199/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlnotifyingblob.cpp.obj
+[200/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlopenmetaobject.cpp.obj
+[201/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlplatform.cpp.obj
+[202/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlobjectcreator.cpp.obj
+[203/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpluginimporter.cpp.obj
+[204/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertybinding.cpp.obj
+[205/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlproperty.cpp.obj
+[206/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertycachecreator.cpp.obj
+[207/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertycache.cpp.obj
+[208/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertyvalueinterceptor.cpp.obj
+[209/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertyresolver.cpp.obj
+[210/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertyvaluesource.cpp.obj
+[211/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlproxymetaobject.cpp.obj
+[212/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertytopropertybinding.cpp.obj
+[213/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlscriptstring.cpp.obj
+[214/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlstringconverters.cpp.obj
+[215/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlscriptdata.cpp.obj
+[216/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlpropertyvalidator.cpp.obj
+[217/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlscriptblob.cpp.obj
+[218/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltype.cpp.obj
+[219/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypeloaderqmldircontent.cpp.obj
+[220/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypeloaderdata.cpp.obj
+[221/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypecompiler.cpp.obj
+[222/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypeloaderthread.cpp.obj
+[223/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypemodule.cpp.obj
+[224/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypeloader.cpp.obj
+[225/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypemoduleversion.cpp.obj
+[226/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypenamecache.cpp.obj
+[227/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypedata.cpp.obj
+[228/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlvaluetypeproxybinding.cpp.obj
+[229/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypewrapper.cpp.obj
+[230/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qmldirparser\qqmldirparser.cpp.obj
+[231/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlvaluetype.cpp.obj
+[232/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlvaluetypewrapper.cpp.obj
+[233/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qmldirparser\qqmlimportresolver.cpp.obj
+[234/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlvme.cpp.obj
+[235/270] Building CXX object src\qml\CMakeFiles\Qml.dir\util\qqmlpropertymap.cpp.obj
+[236/270] Building CXX object src\qml\CMakeFiles\Qml.dir\.qt\rcc\qrc_qmake_QML.cpp.obj
+[237/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qmltc\supportlibrary\qqmlcpponassignment.cpp.obj
+[238/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qqmljsgrammar.cpp.obj
+[239/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlvmemetaobject.cpp.obj
+[240/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qmltc\qqmltcobjectcreationhelper.cpp.obj
+[241/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\ftw\qqmlthread_impl.cpp.obj
+[242/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qmltc\supportlibrary\qqmlcppbinding.cpp.obj
+[243/270] Building CXX object src\qml\CMakeFiles\Qml.dir\__\3rdparty\masm\wtf\OSAllocatorWin.cpp.obj
+[244/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmltypeloadernetworkreplyproxy.cpp.obj
+[245/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4compilationunitmapper_win.cpp.obj
+[246/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qqmljsparser.cpp.obj
+[247/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jit\qv4assemblercommon.cpp.obj
+[248/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jit\qv4baselinejit.cpp.obj
+[249/270] Building CXX object src\qml\CMakeFiles\Qml.dir\animations\qanimationgroupjob.cpp.obj
+[250/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jit\qv4baselineassembler.cpp.obj
+[251/270] Building CXX object src\qml\CMakeFiles\Qml.dir\animations\qcontinuinganimationgroupjob.cpp.obj
+[252/270] Building CXX object src\qml\CMakeFiles\Qml.dir\animations\qparallelanimationgroupjob.cpp.obj
+[253/270] Building CXX object src\qml\CMakeFiles\Qml.dir\animations\qpauseanimationjob.cpp.obj
+[254/270] Building CXX object src\qml\CMakeFiles\Qml.dir\animations\qabstractanimationjob.cpp.obj
+[255/270] Building CXX object src\qml\CMakeFiles\Qml.dir\animations\qsequentialanimationgroupjob.cpp.obj
+[256/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmldebugserverconnection.cpp.obj
+[257/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmldebugserver.cpp.obj
+[258/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmlabstractprofileradapter.cpp.obj
+[259/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmldebugservicefactory.cpp.obj
+[260/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmldebug.cpp.obj
+[261/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmldebugservice.cpp.obj
+[262/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmldebugconnector.cpp.obj
+[263/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml_qmltyperegistrations.cpp.obj
+[264/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmldebugserviceinterfaces.cpp.obj
+[265/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4functiontable_win64.cpp.obj
+[266/270] Building CXX object src\qml\CMakeFiles\Qml.dir\debugger\qqmlprofiler.cpp.obj
+[267/270] Building CXX object src\qml\CMakeFiles\Qml.dir\jsruntime\qv4profiling.cpp.obj
+[268/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmllocale.cpp.obj
+[269/270] Building CXX object src\qml\CMakeFiles\Qml.dir\qml\qqmlxmlhttprequest.cpp.obj
+[270/270] Linking CXX shared library bin\Qt6Qml.dll
+QtQml GC patch installed, Qt ABI exports preserved: D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\bin\Qt6Qml.dll

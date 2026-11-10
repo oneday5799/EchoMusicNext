@@ -1,0 +1,22 @@
+fix(controls): 队列化像素对齐通知并迟滞 UiPart 视觉覆盖
+
+EchoPixelSnapAttached::refresh() 此前同步发出 scene position、ratio 与
+density 变更，消费方 snap 绑定随即写子几何、又经观察者链重入 refresh()，
+在库重扫等场景抖动下单栈嵌套直至栈溢出。改为值立即落盘（重求值总能读到
+新数据），通知走 Qt::QueuedConnection 排队，把突发合并为每事件循环轮一次
+flush，反馈环变成有界收敛。
+
+EchoUiPartRegistration::setResolved() 驱动 EchoUiPartHost 的路径同理：
+refresh() 的 detach→attach 会让 overrides 空过，若同步重算视觉覆盖标志，
+每个周期都会把宿主 Loader 拆掉再为同一结果重建。现在延后一事件循环轮、
+按稳定值重算 hasVisualOverrides；键/声明变更触发身份重发布的契约不变。
+
+hasVisualOverrides 落地后，EchoUiPartHost 内的 Loader 直接以该标志作
+active 条件，替换原先对 overrides 的逐键内联扫描。排队通知惯用法提取到
+EchoQueuedNotice.h 的 queueCoalescedNotice()，EchoPixelSnap 的排空收敛为
+私有 flushNotifications()，setResolved 的视觉覆盖重算改用 std::any_of
+扫描非 opacity 键。
+
+测试适配：scene-position spy 改用 QTRY_COMPARE，并在复位后补一次队列排
+空断言以保留防重复语义；已在重扫风暴复现场景下对比修复前后二进制——
+基线每次页面加载必崩，修复后页面加载与多次重扫均存活。

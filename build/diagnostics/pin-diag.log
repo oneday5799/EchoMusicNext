@@ -1,0 +1,10 @@
+********* Start testing of ShellTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+PASS   : ShellTest::initTestCase()
+QWARN  : ShellTest::productionTitlebarPinningTasksAndVirtualization() QFontDatabase: Cannot find font directory D:/Code/EchoMusicNext/build/qt-official/6.12.0/msvc2022_64/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+FAIL!  : ShellTest::productionTitlebarPinningTasksAndVirtualization() 'QTest::qWaitFor(buttonsReady, 5000)' returned FALSE. (zoom=1.25 pending=0 windowW=1150 loaderW=920 frameW=920 titlebarW=682 toolbarCount=0 toolbarW=76 pooled=1 visible=0 x=38 y=0)
+D:\Code\EchoMusicNext\tests\qt\ShellTest.cpp(3312) : failure location
+PASS   : ShellTest::cleanupTestCase()
+Totals: 2 passed, 1 failed, 0 skipped, 0 blacklisted, 6647ms
+********* Finished testing of ShellTest *********

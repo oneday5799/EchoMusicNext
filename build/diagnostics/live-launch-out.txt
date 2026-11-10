@@ -1,0 +1,2 @@
+Logs: D:\Code\EchoMusicNext\build\logs
+Rust / Qt / QML logs appear below. Ctrl+C stops this launched process.

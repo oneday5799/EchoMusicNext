@@ -1,0 +1,1295 @@
+[0/924] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe run --locked -p ffi-header --target-dir D:/Code/EchoMusicNext/target --release -- --check"
+    Finished `release` profile [optimized] target(s) in 0.32s
+     Running `target\release\ffi-header.exe --check`
+[2/924] Copying echo_settings qml sources into build dir
+[3/924] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe build --locked -p echo-ffi --target-dir D:/Code/EchoMusicNext/target --release"
+warning: unused import: `PlayerErrorCode`
+ --> crates\echo-audio\src\output\mod.rs:8:21
+  |
+8 | use crate::events::{PlayerErrorCode, PlayerEvent};
+  |                     ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `echo-audio` (lib) generated 1 warning (run `cargo fix --lib -p echo-audio` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 1.02s
+[5/923] Building CXX object services\settings\CMakeFiles\echo_settings_keys.dir\SettingsStore.cpp.obj
+[6/923] Linking CXX static library services\settings\echo_settings_keys.lib
+[7/923] Linking CXX executable echo-theme-image-worker.exe
+[8/923] Automatic MOC and UIC for target echo_theme
+[9/922] Running AUTOMOC file extraction for target echo_theme
+[10/922] Running moc --collect-json for target echo_theme
+[11/511] Building CXX object services\network\CMakeFiles\echo_device_identity.dir\DeviceIdentity.cpp.obj
+[12/511] Linking CXX static library services\network\echo_device_identity.lib
+[13/511] Building CXX object services\backups\CMakeFiles\echo_backups.dir\SettingsBackupArchive.cpp.obj
+[14/511] Building CXX object services\backups\CMakeFiles\echo_backups.dir\SettingsBackupRestore.cpp.obj
+[15/511] Linking CXX static library services\backups\echo_backups.lib
+[16/511] Building CXX object services\logging\CMakeFiles\echo_logging.dir\LogService.cpp.obj
+[17/511] Linking CXX static library services\logging\echo_logging.lib
+[18/511] Building CXX object modules\EchoMusic\Theme\CMakeFiles\echo_theme.dir\AppearanceCatalog.cpp.obj
+[19/511] Building CXX object modules\EchoMusic\Theme\CMakeFiles\echo_theme.dir\ThemeStore.cpp.obj
+[20/511] Linking CXX static library modules\EchoMusic\Theme\echo_theme.lib
+[21/511] Building CXX object services\network\CMakeFiles\echo_network.dir\NetworkPreferences.cpp.obj
+[22/511] Linking CXX static library services\network\echo_network.lib
+[23/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\LyricPortraitAppearance.cpp.obj
+[24/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\LyricSimpleAppearance.cpp.obj
+[25/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\LyricAppearance.cpp.obj
+[26/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\LyricTextController.cpp.obj
+[27/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\PlaybackAudioControls.cpp.obj
+[28/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\LyricSourceController.cpp.obj
+[29/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\PlayerEnginePreferences.cpp.obj
+[30/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\PlaybackPreferences.cpp.obj
+[31/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\PersonalFmController.cpp.obj
+[32/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\TrackTransitionController.cpp.obj
+[33/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\PlaybackService.cpp.obj
+[34/511] Building CXX object services\playback\CMakeFiles\echo_playback_service.dir\cast\CastService.cpp.obj
+[35/511] Linking CXX static library services\playback\echo_playback_service.lib
+[36/511] Automatic MOC and UIC for target echo_shell
+[37/511] Running AUTOMOC file extraction for target echo_shell
+[38/511] Running rcc for resource echo_shell_raw_qml_0
+[39/511] Running moc --collect-json for target echo_shell
+[40/511] Automatic QML type registration for target echo_shell
+[41/511] Generating .rcc/qmlcache/echo_shell_WindowActionGroup_qml.cpp, .rcc/qmlcache/echo_shell_WindowActionGroup_qml.cpp.aotstats
+[42/511] Generating .rcc/qmlcache/echo_shell_DesktopLyricTextToggles_qml.cpp, .rcc/qmlcache/echo_shell_DesktopLyricTextToggles_qml.cpp.aotstats
+[43/511] Generating .rcc/qmlcache/echo_shell_DesktopLyricButton_qml.cpp, .rcc/qmlcache/echo_shell_DesktopLyricButton_qml.cpp.aotstats
+[44/511] Generating .rcc/qmlcache/echo_shell_WindowCaptionControls_qml.cpp, .rcc/qmlcache/echo_shell_WindowCaptionControls_qml.cpp.aotstats
+[45/511] Generating .rcc/qmlcache/echo_shell_WindowActions_qml.cpp, .rcc/qmlcache/echo_shell_WindowActions_qml.cpp.aotstats
+[46/511] Generating .rcc/qmlcache/echo_shell_DesktopLyricWindow_qml.cpp, .rcc/qmlcache/echo_shell_DesktopLyricWindow_qml.cpp.aotstats
+[47/511] Generating .rcc/qmlcache/echo_shell_TaskbarLyricLine_qml.cpp, .rcc/qmlcache/echo_shell_TaskbarLyricLine_qml.cpp.aotstats
+[48/511] Generating .rcc/qmlcache/echo_shell_TaskbarLyricWindow_qml.cpp, .rcc/qmlcache/echo_shell_TaskbarLyricWindow_qml.cpp.aotstats
+[49/511] Generating .rcc/qmlcache/echo_shell_TaskbarLyricSeekBar_qml.cpp, .rcc/qmlcache/echo_shell_TaskbarLyricSeekBar_qml.cpp.aotstats
+[50/511] Generating .rcc/qmlcache/echo_shell_TaskbarLyricControls_qml.cpp, .rcc/qmlcache/echo_shell_TaskbarLyricControls_qml.cpp.aotstats
+[51/511] Generating .rcc/qmlcache/echo_shell_DesktopLyricUnlockWindow_qml.cpp, .rcc/qmlcache/echo_shell_DesktopLyricUnlockWindow_qml.cpp.aotstats
+[52/511] Generating .rcc/qmlcache/echo_shell_MiniLyricBackdrop_qml.cpp, .rcc/qmlcache/echo_shell_MiniLyricBackdrop_qml.cpp.aotstats
+[53/511] Generating .rcc/qmlcache/echo_shell_RoutePage_qml.cpp, .rcc/qmlcache/echo_shell_RoutePage_qml.cpp.aotstats
+[54/511] Generating .rcc/qmlcache/echo_shell_RouteHost_qml.cpp, .rcc/qmlcache/echo_shell_RouteHost_qml.cpp.aotstats
+[55/511] Generating .rcc/qmlcache/echo_shell_MiniVolumePopup_qml.cpp, .rcc/qmlcache/echo_shell_MiniVolumePopup_qml.cpp.aotstats
+[56/511] Generating .rcc/qmlcache/echo_shell_SidebarShortcuts_qml.cpp, .rcc/qmlcache/echo_shell_SidebarShortcuts_qml.cpp.aotstats
+[57/511] Generating .rcc/qmlcache/echo_shell_TitleBar_qml.cpp, .rcc/qmlcache/echo_shell_TitleBar_qml.cpp.aotstats
+[58/511] Generating .rcc/qmlcache/echo_shell_MiniPlayerWindow_qml.cpp, .rcc/qmlcache/echo_shell_MiniPlayerWindow_qml.cpp.aotstats
+[59/511] Generating .rcc/qmlcache/echo_shell_SidebarShortcutCard_qml.cpp, .rcc/qmlcache/echo_shell_SidebarShortcutCard_qml.cpp.aotstats
+[60/511] Generating .rcc/qmlcache/echo_shell_SidebarNavigation_qml.cpp, .rcc/qmlcache/echo_shell_SidebarNavigation_qml.cpp.aotstats
+[61/511] Generating .rcc/qmlcache/echo_shell_SidebarLayoutEntry_qml.cpp, .rcc/qmlcache/echo_shell_SidebarLayoutEntry_qml.cpp.aotstats
+[62/511] Generating .rcc/qmlcache/echo_shell_SidebarPlaylistHeader_qml.cpp, .rcc/qmlcache/echo_shell_SidebarPlaylistHeader_qml.cpp.aotstats
+[63/511] Generating .rcc/qmlcache/echo_shell_SidebarLayoutSection_qml.cpp, .rcc/qmlcache/echo_shell_SidebarLayoutSection_qml.cpp.aotstats
+[64/511] Generating .rcc/qmlcache/echo_shell_SidebarLayoutPopup_qml.cpp, .rcc/qmlcache/echo_shell_SidebarLayoutPopup_qml.cpp.aotstats
+[65/511] Generating .rcc/qmlcache/echo_shell_Sidebar_qml.cpp, .rcc/qmlcache/echo_shell_Sidebar_qml.cpp.aotstats
+[66/511] Generating .rcc/qmlcache/echo_shell_SidebarShortcutPopup_qml.cpp, .rcc/qmlcache/echo_shell_SidebarShortcutPopup_qml.cpp.aotstats
+[67/511] Generating .rcc/qmlcache/echo_shell_PluginSurfaceHost_qml.cpp, .rcc/qmlcache/echo_shell_PluginSurfaceHost_qml.cpp.aotstats
+[68/511] Generating .rcc/qmlcache/echo_shell_ShellActionDragHandle_qml.cpp, .rcc/qmlcache/echo_shell_ShellActionDragHandle_qml.cpp.aotstats
+[69/511] Generating .rcc/qmlcache/echo_shell_PlayerSongText_qml.cpp, .rcc/qmlcache/echo_shell_PlayerSongText_qml.cpp.aotstats
+[70/511] Generating .rcc/qmlcache/echo_shell_ShellActionButton_qml.cpp, .rcc/qmlcache/echo_shell_ShellActionButton_qml.cpp.aotstats
+[71/511] Generating .rcc/qmlcache/echo_shell_PlayerBar_qml.cpp, .rcc/qmlcache/echo_shell_PlayerBar_qml.cpp.aotstats
+[72/511] Generating .rcc/qmlcache/echo_shell_TitleBarMorePopup_qml.cpp, .rcc/qmlcache/echo_shell_TitleBarMorePopup_qml.cpp.aotstats
+[73/511] Generating .rcc/qmlcache/echo_shell_TaskCenterDialog_qml.cpp, .rcc/qmlcache/echo_shell_TaskCenterDialog_qml.cpp.aotstats
+[74/511] Generating .rcc/qmlcache/echo_shell_ToastViewport_qml.cpp, .rcc/qmlcache/echo_shell_ToastViewport_qml.cpp.aotstats
+[75/511] Generating .rcc/qmlcache/echo_shell_UserAgreementDialog_qml.cpp, .rcc/qmlcache/echo_shell_UserAgreementDialog_qml.cpp.aotstats
+[76/511] Generating .rcc/qmlcache/echo_shell_PlayerActionStrip_qml.cpp, .rcc/qmlcache/echo_shell_PlayerActionStrip_qml.cpp.aotstats
+[77/511] Generating .rcc/qmlcache/echo_shell_PlayerLayoutReorder_qml.cpp, .rcc/qmlcache/echo_shell_PlayerLayoutReorder_qml.cpp.aotstats
+[78/511] Generating .rcc/qmlcache/echo_shell_PlayerLayoutZone_qml.cpp, .rcc/qmlcache/echo_shell_PlayerLayoutZone_qml.cpp.aotstats
+[79/511] Generating .rcc/qmlcache/echo_shell_PlayerLayoutBoard_qml.cpp, .rcc/qmlcache/echo_shell_PlayerLayoutBoard_qml.cpp.aotstats
+[80/511] Generating .rcc/qmlcache/echo_shell_ShellMoreHeading_qml.cpp, .rcc/qmlcache/echo_shell_ShellMoreHeading_qml.cpp.aotstats
+[81/511] Generating .rcc/qmlcache/echo_shell_PlayerBarMorePopup_qml.cpp, .rcc/qmlcache/echo_shell_PlayerBarMorePopup_qml.cpp.aotstats
+[82/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\ShellSettings.cpp.obj
+[83/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\ShortcutService.cpp.obj
+[84/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\SidebarLayoutModel.cpp.obj
+[85/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\ShortcutActions.cpp.obj
+[86/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\echo_shell_qmltyperegistrations.cpp.obj
+[87/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\FloatingLyricPreferences.cpp.obj
+[88/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\FloatingPlayerController.cpp.obj
+[89/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\echo_shell_autogen\mocs_compilation.cpp.obj
+[90/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\SidebarShortcutResources.cpp.obj
+[91/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\TaskbarLyricPreferences.cpp.obj
+[92/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\MenuBarLyricPreferences.cpp.obj
+[93/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\TaskbarLyricController.cpp.obj
+[94/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\ShellActionModel.cpp.obj
+[95/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\TaskbarButtonController.cpp.obj
+[96/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\PlaylistImportTaskCoordinator.cpp.obj
+[97/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_WindowCaptionControls_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[98/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\WindowController.cpp.obj
+[99/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_WindowActionGroup_qml.cpp.obj
+[100/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\ShellController.cpp.obj
+[101/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_DesktopLyricButton_qml.cpp.obj
+[102/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_WindowActions_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[103/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_DesktopLyricTextToggles_qml.cpp.obj
+[104/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_TaskbarLyricLine_qml.cpp.obj
+[105/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_DesktopLyricWindow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[106/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_TaskbarLyricWindow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[107/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_TaskbarLyricControls_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[108/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_TaskbarLyricSeekBar_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[109/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_DesktopLyricUnlockWindow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[110/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_MiniLyricBackdrop_qml.cpp.obj
+[111/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_MiniVolumePopup_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[112/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_RoutePage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[113/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_RouteHost_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[114/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_TitleBar_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[115/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_MiniPlayerWindow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[116/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_Sidebar_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[117/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarShortcuts_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[118/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarNavigation_qml.cpp.obj
+[119/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarShortcutCard_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[120/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarPlaylistHeader_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[121/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarLayoutPopup_qml.cpp.obj
+[122/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarLayoutEntry_qml.cpp.obj
+[123/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarLayoutSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[124/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_SidebarShortcutPopup_qml.cpp.obj
+[125/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PluginSurfaceHost_qml.cpp.obj
+[126/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PlayerSongText_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[127/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PlayerBar_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[128/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_ShellActionButton_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[129/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_ShellActionDragHandle_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[130/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_TitleBarMorePopup_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[131/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_UserAgreementDialog_qml.cpp.obj
+[132/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_TaskCenterDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[133/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PlayerActionStrip_qml.cpp.obj
+[134/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_ToastViewport_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[135/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.qt\rcc\qrc_echo_shell_raw_qml_0.cpp.obj
+[136/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PlayerLayoutReorder_qml.cpp.obj
+[137/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PlayerLayoutZone_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[138/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PlayerLayoutBoard_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[139/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_ShellMoreHeading_qml.cpp.obj
+[140/511] Building CXX object modules\EchoMusic\Shell\CMakeFiles\echo_shell.dir\.rcc\qmlcache\echo_shell_PlayerBarMorePopup_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[141/511] Linking CXX static library modules\EchoMusic\Shell\echo_shell.lib
+[142/511] Automatic QML type registration for target echo_plugin_sdk
+[143/511] Automatic QML type registration for target echo_search
+[144/511] Automatic QML type registration for target echo_discovery
+[145/511] Automatic QML type registration for target echo_profile
+[146/511] Automatic QML type registration for target echo_themes
+[147/511] Generating .rcc/qmlcache/echo_plugin_sdk_EchoUiContributionItem_qml.cpp, .rcc/qmlcache/echo_plugin_sdk_EchoUiContributionItem_qml.cpp.aotstats
+[148/511] Generating .rcc/qmlcache/echo_plugin_sdk_EchoUiPartPalette_qml.cpp, .rcc/qmlcache/echo_plugin_sdk_EchoUiPartPalette_qml.cpp.aotstats
+[149/511] Generating .rcc/qmlcache/echo_plugin_sdk_EchoPluginPage_qml.cpp, .rcc/qmlcache/echo_plugin_sdk_EchoPluginPage_qml.cpp.aotstats
+[150/511] Generating .rcc/qmlcache/echo_plugin_sdk_EchoPluginPlaybackControls_qml.cpp, .rcc/qmlcache/echo_plugin_sdk_EchoPluginPlaybackControls_qml.cpp.aotstats
+[151/511] Generating .rcc/qmlcache/echo_plugin_sdk_EchoPluginDialogOwner_qml.cpp, .rcc/qmlcache/echo_plugin_sdk_EchoPluginDialogOwner_qml.cpp.aotstats
+[152/511] Generating .rcc/qmlcache/echo_plugin_sdk_EchoPluginProgress_qml.cpp, .rcc/qmlcache/echo_plugin_sdk_EchoPluginProgress_qml.cpp.aotstats
+[153/511] Generating .rcc/qmlcache/echo_plugin_sdk_EchoPluginLyricsView_qml.cpp, .rcc/qmlcache/echo_plugin_sdk_EchoPluginLyricsView_qml.cpp.aotstats
+[154/511] Generating .rcc/qmlcache/echo_search_SearchStatus_qml.cpp, .rcc/qmlcache/echo_search_SearchStatus_qml.cpp.aotstats
+[155/511] Generating .rcc/qmlcache/echo_search_SearchHeader_qml.cpp, .rcc/qmlcache/echo_search_SearchHeader_qml.cpp.aotstats
+[156/511] Generating .rcc/qmlcache/echo_search_SearchPage_qml.cpp, .rcc/qmlcache/echo_search_SearchPage_qml.cpp.aotstats
+[157/511] Generating .rcc/qmlcache/echo_search_SearchRoutePage_qml.cpp, .rcc/qmlcache/echo_search_SearchRoutePage_qml.cpp.aotstats
+[158/511] Automatic MOC and UIC for target echo_details
+[159/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\.rcc\qmlcache\echo_plugin_sdk_EchoUiPartPalette_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[160/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\.rcc\qmlcache\echo_plugin_sdk_EchoUiContributionItem_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[161/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\.rcc\qmlcache\echo_plugin_sdk_EchoPluginDialogOwner_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[162/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\EchoPluginPermissions.cpp.obj
+[163/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\.rcc\qmlcache\echo_plugin_sdk_EchoPluginPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[164/511] Running AUTOMOC file extraction for target echo_details
+[165/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\.rcc\qmlcache\echo_plugin_sdk_EchoPluginPlaybackControls_qml.cpp.obj
+[166/511] Running moc --collect-json for target echo_details
+[167/511] Automatic QML type registration for target echo_details
+[168/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\EchoPluginViewContext.cpp.obj
+[169/511] Generating .rcc/qmlcache/echo_search_SearchSongToolbar_qml.cpp, .rcc/qmlcache/echo_search_SearchSongToolbar_qml.cpp.aotstats
+[170/511] Generating .rcc/qmlcache/echo_search_SearchResultsSkeleton_qml.cpp, .rcc/qmlcache/echo_search_SearchResultsSkeleton_qml.cpp.aotstats
+[171/511] Generating .rcc/qmlcache/echo_search_SearchDiscovery_qml.cpp, .rcc/qmlcache/echo_search_SearchDiscovery_qml.cpp.aotstats
+[172/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\.rcc\qmlcache\echo_plugin_sdk_EchoPluginProgress_qml.cpp.obj
+[173/511] Generating .rcc/qmlcache/echo_discovery_RecognitionOrb_qml.cpp, .rcc/qmlcache/echo_discovery_RecognitionOrb_qml.cpp.aotstats
+[174/511] Generating .rcc/qmlcache/echo_discovery_RecognitionMatchRow_qml.cpp, .rcc/qmlcache/echo_discovery_RecognitionMatchRow_qml.cpp.aotstats
+[175/511] Generating .rcc/qmlcache/echo_discovery_RecognizePage_qml.cpp, .rcc/qmlcache/echo_discovery_RecognizePage_qml.cpp.aotstats
+[176/511] Generating .rcc/qmlcache/echo_search_SearchBox_qml.cpp, .rcc/qmlcache/echo_search_SearchBox_qml.cpp.aotstats
+[177/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\echo_plugin_sdk_qmltyperegistrations.cpp.obj
+[178/511] Generating .rcc/qmlcache/echo_discovery_HomeFeatureCard_qml.cpp, .rcc/qmlcache/echo_discovery_HomeFeatureCard_qml.cpp.aotstats
+[179/511] Generating .rcc/qmlcache/echo_discovery_HomeSongCard_qml.cpp, .rcc/qmlcache/echo_discovery_HomeSongCard_qml.cpp.aotstats
+[180/511] Generating .rcc/qmlcache/echo_discovery_DiscoveryThemedCover_qml.cpp, .rcc/qmlcache/echo_discovery_DiscoveryThemedCover_qml.cpp.aotstats
+[181/511] Generating .rcc/qmlcache/echo_discovery_HomePage_qml.cpp, .rcc/qmlcache/echo_discovery_HomePage_qml.cpp.aotstats
+[182/511] Generating .rcc/qmlcache/echo_discovery_DiscoverySongsPage_qml.cpp, .rcc/qmlcache/echo_discovery_DiscoverySongsPage_qml.cpp.aotstats
+[183/511] Generating .rcc/qmlcache/echo_discovery_ExploreHeader_qml.cpp, .rcc/qmlcache/echo_discovery_ExploreHeader_qml.cpp.aotstats
+[184/511] Generating .rcc/qmlcache/echo_discovery_DailyRecommendPage_qml.cpp, .rcc/qmlcache/echo_discovery_DailyRecommendPage_qml.cpp.aotstats
+[185/511] Generating .rcc/qmlcache/echo_discovery_FreeListenCover_qml.cpp, .rcc/qmlcache/echo_discovery_FreeListenCover_qml.cpp.aotstats
+[186/511] Generating .rcc/qmlcache/echo_discovery_RankingPage_qml.cpp, .rcc/qmlcache/echo_discovery_RankingPage_qml.cpp.aotstats
+[187/511] Generating .rcc/qmlcache/echo_discovery_ExplorePage_qml.cpp, .rcc/qmlcache/echo_discovery_ExplorePage_qml.cpp.aotstats
+[188/511] Generating .rcc/qmlcache/echo_discovery_DiscoverFlowArtwork_qml.cpp, .rcc/qmlcache/echo_discovery_DiscoverFlowArtwork_qml.cpp.aotstats
+[189/511] Building CXX object modules\EchoMusic\PluginSdk\CMakeFiles\echo_plugin_sdk.dir\.rcc\qmlcache\echo_plugin_sdk_EchoPluginLyricsView_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[190/511] Generating .rcc/qmlcache/echo_discovery_DiscoverFlowBackdrop_qml.cpp, .rcc/qmlcache/echo_discovery_DiscoverFlowBackdrop_qml.cpp.aotstats
+[191/511] Generating .rcc/qmlcache/echo_discovery_DiscoverFlowPage_qml.cpp, .rcc/qmlcache/echo_discovery_DiscoverFlowPage_qml.cpp.aotstats
+[192/511] Generating .rcc/qmlcache/echo_discovery_DiscoverFlowInfo_qml.cpp, .rcc/qmlcache/echo_discovery_DiscoverFlowInfo_qml.cpp.aotstats
+[193/511] Linking CXX static library modules\EchoMusic\PluginSdk\echo_plugin_sdk.lib
+[194/511] Generating .rcc/qmlcache/echo_discovery_FreeListenPage_qml.cpp, .rcc/qmlcache/echo_discovery_FreeListenPage_qml.cpp.aotstats
+[195/511] Generating .rcc/qmlcache/echo_discovery_PersonalFmVinyl_qml.cpp, .rcc/qmlcache/echo_discovery_PersonalFmVinyl_qml.cpp.aotstats
+[196/511] Generating .rcc/qmlcache/echo_discovery_PersonalFmPage_qml.cpp, .rcc/qmlcache/echo_discovery_PersonalFmPage_qml.cpp.aotstats
+[197/511] Automatic QML type registration for target echo_plugins
+[198/511] Generating .rcc/qmlcache/echo_details_SongDetailContent_qml.cpp, .rcc/qmlcache/echo_details_SongDetailContent_qml.cpp.aotstats
+[199/511] Generating .rcc/qmlcache/echo_details_PlaybackSongDetailDrawer_qml.cpp, .rcc/qmlcache/echo_details_PlaybackSongDetailDrawer_qml.cpp.aotstats
+[200/511] Generating .rcc/qmlcache/echo_details_PlaybackDiscussionHost_qml.cpp, .rcc/qmlcache/echo_details_PlaybackDiscussionHost_qml.cpp.aotstats
+[201/511] Generating .rcc/qmlcache/echo_details_PlaybackCommentDrawer_qml.cpp, .rcc/qmlcache/echo_details_PlaybackCommentDrawer_qml.cpp.aotstats
+[202/511] Generating .rcc/qmlcache/echo_plugins_PluginIconImage_qml.cpp, .rcc/qmlcache/echo_plugins_PluginIconImage_qml.cpp.aotstats
+[203/511] Generating .rcc/qmlcache/echo_plugins_PluginMarketplaceSkeleton_qml.cpp, .rcc/qmlcache/echo_plugins_PluginMarketplaceSkeleton_qml.cpp.aotstats
+[204/511] Generating .rcc/qmlcache/echo_plugins_PluginActionButton_qml.cpp, .rcc/qmlcache/echo_plugins_PluginActionButton_qml.cpp.aotstats
+[205/511] Generating .rcc/qmlcache/echo_details_SongDetailPage_qml.cpp, .rcc/qmlcache/echo_details_SongDetailPage_qml.cpp.aotstats
+[206/511] Generating .rcc/qmlcache/echo_plugins_PluginCard_qml.cpp, .rcc/qmlcache/echo_plugins_PluginCard_qml.cpp.aotstats
+[207/511] Generating .rcc/qmlcache/echo_plugins_PluginManagementPage_qml.cpp, .rcc/qmlcache/echo_plugins_PluginManagementPage_qml.cpp.aotstats
+[208/511] Generating .rcc/qmlcache/echo_plugins_PluginGrantsDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginGrantsDialog_qml.cpp.aotstats
+[209/511] Generating .rcc/qmlcache/echo_plugins_PluginSourceDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginSourceDialog_qml.cpp.aotstats
+[210/511] Generating .rcc/qmlcache/echo_plugins_PluginShareResolvePage_qml.cpp, .rcc/qmlcache/echo_plugins_PluginShareResolvePage_qml.cpp.aotstats
+[211/511] Generating .rcc/qmlcache/echo_plugins_PluginDataDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginDataDialog_qml.cpp.aotstats
+[212/511] Generating .rcc/qmlcache/echo_plugins_PluginUiInspectorDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginUiInspectorDialog_qml.cpp.aotstats
+[213/511] Generating .rcc/qmlcache/echo_plugins_PluginUninstallDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginUninstallDialog_qml.cpp.aotstats
+[214/511] Generating .rcc/qmlcache/echo_plugins_PluginLocalInstallOverlay_qml.cpp, .rcc/qmlcache/echo_plugins_PluginLocalInstallOverlay_qml.cpp.aotstats
+[215/511] Generating .rcc/qmlcache/echo_plugins_PluginSettingsDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginSettingsDialog_qml.cpp.aotstats
+[216/511] Generating .rcc/qmlcache/echo_details_SongInformationSection_qml.cpp, .rcc/qmlcache/echo_details_SongInformationSection_qml.cpp.aotstats
+[217/511] Generating .rcc/qmlcache/echo_plugins_PluginFailureDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginFailureDialog_qml.cpp.aotstats
+[218/511] Generating .rcc/qmlcache/echo_plugins_PluginNetworkErrorDialog_qml.cpp, .rcc/qmlcache/echo_plugins_PluginNetworkErrorDialog_qml.cpp.aotstats
+[219/511] Generating .rcc/qmlcache/echo_details_CommentListState_qml.cpp, .rcc/qmlcache/echo_details_CommentListState_qml.cpp.aotstats
+[220/511] Generating .rcc/qmlcache/echo_details_CommentSurface_qml.cpp, .rcc/qmlcache/echo_details_CommentSurface_qml.cpp.aotstats
+[221/511] Generating .rcc/qmlcache/echo_details_MvDetailPage_qml.cpp, .rcc/qmlcache/echo_details_MvDetailPage_qml.cpp.aotstats
+[222/511] Generating .rcc/qmlcache/echo_details_CommentRow_qml.cpp, .rcc/qmlcache/echo_details_CommentRow_qml.cpp.aotstats
+[223/511] Generating .rcc/qmlcache/echo_details_CommentsView_qml.cpp, .rcc/qmlcache/echo_details_CommentsView_qml.cpp.aotstats
+[224/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginIconImage_qml.cpp.obj
+[225/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginCard_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[226/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\echo_plugins_qmltyperegistrations.cpp.obj
+[227/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginManagementPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[228/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginManager.cpp.obj
+[229/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginActionButton_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[230/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginRuntime.cpp.obj
+[231/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginMarketplaceSkeleton_qml.cpp.obj
+[232/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginSourceDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[233/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginGrantsDialog_qml.cpp.obj
+[234/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginUiInspectorDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[235/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginDataDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[236/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginUninstallDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[237/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginShareResolvePage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[238/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginFailureDialog_qml.cpp.obj
+[239/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginSettingsDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[240/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginLocalInstallOverlay_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[241/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\.rcc\qmlcache\echo_plugins_PluginNetworkErrorDialog_qml.cpp.obj
+[242/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginRuntimeActivation.cpp.obj
+[243/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginRuntimeMutation.cpp.obj
+[244/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginRuntimeData.cpp.obj
+[245/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginRuntimeDiscovery.cpp.obj
+[246/511] Generating .rcc/qmlcache/echo_details_CommentBody_qml.cpp, .rcc/qmlcache/echo_details_CommentBody_qml.cpp.aotstats
+[247/511] Generating .rcc/qmlcache/echo_details_CommentQuote_qml.cpp, .rcc/qmlcache/echo_details_CommentQuote_qml.cpp.aotstats
+[248/511] Generating .rcc/qmlcache/echo_details_CommentComposer_qml.cpp, .rcc/qmlcache/echo_details_CommentComposer_qml.cpp.aotstats
+[249/511] Generating .rcc/qmlcache/echo_details_BarrageLayer_qml.cpp, .rcc/qmlcache/echo_details_BarrageLayer_qml.cpp.aotstats
+[250/511] Generating .rcc/qmlcache/echo_details_FloorReplyComposer_qml.cpp, .rcc/qmlcache/echo_details_FloorReplyComposer_qml.cpp.aotstats
+[251/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginManagerInstallation.cpp.obj
+[252/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginManagerCatalog.cpp.obj
+[253/511] Generating .rcc/qmlcache/echo_details_MvVideoSurface_qml.cpp, .rcc/qmlcache/echo_details_MvVideoSurface_qml.cpp.aotstats
+[254/511] Generating .rcc/qmlcache/echo_details_BarragePanel_qml.cpp, .rcc/qmlcache/echo_details_BarragePanel_qml.cpp.aotstats
+[255/511] Generating .rcc/qmlcache/echo_profile_ProfileOverview_qml.cpp, .rcc/qmlcache/echo_profile_ProfileOverview_qml.cpp.aotstats
+[256/511] Generating .rcc/qmlcache/echo_profile_ProfileActionButton_qml.cpp, .rcc/qmlcache/echo_profile_ProfileActionButton_qml.cpp.aotstats
+[257/511] Generating .rcc/qmlcache/echo_profile_ProfileDetails_qml.cpp, .rcc/qmlcache/echo_profile_ProfileDetails_qml.cpp.aotstats
+[258/511] Generating .rcc/qmlcache/echo_profile_GradePlanet_qml.cpp, .rcc/qmlcache/echo_profile_GradePlanet_qml.cpp.aotstats
+[259/511] Generating .rcc/qmlcache/echo_profile_GradeDialog_qml.cpp, .rcc/qmlcache/echo_profile_GradeDialog_qml.cpp.aotstats
+[260/511] Generating .rcc/qmlcache/echo_profile_ProfilePage_qml.cpp, .rcc/qmlcache/echo_profile_ProfilePage_qml.cpp.aotstats
+[261/511] Generating .rcc/qmlcache/echo_profile_SocialDrawer_qml.cpp, .rcc/qmlcache/echo_profile_SocialDrawer_qml.cpp.aotstats
+[262/511] Generating .rcc/qmlcache/echo_profile_ProfileEditorDialog_qml.cpp, .rcc/qmlcache/echo_profile_ProfileEditorDialog_qml.cpp.aotstats
+[263/511] Generating .rcc/qmlcache/echo_profile_SocialUserRow_qml.cpp, .rcc/qmlcache/echo_profile_SocialUserRow_qml.cpp.aotstats
+[264/511] Generating .rcc/qmlcache/echo_profile_SocialChatPanel_qml.cpp, .rcc/qmlcache/echo_profile_SocialChatPanel_qml.cpp.aotstats
+[265/511] Generating .rcc/qmlcache/echo_profile_DeviceSessionRow_qml.cpp, .rcc/qmlcache/echo_profile_DeviceSessionRow_qml.cpp.aotstats
+[266/511] Generating .rcc/qmlcache/echo_profile_ContentBlacklistRow_qml.cpp, .rcc/qmlcache/echo_profile_ContentBlacklistRow_qml.cpp.aotstats
+[267/511] Generating .rcc/qmlcache/echo_profile_DeviceManagerDialog_qml.cpp, .rcc/qmlcache/echo_profile_DeviceManagerDialog_qml.cpp.aotstats
+[268/511] Generating .rcc/qmlcache/echo_profile_ContentBlacklistDialog_qml.cpp, .rcc/qmlcache/echo_profile_ContentBlacklistDialog_qml.cpp.aotstats
+[269/511] Generating .rcc/qmlcache/echo_profile_PreferenceCard_qml.cpp, .rcc/qmlcache/echo_profile_PreferenceCard_qml.cpp.aotstats
+[270/511] Generating .rcc/qmlcache/echo_profile_PreferenceStrengthControl_qml.cpp, .rcc/qmlcache/echo_profile_PreferenceStrengthControl_qml.cpp.aotstats
+[271/511] Generating .rcc/qmlcache/echo_profile_PreferenceOptionButton_qml.cpp, .rcc/qmlcache/echo_profile_PreferenceOptionButton_qml.cpp.aotstats
+[272/511] Generating .rcc/qmlcache/echo_themes_ThemeThumbnail_qml.cpp, .rcc/qmlcache/echo_themes_ThemeThumbnail_qml.cpp.aotstats
+[273/511] Generating .rcc/qmlcache/echo_profile_ListeningPreferencesDialog_qml.cpp, .rcc/qmlcache/echo_profile_ListeningPreferencesDialog_qml.cpp.aotstats
+[274/511] Generating .rcc/qmlcache/echo_themes_ThemePaletteGallery_qml.cpp, .rcc/qmlcache/echo_themes_ThemePaletteGallery_qml.cpp.aotstats
+[275/511] Generating .rcc/qmlcache/echo_themes_ThemeImageCropper_qml.cpp, .rcc/qmlcache/echo_themes_ThemeImageCropper_qml.cpp.aotstats
+[276/511] Generating .rcc/qmlcache/echo_themes_ThemeCatalogCard_qml.cpp, .rcc/qmlcache/echo_themes_ThemeCatalogCard_qml.cpp.aotstats
+[277/511] Generating .rcc/qmlcache/echo_themes_ThemeCenterPage_qml.cpp, .rcc/qmlcache/echo_themes_ThemeCenterPage_qml.cpp.aotstats
+[278/511] Generating .rcc/qmlcache/echo_themes_ThemeAppearanceRange_qml.cpp, .rcc/qmlcache/echo_themes_ThemeAppearanceRange_qml.cpp.aotstats
+[279/511] Generating .rcc/qmlcache/echo_themes_ThemeAppearanceDrawer_qml.cpp, .rcc/qmlcache/echo_themes_ThemeAppearanceDrawer_qml.cpp.aotstats
+[280/511] Generating .rcc/qmlcache/echo_themes_ThemeImageEditor_qml.cpp, .rcc/qmlcache/echo_themes_ThemeImageEditor_qml.cpp.aotstats
+[281/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginManagerSharing.cpp.obj
+[282/511] Building CXX object modules\EchoMusic\Plugins\CMakeFiles\echo_plugins.dir\PluginManagerTasks.cpp.obj
+[283/511] Linking CXX static library modules\EchoMusic\Plugins\echo_plugins.lib
+[284/511] Automatic QML type registration for target echo_settings
+[285/511] Generating .rcc/qmlcache/echo_settings_SettingsNotice_qml.cpp, .rcc/qmlcache/echo_settings_SettingsNotice_qml.cpp.aotstats
+[286/511] Generating .rcc/qmlcache/echo_settings_PlayerSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_PlayerSettingsSection_qml.cpp.aotstats
+[287/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchRoutePage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[288/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\echo_search_qmltyperegistrations.cpp.obj
+[289/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchStatus_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[290/511] Generating .rcc/qmlcache/echo_settings_LyricSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_LyricSettingsSection_qml.cpp.aotstats
+[291/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchHeader_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[292/511] Generating .rcc/qmlcache/echo_settings_CommonLyricSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_CommonLyricSettingsSection_qml.cpp.aotstats
+[293/511] Generating .rcc/qmlcache/echo_settings_PageLyricSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_PageLyricSettingsSection_qml.cpp.aotstats
+[294/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[295/511] Generating .rcc/qmlcache/echo_settings_TaskbarLyricSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_TaskbarLyricSettingsSection_qml.cpp.aotstats
+[296/511] Generating .rcc/qmlcache/echo_settings_DesktopLyricSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_DesktopLyricSettingsSection_qml.cpp.aotstats
+[297/511] Generating .rcc/qmlcache/echo_settings_MenuBarLyricSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_MenuBarLyricSettingsSection_qml.cpp.aotstats
+[298/511] Generating .rcc/qmlcache/echo_settings_MiniLyricSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_MiniLyricSettingsSection_qml.cpp.aotstats
+[299/511] Generating .rcc/qmlcache/echo_settings_LyricColorSettingsRow_qml.cpp, .rcc/qmlcache/echo_settings_LyricColorSettingsRow_qml.cpp.aotstats
+[300/511] Generating .rcc/qmlcache/echo_settings_PlaybackSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_PlaybackSettingsSection_qml.cpp.aotstats
+[301/511] Generating .rcc/qmlcache/echo_settings_AudioDeviceSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_AudioDeviceSettingsSection_qml.cpp.aotstats
+[302/511] Generating .rcc/qmlcache/echo_settings_AudioEffectSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_AudioEffectSettingsSection_qml.cpp.aotstats
+[303/511] Generating .rcc/qmlcache/echo_settings_AudioEffectFileRow_qml.cpp, .rcc/qmlcache/echo_settings_AudioEffectFileRow_qml.cpp.aotstats
+[304/511] Generating .rcc/qmlcache/echo_settings_SettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_SettingsSection_qml.cpp.aotstats
+[305/511] Generating .rcc/qmlcache/echo_settings_AudioEffectFilesDialog_qml.cpp, .rcc/qmlcache/echo_settings_AudioEffectFilesDialog_qml.cpp.aotstats
+[306/511] Generating .rcc/qmlcache/echo_settings_SettingsRow_qml.cpp, .rcc/qmlcache/echo_settings_SettingsRow_qml.cpp.aotstats
+[307/511] Generating .rcc/qmlcache/echo_settings_SettingsDialog_qml.cpp, .rcc/qmlcache/echo_settings_SettingsDialog_qml.cpp.aotstats
+[308/511] Generating .rcc/qmlcache/echo_settings_SettingsDivider_qml.cpp, .rcc/qmlcache/echo_settings_SettingsDivider_qml.cpp.aotstats
+[309/511] Generating .rcc/qmlcache/echo_settings_DisplayModeControl_qml.cpp, .rcc/qmlcache/echo_settings_DisplayModeControl_qml.cpp.aotstats
+[310/511] Generating .rcc/qmlcache/echo_settings_SettingsUserInfoDialog_qml.cpp, .rcc/qmlcache/echo_settings_SettingsUserInfoDialog_qml.cpp.aotstats
+[311/511] Generating .rcc/qmlcache/echo_settings_InterfaceSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_InterfaceSettingsSection_qml.cpp.aotstats
+[312/511] Generating .rcc/qmlcache/echo_settings_FontFamilySettingsRow_qml.cpp, .rcc/qmlcache/echo_settings_FontFamilySettingsRow_qml.cpp.aotstats
+[313/511] Generating .rcc/qmlcache/echo_settings_WindowSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_WindowSettingsSection_qml.cpp.aotstats
+[314/511] Generating .rcc/qmlcache/echo_settings_PluginSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_PluginSettingsSection_qml.cpp.aotstats
+[315/511] Generating .rcc/qmlcache/echo_settings_ExperimentalSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_ExperimentalSettingsSection_qml.cpp.aotstats
+[316/511] Generating .rcc/qmlcache/echo_settings_ShortcutRecorder_qml.cpp, .rcc/qmlcache/echo_settings_ShortcutRecorder_qml.cpp.aotstats
+[317/511] Generating .rcc/qmlcache/echo_settings_ShortcutSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_ShortcutSettingsSection_qml.cpp.aotstats
+[318/511] Generating .rcc/qmlcache/echo_settings_SettingsTextDialog_qml.cpp, .rcc/qmlcache/echo_settings_SettingsTextDialog_qml.cpp.aotstats
+[319/511] Generating .rcc/qmlcache/echo_settings_NetworkSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_NetworkSettingsSection_qml.cpp.aotstats
+[320/511] Generating .rcc/qmlcache/echo_settings_AboutSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_AboutSettingsSection_qml.cpp.aotstats
+[321/511] Generating .rcc/qmlcache/echo_settings_SettingsChangelogDialog_qml.cpp, .rcc/qmlcache/echo_settings_SettingsChangelogDialog_qml.cpp.aotstats
+[322/511] Generating .rcc/qmlcache/echo_settings_SettingsBackupProviderList_qml.cpp, .rcc/qmlcache/echo_settings_SettingsBackupProviderList_qml.cpp.aotstats
+[323/511] Generating .rcc/qmlcache/echo_settings_SettingsScrollBody_qml.cpp, .rcc/qmlcache/echo_settings_SettingsScrollBody_qml.cpp.aotstats
+[324/511] Generating .rcc/qmlcache/echo_settings_SettingsBackupConfirmation_qml.cpp, .rcc/qmlcache/echo_settings_SettingsBackupConfirmation_qml.cpp.aotstats
+[325/511] Running rcc for resource echo_settings_raw_qml_0
+[326/511] Generating .rcc/qmlcache/echo_settings_SettingsDisclaimerDialog_qml.cpp, .rcc/qmlcache/echo_settings_SettingsDisclaimerDialog_qml.cpp.aotstats
+[327/511] Generating .rcc/qmlcache/echo_settings_CastSettingsSection_qml.cpp, .rcc/qmlcache/echo_settings_CastSettingsSection_qml.cpp.aotstats
+[328/511] Generating .rcc/qmlcache/echo_settings_SettingsUpdateDialog_qml.cpp, .rcc/qmlcache/echo_settings_SettingsUpdateDialog_qml.cpp.aotstats
+[329/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchResultsSkeleton_qml.cpp.obj
+[330/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchSongToolbar_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+[331/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchDiscovery_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[332/511] Building CXX object modules\EchoMusic\Search\CMakeFiles\echo_search.dir\.rcc\qmlcache\echo_search_SearchBox_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[333/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\echo_discovery_qmltyperegistrations.cpp.obj
+[334/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\RecognitionService.cpp.obj
+[335/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_RecognizePage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[336/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_RecognitionOrb_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[337/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_RecognitionMatchRow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[338/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_HomeFeatureCard_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[339/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_HomePage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[340/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_HomeSongCard_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+[341/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_DailyRecommendPage_qml.cpp.obj
+[342/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_DiscoveryThemedCover_qml.cpp.obj
+[343/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_DiscoverySongsPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[344/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_RankingPage_qml.cpp.obj
+[345/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_ExploreHeader_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[346/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_FreeListenCover_qml.cpp.obj
+[347/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_ExplorePage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[348/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_FreeListenPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[349/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_DiscoverFlowArtwork_qml.cpp.obj
+[350/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_DiscoverFlowPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[351/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_DiscoverFlowBackdrop_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[352/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_PersonalFmVinyl_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[353/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_DiscoverFlowInfo_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+[354/511] Building CXX object modules\EchoMusic\Discovery\CMakeFiles\echo_discovery.dir\.rcc\qmlcache\echo_discovery_PersonalFmPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[355/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_PlaybackDiscussionHost_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[356/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_PlaybackCommentDrawer_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[357/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\echo_details_qmltyperegistrations.cpp.obj
+[358/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\echo_details_autogen\mocs_compilation.cpp.obj
+[359/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_PlaybackSongDetailDrawer_qml.cpp.obj
+[360/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\DetailsService.cpp.obj
+[361/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_SongDetailContent_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[362/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_SongDetailPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[363/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_CommentListState_qml.cpp.obj
+[364/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_SongInformationSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[365/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_MvDetailPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[366/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_CommentSurface_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[367/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_CommentsView_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[368/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_CommentBody_qml.cpp.obj
+[369/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_CommentRow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[370/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_CommentQuote_qml.cpp.obj
+[371/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_CommentComposer_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[372/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\echo_profile_qmltyperegistrations.cpp.obj
+[373/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_BarrageLayer_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[374/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_FloorReplyComposer_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[375/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_BarragePanel_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[376/511] Building CXX object modules\EchoMusic\Details\CMakeFiles\echo_details.dir\.rcc\qmlcache\echo_details_MvVideoSurface_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[377/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ProfilePage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[378/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ProfileActionButton_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[379/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_GradePlanet_qml.cpp.obj
+[380/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ProfileOverview_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[381/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ProfileDetails_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[382/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_GradeDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[383/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ProfileEditorDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[384/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_SocialUserRow_qml.cpp.obj
+[385/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_SocialDrawer_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[386/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_SocialChatPanel_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[387/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_DeviceSessionRow_qml.cpp.obj
+[388/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_DeviceManagerDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[389/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ContentBlacklistDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[390/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ContentBlacklistRow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[391/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_PreferenceCard_qml.cpp.obj
+[392/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_PreferenceOptionButton_qml.cpp.obj
+[393/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_PreferenceStrengthControl_qml.cpp.obj
+[394/511] Building CXX object modules\EchoMusic\Profile\CMakeFiles\echo_profile.dir\.rcc\qmlcache\echo_profile_ListeningPreferencesDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[395/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\ExperimentalSettingsService.cpp.obj
+[396/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\AboutService.cpp.obj
+[397/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsNotice_qml.cpp.obj
+[398/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\echo_settings_qmltyperegistrations.cpp.obj
+[399/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_PlayerSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[400/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_LyricSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[401/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_CommonLyricSettingsSection_qml.cpp.obj
+[402/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\SettingsDataService.cpp.obj
+[403/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_PageLyricSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[404/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_DesktopLyricSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[405/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_TaskbarLyricSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[406/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_MenuBarLyricSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[407/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_MiniLyricSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[408/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_LyricColorSettingsRow_qml.cpp.obj
+[409/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_PlaybackSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[410/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_AudioDeviceSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[411/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_AudioEffectSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[412/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_AudioEffectFileRow_qml.cpp.obj
+[413/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_DisplayModeControl_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[414/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_AudioEffectFilesDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[415/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsSection_qml.cpp.obj
+[416/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsRow_qml.cpp.obj
+[417/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[418/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsDivider_qml.cpp.obj
+[419/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_InterfaceSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[420/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_WindowSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[421/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_FontFamilySettingsRow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+[422/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsUserInfoDialog_qml.cpp.obj
+[423/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_ExperimentalSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[424/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_PluginSettingsSection_qml.cpp.obj
+[425/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_ShortcutSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[426/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_ShortcutRecorder_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[427/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_NetworkSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[428/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_AboutSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[429/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsTextDialog_qml.cpp.obj
+[430/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsChangelogDialog_qml.cpp.obj
+[431/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsBackupConfirmation_qml.cpp.obj
+[432/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.qt\rcc\qrc_echo_settings_raw_qml_0.cpp.obj
+[433/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsBackupProviderList_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[434/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsScrollBody_qml.cpp.obj
+[435/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_CastSettingsSection_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[436/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsDisclaimerDialog_qml.cpp.obj
+[437/511] Building CXX object modules\EchoMusic\Settings\CMakeFiles\echo_settings.dir\.rcc\qmlcache\echo_settings_SettingsUpdateDialog_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[438/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\echo_themes_qmltyperegistrations.cpp.obj
+[439/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemeThumbnail_qml.cpp.obj
+[440/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemePaletteGallery_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[441/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemeCenterPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[442/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemeCatalogCard_qml.cpp.obj
+[443/511] Linking CXX static library modules\EchoMusic\Search\echo_search.lib
+[444/511] Linking CXX static library modules\EchoMusic\Discovery\echo_discovery.lib
+[445/511] Linking CXX static library modules\EchoMusic\Details\echo_details.lib
+[446/511] Linking CXX static library modules\EchoMusic\Profile\echo_profile.lib
+[447/511] Linking CXX static library modules\EchoMusic\Settings\echo_settings.lib
+[448/511] Automatic QML type registration for target echo_playlists
+[449/511] Automatic QML type registration for target echo_albums
+[450/511] Automatic QML type registration for target echo_artists
+[451/511] Generating .rcc/qmlcache/echo_playlists_PlaylistDetailHeader_qml.cpp, .rcc/qmlcache/echo_playlists_PlaylistDetailHeader_qml.cpp.aotstats
+[452/511] Generating .rcc/qmlcache/echo_playlists_PlaylistDetailPage_qml.cpp, .rcc/qmlcache/echo_playlists_PlaylistDetailPage_qml.cpp.aotstats
+[453/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemeImageCropper_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[454/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemeAppearanceDrawer_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[455/511] Generating .rcc/qmlcache/echo_albums_AlbumDetailHeader_qml.cpp, .rcc/qmlcache/echo_albums_AlbumDetailHeader_qml.cpp.aotstats
+[456/511] Generating .rcc/qmlcache/echo_albums_AlbumDetailPage_qml.cpp, .rcc/qmlcache/echo_albums_AlbumDetailPage_qml.cpp.aotstats
+[457/511] Generating .rcc/qmlcache/echo_artists_ArtistDetailHeader_qml.cpp, .rcc/qmlcache/echo_artists_ArtistDetailHeader_qml.cpp.aotstats
+[458/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemeAppearanceRange_qml.cpp.obj
+[459/511] Generating .rcc/qmlcache/echo_artists_ArtistDetailPage_qml.cpp, .rcc/qmlcache/echo_artists_ArtistDetailPage_qml.cpp.aotstats
+[460/511] Building CXX object modules\EchoMusic\Themes\CMakeFiles\echo_themes.dir\.rcc\qmlcache\echo_themes_ThemeImageEditor_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[461/511] Linking CXX static library modules\EchoMusic\Themes\echo_themes.lib
+[462/511] Automatic QML type registration for target echo_appui
+[463/511] Building CXX object modules\EchoMusic\Playlists\CMakeFiles\echo_playlists.dir\.rcc\qmlcache\echo_playlists_PlaylistDetailHeader_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[464/511] Building CXX object modules\EchoMusic\Playlists\CMakeFiles\echo_playlists.dir\.rcc\qmlcache\echo_playlists_PlaylistDetailPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[465/511] Generating .rcc/qmlcache/echo_appui_Main_qml.cpp, .rcc/qmlcache/echo_appui_Main_qml.cpp.aotstats
+[466/511] Building CXX object modules\EchoMusic\Albums\CMakeFiles\echo_albums.dir\.rcc\qmlcache\echo_albums_AlbumDetailPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[467/511] Generating .rcc/qmlcache/echo_appui_StartupPage_qml.cpp, .rcc/qmlcache/echo_appui_StartupPage_qml.cpp.aotstats
+[468/511] Generating .rcc/qmlcache/echo_appui_StartupWindow_qml.cpp, .rcc/qmlcache/echo_appui_StartupWindow_qml.cpp.aotstats
+[469/511] Building CXX object modules\EchoMusic\Playlists\CMakeFiles\echo_playlists.dir\echo_playlists_qmltyperegistrations.cpp.obj
+[470/511] Building CXX object modules\EchoMusic\Albums\CMakeFiles\echo_albums.dir\echo_albums_qmltyperegistrations.cpp.obj
+[471/511] Building CXX object modules\EchoMusic\App\CMakeFiles\echo_appui.dir\echo_appui_qmltyperegistrations.cpp.obj
+[472/511] Building CXX object modules\EchoMusic\Albums\CMakeFiles\echo_albums.dir\.rcc\qmlcache\echo_albums_AlbumDetailHeader_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[473/511] Building CXX object modules\EchoMusic\Artists\CMakeFiles\echo_artists.dir\.rcc\qmlcache\echo_artists_ArtistDetailPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[474/511] Linking CXX static library modules\EchoMusic\Playlists\echo_playlists.lib
+[475/511] Linking CXX static library modules\EchoMusic\Albums\echo_albums.lib
+[476/511] Building CXX object modules\EchoMusic\Artists\CMakeFiles\echo_artists.dir\echo_artists_qmltyperegistrations.cpp.obj
+[477/511] Building CXX object modules\EchoMusic\App\CMakeFiles\echo_appui.dir\.rcc\qmlcache\echo_appui_StartupPage_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[478/511] Automatic MOC and UIC for target echo-taskbar-lyric-preferences-test
+[479/510] Building CXX object modules\EchoMusic\App\CMakeFiles\echo_appui.dir\.rcc\qmlcache\echo_appui_StartupWindow_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[480/510] Building CXX object modules\EchoMusic\Artists\CMakeFiles\echo_artists.dir\.rcc\qmlcache\echo_artists_ArtistDetailHeader_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[481/510] Linking CXX static library modules\EchoMusic\Artists\echo_artists.lib
+[482/510] Building CXX object modules\EchoMusic\App\CMakeFiles\echo_appui.dir\.rcc\qmlcache\echo_appui_Main_qml.cpp.obj
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qmetatype.h(514) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(792) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtCore\qvariant.h(797) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+D:\Code\EchoMusicNext\build\qt-official\6.12.0\msvc2022_64\include\QtQml\qjsengine.h(112) : warning C4702: 无法访问的代码
+[483/510] Linking CXX static library modules\EchoMusic\App\echo_appui.lib
+[484/510] Automatic MOC and UIC for target echo-shell-test
+[485/509] Running AUTOMOC file extraction for target echo-shell-test
+[486/509] Running moc --collect-json for target echo-shell-test
+[487/509] Automatic QML type registration for target echo-shell-test
+[488/509] Generating .rcc/qmlcache/echo-shell-test_ShellHarness_qml.cpp, .rcc/qmlcache/echo-shell-test_ShellHarness_qml.cpp.aotstats
+[489/509] Generating .rcc/qmlcache/echo-shell-test_ProbePage_qml.cpp, .rcc/qmlcache/echo-shell-test_ProbePage_qml.cpp.aotstats
+[490/509] Building CXX object tests\qt\CMakeFiles\echo-taskbar-lyric-preferences-test.dir\TaskbarLyricPreferencesTest.cpp.obj
+[491/509] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\echo-shell-test_qmltyperegistrations.cpp.obj
+[492/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\DesktopPagesTest.cpp.obj
+[493/509] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\.rcc\qmlcache\echo-shell-test_ShellHarness_qml.cpp.obj
+[494/509] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\.rcc\qmlcache\echo-shell-test_ProbePage_qml.cpp.obj
+[495/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesSettings1.cpp.obj
+[496/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesSettings2.cpp.obj
+[497/509] Building CXX object tests\qt\CMakeFiles\echo-shell-test.dir\ShellTest.cpp.obj
+[498/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesPlayback3.cpp.obj
+[499/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesPlayback1.cpp.obj
+[500/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesPlayback2.cpp.obj
+[501/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesPresentation2.cpp.obj
+[502/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesNavigation2.cpp.obj
+[503/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesLibrary.cpp.obj
+[504/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesPopups.cpp.obj
+[505/509] Linking CXX executable echo-taskbar-lyric-preferences-test.exe
+[506/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesPresentation1.cpp.obj
+[507/509] Linking CXX executable echo-shell-test.exe
+[508/509] Building CXX object tests\qt\CMakeFiles\echo-desktop-pages-test.dir\desktop\DesktopPagesNavigation1.cpp.obj
+[509/509] Linking CXX executable echo-desktop-pages-test.exe
+BUILD_OK

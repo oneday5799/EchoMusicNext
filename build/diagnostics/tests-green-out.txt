@@ -1,0 +1,162 @@
+=== controls-ui ===
+********* Start testing of ControlsUiTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+PASS   : ControlsUiTest::initTestCase()
+PASS   : ControlsUiTest::pixelSnapTracksScenePositionAcrossReparentAndWindows()
+SKIP   : ControlsUiTest::pixelSnapDisabledUsesLogicalGeometry() Requires ECHO_PIXEL_SNAP=0
+D:\Code\EchoMusicNext\tests\qt\controls\ControlsUiPixelSnap.cpp(291) : failure location
+PASS   : ControlsUiTest::imageDensityTracksScaleWithoutTrackingScroll()
+PASS   : ControlsUiTest::cleanupTestCase()
+Totals: 4 passed, 0 failed, 1 skipped, 0 blacklisted, 48ms
+********* Finished testing of ControlsUiTest *********
+=== plugin-runtime ===
+********* Start testing of PluginRuntimeTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+PASS   : PluginRuntimeTest::initTestCase()
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: startup root=C:/Users/Oneday/AppData/Local/Temp/echo-plugin-runtime-test-nXhhhs/plugins safe_mode=false imports=0
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() QFontDatabase: Cannot find font directory D:/Code/EchoMusicNext/build/qt-official/6.12.0/msvc2022_64/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: management started plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: management finished installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 success=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: management started plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: management finished installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 success=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version=1.0.0 state=Active enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version=1.0.0 state=Deactivating enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-b installation=4dcbcfb2-003f-421a-895f-0cf6476034f7 version=1.0.0 state=Disabled enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version=1.0.0 state=Active enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version=1.0.0 state=Deactivating enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-a installation=bc4bb007-bddd-4332-bd93-ede73dcacbe5 version=1.0.0 state=Disabled enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: management started plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.operations: callback failed plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a scope=main activation=3 error=Error: Error: style activation must roll back
+
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: exception plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a error=Error: Error: style activation must roll back
+
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() test.style-failed Error: Error: style activation must roll back
+
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a version=1.0.0 state=Deactivating enabled=1 mutation=1 error=Error: Error: style activation must roll back
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a version=1.0.0 state=Failed enabled=1 mutation=1 error=Error: Error: style activation must roll back
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: exception plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a error=Error: Error: style activation must roll back
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() test.style-failed Error: Error: style activation must roll back
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a version=1.0.0 state=Failed enabled=1 mutation=2 error=Error: Error: style activation must roll back
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: state plugin=test.style-failed installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a version= state=Disabled enabled=1 mutation=2 error=
+QWARN  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: management finished installation=9c6a47f8-19d8-4aad-b3b0-a4d35f3bd22a success=0 error=Error: Error: style activation must roll back
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: shutdown started plugins= 2
+QINFO  : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings() echo.plugins.runtime: shutdown drained
+PASS   : PluginRuntimeTest::uiStyleLayersRestoreLiveBindings()
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: startup root=C:/Users/Oneday/AppData/Local/Temp/echo-plugin-runtime-test-ZwbJsn/plugins safe_mode=false imports=0
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: management started plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: management finished installation=7d127cf9-1e69-42b1-9142-811310d8f545 success=1 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version=1.0.0 state=Active enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version=1.0.0 state=Deactivating enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: state plugin=test.parts installation=7d127cf9-1e69-42b1-9142-811310d8f545 version=1.0.0 state=Disabled enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: shutdown started plugins= 1
+QINFO  : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions() echo.plugins.runtime: shutdown drained
+PASS   : PluginRuntimeTest::uiPartsIdentityObservationAndPublicActions()
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: startup root=C:/Users/Oneday/AppData/Local/Temp/echo-plugin-runtime-test-BWKvqK/plugins safe_mode=false imports=0
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: management started plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: management finished installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 success=1 error=
+QWARN  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() This plugin does not support propagateSizeHints()
+QWARN  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() This plugin does not support propagateSizeHints()
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version=1.0.0 state=Active enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version=1.0.0 state=Deactivating enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: state plugin=test.player-ui installation=5121bdf2-4226-47d6-be5a-0ec94f20b115 version=1.0.0 state=Disabled enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: shutdown started plugins= 1
+QINFO  : PluginRuntimeTest::uiPartsProductionPlaybackAndMini() echo.plugins.runtime: shutdown drained
+PASS   : PluginRuntimeTest::uiPartsProductionPlaybackAndMini()
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: startup root=C:/Users/Oneday/AppData/Local/Temp/echo-plugin-runtime-test-eHxINO/plugins safe_mode=false imports=0
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: management started plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: state plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: state plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: state plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: state plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: state plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: management finished installation=b259dde0-0317-4910-81bc-0d32bfb19fbb success=1 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() 100 public-instance reuse/style cycles 43 ms; live parts 11
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: shutdown started plugins= 1
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: state plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb version=1.0.0 state=Deactivating enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: state plugin=test.part-reuse installation=b259dde0-0317-4910-81bc-0d32bfb19fbb version=1.0.0 state=Disabled enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded() echo.plugins.runtime: shutdown drained
+PASS   : PluginRuntimeTest::uiPartInstanceStylesAndLeasesStayBounded()
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: startup root=C:/Users/Oneday/AppData/Local/Temp/echo-plugin-runtime-test-tCUJrv/plugins safe_mode=false imports=0
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: management started plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6 version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6 version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6 version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6 version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6 version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: management finished installation=ce18c97d-2893-492a-94fd-3e882f494cb6 success=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: management started plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: management finished installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a success=1 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version=1.0.0 state=Active enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version=1.0.0 state=Deactivating enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: shutdown started plugins= 2
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6 version=1.0.0 state=Deactivating enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-b installation=61acb296-ab1f-42e0-a237-b14dfbc15c0a version=1.0.0 state=Disabled enabled=0 mutation=0 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: state plugin=presentation-a installation=ce18c97d-2893-492a-94fd-3e882f494cb6 version=1.0.0 state=Disabled enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation() echo.plugins.runtime: shutdown drained
+PASS   : PluginRuntimeTest::temporaryAppearancePriorityLiveBaseAndRevocation()
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: startup root=C:/Users/Oneday/AppData/Local/Temp/echo-plugin-runtime-test-alowBP/plugins safe_mode=false imports=0
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: management started plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.operations: callback failed plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f scope=main activation=1 error=Error: Error: activation rollback
+
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: exception plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f error=Error: Error: activation rollback
+
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() test.appearance Error: Error: activation rollback
+
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f version=1.0.0 state=Deactivating enabled=1 mutation=1 error=Error: Error: activation rollback
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f version=1.0.0 state=Failed enabled=1 mutation=1 error=Error: Error: activation rollback
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: exception plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f error=Error: Error: activation rollback
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() test.appearance Error: Error: activation rollback
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f version=1.0.0 state=Failed enabled=1 mutation=2 error=Error: Error: activation rollback
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.appearance installation=30f5ae66-3ff4-47de-90df-9263863c445f version= state=Disabled enabled=1 mutation=2 error=
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: management finished installation=30f5ae66-3ff4-47de-90df-9263863c445f success=0 error=Error: Error: activation rollback
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: management started plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62 version= state=Discovered enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62 version=1.0.0 state=Disabled enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62 version=1.0.0 state=Activating enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62 version=1.0.0 state=Active enabled=1 mutation=1 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62 version=1.0.0 state=Active enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: management finished installation=7c02ecfc-7e65-4414-90cb-0005df600a62 success=1 error=
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() This plugin does not support propagateSizeHints()
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() This plugin does not support propagateSizeHints()
+QWARN  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() file:///C:/Users/Oneday/AppData/Local/echo-plugin-runtime-test/cache/plugins/c3d4a90d8b0a8ac0/runtime/test.bad-skin/7c02ecfc-7e65-4414-90cb-0005df600a62-5c2a84020aec654bacff51d8aad8ca8cd709a8f4e82bb1c436974af8d81d2abd/NestedFailure.qml:3: Error: nested runtime failure
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: shutdown started plugins= 1
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62 version=1.0.0 state=Deactivating enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: state plugin=test.bad-skin installation=7c02ecfc-7e65-4414-90cb-0005df600a62 version=1.0.0 state=Disabled enabled=1 mutation=0 error=
+QINFO  : PluginRuntimeTest::appearanceErrorsAndActivationRollback() echo.plugins.runtime: shutdown drained
+PASS   : PluginRuntimeTest::appearanceErrorsAndActivationRollback()
+PASS   : PluginRuntimeTest::cleanupTestCase()
+Totals: 8 passed, 0 failed, 0 skipped, 0 blacklisted, 4480ms
+********* Finished testing of PluginRuntimeTest *********
+ALL_GREEN

@@ -1,0 +1,126 @@
+********* Start testing of ShellTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+PASS   : ShellTest::initTestCase()
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font100) QFontDatabase: Cannot find font directory D:/Code/EchoMusicNext/build/qt-official/6.12.0/msvc2022_64/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+PASS   : ShellTest::playerBarGroupsCenter(0-1-font100)
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.121875), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+FAIL!  : ShellTest::playerBarGroupsCenter(0-1-font125) 'qAbs(centerY(group) - bar->height() / 2) * scale <= 1. / window->devicePixelRatio() + .01' returned FALSE. (group=playerbarLeftArea center=83 bar=44 height=64 groupY=41 groupImplicit=64 parent= parentH=68 parentY=10)
+D:\Code\EchoMusicNext\tests\qt\ShellTest.cpp(3027) : failure location
+PASS   : ShellTest::playerBarGroupsCenter(0-1.25-font100)
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.121875), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(0-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+FAIL!  : ShellTest::playerBarGroupsCenter(0-1.25-font125) 'qAbs(centerY(group) - bar->height() / 2) * scale <= 1. / window->devicePixelRatio() + .01' returned FALSE. (group=playerbarLeftArea center=83 bar=44 height=64 groupY=41 groupImplicit=64 parent= parentH=68 parentY=10)
+D:\Code\EchoMusicNext\tests\qt\ShellTest.cpp(3027) : failure location
+PASS   : ShellTest::playerBarGroupsCenter(1-1-font100)
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.121875), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+FAIL!  : ShellTest::playerBarGroupsCenter(1-1-font125) 'qAbs(centerY(group) - bar->height() / 2) * scale <= 1. / window->devicePixelRatio() + .01' returned FALSE. (group=playerbarLeftArea center=83 bar=44 height=64 groupY=41 groupImplicit=64 parent= parentH=68 parentY=10)
+D:\Code\EchoMusicNext\tests\qt\ShellTest.cpp(3027) : failure location
+PASS   : ShellTest::playerBarGroupsCenter(1-1.25-font100)
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.121875), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.131250), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.103125), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+QWARN  : ShellTest::playerBarGroupsCenter(1-1.25-font125) QFont::setPointSizeF: Point size <= 0 (-0.093750), must be greater than 0
+FAIL!  : ShellTest::playerBarGroupsCenter(1-1.25-font125) 'qAbs(centerY(group) - bar->height() / 2) * scale <= 1. / window->devicePixelRatio() + .01' returned FALSE. (group=playerbarLeftArea center=83 bar=44 height=64 groupY=41 groupImplicit=64 parent= parentH=68 parentY=10)
+D:\Code\EchoMusicNext\tests\qt\ShellTest.cpp(3027) : failure location
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login rendering platform "offscreen" graphics API 1
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1 false 0 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1 false 1 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1 true 0 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1 true 1 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1.25 false 0 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1.25 false 1 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1.25 true 0 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Light 1.25 true 1 pixel QColor(ARGB 1, 1, 1, 1) expected QColor(ARGB 1, 1, 1, 1)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1 false 0 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1 false 1 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1 true 0 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1 true 1 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1.25 false 0 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1.25 false 1 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1.25 true 0 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+QINFO  : ShellTest::productionLoginSurfaceUsesOnlyItsBackground() Login surface EchoMusic::ThemeStore::Dark 1.25 true 1 pixel QColor(ARGB 1, 0.160784, 0.160784, 0.168627) expected QColor(ARGB 1, 0.160784, 0.160784, 0.168627)
+PASS   : ShellTest::productionLoginSurfaceUsesOnlyItsBackground()
+FAIL!  : ShellTest::moreListsKeepShortLabelsWholeAndLongLabelsBounded() 'resolveLabels() && shortText->property("text").toString() == title && shortText->property("lineCount").toInt() == 1' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\ShellTest.cpp(2243) : failure location
+FAIL!  : ShellTest::productionTitlebarPinningTasksAndVirtualization() 'taskButton && recognizeButton' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\ShellTest.cpp(3273) : failure location
+PASS   : ShellTest::cleanupTestCase()
+Totals: 7 passed, 6 failed, 0 skipped, 0 blacklisted, 88613ms
+********* Finished testing of ShellTest *********

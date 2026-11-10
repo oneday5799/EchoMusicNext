@@ -1,0 +1,129 @@
+{
+  "sha": "7d5e24963a82dd6dc7419fc2f943042db2598bde",
+  "node_id": "C_kwDOAJbDGdoAKDdkNWUyNDk2M2E4MmRkNmRjNzQxOWZjMmY5NDMwNDJkYjI1OThiZGU",
+  "commit": {
+    "author": {
+      "name": "Ulf Hermann",
+      "email": "ulf.hermann@qt.io",
+      "date": "2026-10-07T12:59:39Z"
+    },
+    "committer": {
+      "name": "Qt Cherry-pick Bot",
+      "email": "cherrypick_bot@qt-project.org",
+      "date": "2026-10-12T02:16:54Z"
+    },
+    "message": "QtQml: Make sure to mark generator stack frames properly\n\nThe interpreter doesn't use write barriers when writing the stack since\nwe expect the stack to be (re-)marked as needed by the GC. However,\ngenerator functions execute on a special piece of stack they keep in an\nobject. That one a, needs extra marking during the regular stack marking\nand b, needs a write barrier when we take the frame off the stack so\nthat any writes done to it before get marked.\n\nFixes: QTBUG-151273\nPick-to: 6.8\nChange-Id: Iec68fb5c1abd09335182ac9dec771a20dcd464b6\nReviewed-by: Olivier De Cannière <olivier.decanniere@qt.io>\n(cherry picked from commit 65c743820a26b83836589ed6c84d1e91f0ab2a2f)\nReviewed-by: Qt Cherry-pick Bot <cherrypick_bot@qt-project.org>",
+    "tree": {
+      "sha": "c74f3329625c0fe4e3db866a74293fed97716f8c",
+      "url": "https://api.github.com/repos/qt/qtdeclarative/git/trees/c74f3329625c0fe4e3db866a74293fed97716f8c"
+    },
+    "url": "https://api.github.com/repos/qt/qtdeclarative/git/commits/7d5e24963a82dd6dc7419fc2f943042db2598bde",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/qt/qtdeclarative/commits/7d5e24963a82dd6dc7419fc2f943042db2598bde",
+  "html_url": "https://github.com/qt/qtdeclarative/commit/7d5e24963a82dd6dc7419fc2f943042db2598bde",
+  "comments_url": "https://api.github.com/repos/qt/qtdeclarative/commits/7d5e24963a82dd6dc7419fc2f943042db2598bde/comments",
+  "author": {
+    "login": "ulfhermannqt",
+    "id": 240439932,
+    "node_id": "U_kgDODlTSfA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/240439932?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/ulfhermannqt",
+    "html_url": "https://github.com/ulfhermannqt",
+    "followers_url": "https://api.github.com/users/ulfhermannqt/followers",
+    "following_url": "https://api.github.com/users/ulfhermannqt/following{/other_user}",
+    "gists_url": "https://api.github.com/users/ulfhermannqt/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/ulfhermannqt/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/ulfhermannqt/subscriptions",
+    "organizations_url": "https://api.github.com/users/ulfhermannqt/orgs",
+    "repos_url": "https://api.github.com/users/ulfhermannqt/repos",
+    "events_url": "https://api.github.com/users/ulfhermannqt/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/ulfhermannqt/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": null,
+  "parents": [
+    {
+      "sha": "4d58817dd3a32e1a5355572abea42a3aa032c946",
+      "url": "https://api.github.com/repos/qt/qtdeclarative/commits/4d58817dd3a32e1a5355572abea42a3aa032c946",
+      "html_url": "https://github.com/qt/qtdeclarative/commit/4d58817dd3a32e1a5355572abea42a3aa032c946"
+    }
+  ],
+  "stats": {
+    "total": 123,
+    "additions": 120,
+    "deletions": 3
+  },
+  "files": [
+    {
+      "sha": "cb31fb678f2de31f105fecb15a8255f0b014f971",
+      "filename": "src/qml/jsruntime/qv4generatorobject.cpp",
+      "status": "modified",
+      "additions": 11,
+      "deletions": 0,
+      "changes": 11,
+      "blob_url": "https://github.com/qt/qtdeclarative/blob/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fjsruntime%2Fqv4generatorobject.cpp",
+      "raw_url": "https://github.com/qt/qtdeclarative/raw/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fjsruntime%2Fqv4generatorobject.cpp",
+      "contents_url": "https://api.github.com/repos/qt/qtdeclarative/contents/src%2Fqml%2Fjsruntime%2Fqv4generatorobject.cpp?ref=7d5e24963a82dd6dc7419fc2f943042db2598bde",
+      "patch": "@@ -56,6 +56,15 @@ Heap::FunctionObject *GeneratorFunction::create(ExecutionContext *context, Funct\n     return g->d();\n }\n \n+// The interpreter writes to the generator's frame without write barrier. While the generator is\n+// executing, the frame is marked as part of the stack. Once it's suspended, we need to mark it\n+// explicitly.\n+static void markSuspendedFrame(ExecutionEngine *engine, const JSTypesStackFrame *frame)\n+{\n+    WriteBarrier::markCustom(engine,\n+                             [frame](MarkStack *markStack) { frame->markJSFrame(markStack); });\n+}\n+\n ReturnedValue GeneratorFunction::virtualCall(const FunctionObject *f, const Value *thisObject, const Value *argv, int argc)\n {\n     const GeneratorFunction *gf = static_cast<const GeneratorFunction *>(f);\n@@ -87,6 +96,7 @@ ReturnedValue GeneratorFunction::virtualCall(const FunctionObject *f, const Valu\n     gp->cppFrame.push(engine);\n \n     Moth::VME::interpret(&gp->cppFrame, engine, function->codeData);\n+    markSuspendedFrame(engine, &gp->cppFrame);\n \n     gp->state = GeneratorState::SuspendedStart;\n \n@@ -205,6 +215,7 @@ ReturnedValue GeneratorObject::resume(ExecutionEngine *engine, const Value &arg,\n     ScopedValue result(scope, Moth::VME::interpret(&gp->cppFrame, engine, code));\n \n     engine->currentStackFrame = gp->cppFrame.parentFrame();\n+    markSuspendedFrame(engine, &gp->cppFrame);\n \n     bool done = (gp->cppFrame.yield() == nullptr);\n     gp->state = done ? GeneratorState::Completed : GeneratorState::SuspendedYield;"
+    },
+    {
+      "sha": "bdd545fc42ab4a271dc8dfddc0335360396c1980",
+      "filename": "src/qml/jsruntime/qv4stackframe_p.h",
+      "status": "modified",
+      "additions": 17,
+      "deletions": 0,
+      "changes": 17,
+      "blob_url": "https://github.com/qt/qtdeclarative/blob/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fjsruntime%2Fqv4stackframe_p.h",
+      "raw_url": "https://github.com/qt/qtdeclarative/raw/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fjsruntime%2Fqv4stackframe_p.h",
+      "contents_url": "https://api.github.com/repos/qt/qtdeclarative/contents/src%2Fqml%2Fjsruntime%2Fqv4stackframe_p.h?ref=7d5e24963a82dd6dc7419fc2f943042db2598bde",
+      "patch": "@@ -206,6 +206,23 @@ struct Q_QML_EXPORT JSTypesStackFrame : public CppStackFrame\n         return requiredJSStackFrameSize(v4Function);\n     }\n \n+    void markJSFrame(MarkStack *markStack) const\n+    {\n+        const CallData *constFrame = jsFrame;\n+        constFrame->function.asValue<Value>().mark(markStack);\n+        constFrame->context.asValue<Value>().mark(markStack);\n+        constFrame->accumulator.asValue<Value>().mark(markStack);\n+        constFrame->thisObject.asValue<Value>().mark(markStack);\n+        constFrame->newTarget.asValue<Value>().mark(markStack);\n+\n+        // First argc of those are actually arguments, but after that there are\n+        // other local registers.\n+        const Value *registers = constFrame->argValues<Value>();\n+\n+        for (int i = 0, end = v4Function->compiledFunction->nRegisters; i != end; ++i)\n+            registers[i].mark(markStack);\n+    }\n+\n     void setupJSFrame(Value *stackSpace, const Value &function, const Heap::ExecutionContext *scope,\n                       const Value &thisObject, const Value &newTarget = Value::undefinedValue()) {\n         setupJSFrame(stackSpace, function, scope, thisObject, newTarget,"
+    },
+    {
+      "sha": "11342179f065a17c909ee7a1be36974852e624a5",
+      "filename": "src/qml/jsruntime/qv4value_p.h",
+      "status": "modified",
+      "additions": 2,
+      "deletions": 2,
+      "changes": 4,
+      "blob_url": "https://github.com/qt/qtdeclarative/blob/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fjsruntime%2Fqv4value_p.h",
+      "raw_url": "https://github.com/qt/qtdeclarative/raw/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fjsruntime%2Fqv4value_p.h",
+      "contents_url": "https://api.github.com/repos/qt/qtdeclarative/contents/src%2Fqml%2Fjsruntime%2Fqv4value_p.h?ref=7d5e24963a82dd6dc7419fc2f943042db2598bde",
+      "patch": "@@ -174,7 +174,7 @@ struct Q_QML_EXPORT Value : public StaticValue\n     bool sameValue(Value other) const;\n     bool sameValueZero(Value other) const;\n \n-    inline void mark(MarkStack *markStack);\n+    inline void mark(MarkStack *markStack) const;\n \n     static double toInteger(double d) { return StaticValue::toInteger(d); }\n     static int toInt32(double d) { return StaticValue::toInt32(d); }\n@@ -278,7 +278,7 @@ inline Encode::Encode(HeapBase *o)\n     val = Value::fromHeapObject(o).asReturnedValue();\n }\n \n-inline void Value::mark(MarkStack *markStack)\n+inline void Value::mark(MarkStack *markStack) const\n {\n     HeapBasePtr o = heapObject();\n     if (o)"
+    },
+    {
+      "sha": "b4f473d027de5a0ee082d40f4ac2b63586b3a3da",
+      "filename": "src/qml/memory/qv4mm.cpp",
+      "status": "modified",
+      "additions": 6,
+      "deletions": 1,
+      "changes": 7,
+      "blob_url": "https://github.com/qt/qtdeclarative/blob/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fmemory%2Fqv4mm.cpp",
+      "raw_url": "https://github.com/qt/qtdeclarative/raw/7d5e24963a82dd6dc7419fc2f943042db2598bde/src%2Fqml%2Fmemory%2Fqv4mm.cpp",
+      "contents_url": "https://api.github.com/repos/qt/qtdeclarative/contents/src%2Fqml%2Fmemory%2Fqv4mm.cpp?ref=7d5e24963a82dd6dc7419fc2f943042db2598bde",
+      "patch": "@@ -1500,8 +1500,13 @@ void MemoryManager::collectFromJSStack(MarkStack *markStack) const\n     }\n \n     for (auto *frame = engine->currentStackFrame; frame; frame = frame->parentFrame()) {\n-        if (!frame->isMetaTypesFrame())\n+        if (frame->isJSTypesFrame()) {\n+            // Generator frames don't live on the JS stack, but in a heap object that the\n+            // interpreter writes to without write barrier.\n+            if (frame->v4Function->isGenerator())\n+                static_cast<const JSTypesStackFrame *>(frame)->markJSFrame(markStack);\n             continue;\n+        }\n \n         if (const QQmlPrivate::AOTTrackedLocalsStorage *locals\n                 = static_cast<const MetaTypesStackFrame *>(frame)->locals()) {"
+    },
+    {
+      "sha": "b1eeb41d0b7b1e6ffe43d9da57f42a0c88990b90",
+      "filename": "tests/auto/qml/qv4mm/tst_qv4mm.cpp",
+      "status": "modified",
+      "additions": 84,
+      "deletions": 0,
+      "changes": 84,
+      "blob_url": "https://github.com/qt/qtdeclarative/blob/7d5e24963a82dd6dc7419fc2f943042db2598bde/tests%2Fauto%2Fqml%2Fqv4mm%2Ftst_qv4mm.cpp",
+      "raw_url": "https://github.com/qt/qtdeclarative/raw/7d5e24963a82dd6dc7419fc2f943042db2598bde/tests%2Fauto%2Fqml%2Fqv4mm%2Ftst_qv4mm.cpp",
+      "contents_url": "https://api.github.com/repos/qt/qtdeclarative/contents/tests%2Fauto%2Fqml%2Fqv4mm%2Ftst_qv4mm.cpp?ref=7d5e24963a82dd6dc7419fc2f943042db2598bde",
+      "patch": "@@ -32,6 +32,8 @@\n #include <private/qqmlcomponent_p.h>\n #include <private/qv4executablecompilationunit_p.h>\n \n+using namespace Qt::StringLiterals;\n+\n class tst_qv4mm : public QQmlDataTest\n {\n     Q_OBJECT\n@@ -88,6 +90,8 @@ private slots:\n     void redrainDuringSweepWhenRunningToCompletion();\n     void destroyOnEngineShutdown_data();\n     void destroyOnEngineShutdown();\n+    void generatorFrameMarking_data();\n+    void generatorFrameMarking();\n };\n \n tst_qv4mm::tst_qv4mm()\n@@ -2027,6 +2031,86 @@ void tst_qv4mm::destroyOnEngineShutdown()\n     QCOMPARE(state.destroyCount, 1);\n }\n \n+static QV4::Heap::Base *trackedGeneratorLocal = nullptr;\n+\n+static QV4::ReturnedValue method_track_generator_local(const QV4::FunctionObject *,\n+                                                       const QV4::Value *, const QV4::Value *argv,\n+                                                       int argc)\n+{\n+    Q_ASSERT(argc == 1);\n+    trackedGeneratorLocal = argv[0].heapObject();\n+    return argv[0].asReturnedValue();\n+}\n+\n+static void runGcUntil(QV4::GCStateMachine *sm, QV4::GCState target)\n+{\n+    while (sm->state != target) {\n+        QV4::GCStateInfo &stateInfo = sm->stateInfoMap[int(sm->state)];\n+        sm->state = stateInfo.execute(sm, sm->stateData);\n+    }\n+}\n+\n+static QV4::ReturnedValue method_finish_gc(const QV4::FunctionObject *f, const QV4::Value *,\n+                                           const QV4::Value *, int)\n+{\n+    runGcUntil(f->engine()->memoryManager->gcStateMachine.get(), QV4::GCState::Invalid);\n+    return QV4::Encode::undefined();\n+}\n+\n+void tst_qv4mm::generatorFrameMarking_data()\n+{\n+    QTest::addColumn<QString>(\"duringGc\");\n+\n+    // The generator stores a fresh string in a local and yields after the generator's\n+    // frame has already been marked.\n+    QTest::addRow(\"suspended\") << u\"suspended.next()\"_s;\n+\n+    // The gc completes while the generator is still executing.\n+    QTest::addRow(\"executing\") << u\"executing.next()\"_s;\n+}\n+\n+void tst_qv4mm::generatorFrameMarking()\n+{\n+    QFETCH(QString, duringGc);\n+\n+    QJSEngine jsEngine;\n+    QV4::ExecutionEngine *v4 = jsEngine.handle();\n+    v4->globalObject->defineDefaultProperty(u\"__track\"_s, method_track_generator_local);\n+    v4->globalObject->defineDefaultProperty(u\"__finishGc\"_s, method_finish_gc);\n+\n+    jsEngine.evaluate(uR\"(\n+        function* suspendedGenerator() {\n+            for (;;) {\n+                const s = __track(\"x\".repeat(64) + Math.random());\n+                yield;\n+                s.length;\n+            }\n+        }\n+        var suspended = suspendedGenerator();\n+        suspended.next();\n+\n+        function* executingGenerator() {\n+            const s = __track(\"x\".repeat(64) + Math.random());\n+            __finishGc();\n+            yield;\n+            s.length;\n+        }\n+        var executing = executingGenerator();\n+    )\"_s);\n+\n+    auto *sm = v4->memoryManager->gcStateMachine.get();\n+    sm->reset();\n+    v4->memoryManager->gcBlocked = QV4::MemoryManager::Unblocked;\n+    runGcUntil(sm, QV4::GCState::MarkReady);\n+\n+    trackedGeneratorLocal = nullptr;\n+    jsEngine.evaluate(duringGc);\n+    QVERIFY(trackedGeneratorLocal);\n+\n+    runGcUntil(sm, QV4::GCState::Invalid);\n+    QVERIFY(trackedGeneratorLocal->inUse());\n+}\n+\n QTEST_MAIN(tst_qv4mm)\n \n #include \"tst_qv4mm.moc\""
+    }
+  ]
+}

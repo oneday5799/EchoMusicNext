@@ -1,0 +1,18 @@
+[0/115] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe run --locked -p ffi-header --target-dir D:/Code/EchoMusicNext/target --release -- --check"
+    Finished `release` profile [optimized] target(s) in 0.33s
+     Running `target\release\ffi-header.exe --check`
+[1/115] C:\WINDOWS\system32\cmd.exe /C "cd /D D:\Code\EchoMusicNext && C:\Users\Oneday\.cargo\bin\cargo.exe build --locked -p echo-ffi --target-dir D:/Code/EchoMusicNext/target --release"
+warning: unused import: `PlayerErrorCode`
+ --> crates\echo-audio\src\output\mod.rs:8:21
+  |
+8 | use crate::events::{PlayerErrorCode, PlayerEvent};
+  |                     ^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `echo-audio` (lib) generated 1 warning (run `cargo fix --lib -p echo-audio` to apply 1 suggestion)
+    Finished `release` profile [optimized] target(s) in 1.02s
+[3/30] Automatic MOC and UIC for target echo-controls-ui-test
+[4/29] Running AUTOMOC file extraction for target echo-controls-ui-test
+[5/6] Building CXX object tests\qt\CMakeFiles\echo-controls-ui-test.dir\controls\ControlsUiPixelSnap.cpp.obj
+[6/6] Linking CXX executable echo-controls-ui-test.exe

@@ -1,0 +1,311 @@
+********* Start testing of DesktopPagesTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+QINFO  : DesktopPagesTest::initTestCase() Fixture proxy baseline type 2 uses system configuration true
+PASS   : DesktopPagesTest::initTestCase()
+QDEBUG : DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage() echo.api.capabilities: Request completed request=1 session=2 attempt_elapsed_ms=10
+QDEBUG : DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage() echo.api.capabilities: Request completed request=1 session=1 attempt_elapsed_ms=7
+QWARN  : DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage() echo.api.register_dev: Request failed request=2 session=1 attempt_elapsed_ms=1012 status=api_failure kind=transport transport=timeout phase=send elapsed_ms=1003 received_bytes=0
+QWARN  : DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage() echo.api.register_dev: {"code":null,"kind":"transport","message":"网络请求超时","request":2,"session":1,"stage":"error"}
+QWARN  : DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage() echo.api.register_dev: {"content":{"body":"wirgr4l87wJjZf5p86m+GRsNtcPCeEqkMuYWQIMxUSr779VLxyCPF3mdy50nJnm0Tf6WW1GJv28y8OAw8rTUVGyPjLJDm1/YoMtNpviw72+XpFLynJxIW1cQ02k2XmS94cLk3q1dYdsziCKqosIOmE/RO87aKQ6IuWtSOd6s451X8BlDCBCPFcxIHu1g2DpIENdUFazCwVGNVYcadl0nzfFGP4aWtojl8k6UE4xZd5n8nOmjDi49NePEIxNvJqyHXS5HjmCfUHgbuX3IrhpNFcAFzYGCY9HA0Uki8DXgg1aVTMFEbDqduj95XQxCWqpqvjGKkusdSg77ZDNpikARiqIc3HRImiRE2PfddPCTK8NqhN/gCtuquP2jkdMU3lHjB1awPU+TlFpAhTd/r7sT+tt9Aibn6XjONo6CW+eLjgHinCLm44xPohP35LVutHia9jf4nSOI4MEnoqYmw6TmcdSCtymN70ruhiDcOdG0B/q0FyOwIAD61Ss1nhb6mf1+yf1tAcYDZrDtFOvsAret9mR/4/u7+6pyoK/JFl24Pm/rVgurVP9SGEud3rlnNuhPNeBlIc9NE2g1gjAD6uLNUZefiF2cQnwWzsYqlrgKYJ+0obuOcbbsAR6viGPrSXUvFyUcpl05V63s5BKcSEiKw2rS5pKNDrvgGe/LLnq940iof7FcU4F2UH7GzqEQkZ1kmRvACcwlNByti52uv53ZkiZDGERSA/m4Bpi22UQedS6wS2Bm55NgUANnrISTbvl+dSGpwNpOwVtKyjNpRHb/fG5170jMgi3h2ZLpNQd1EoVDhXPKvb++SEL5gnJe0VF7BuYXg2fs4uziUn5EaNJZavv3gd7tYt5D2lpq1Jtq5OxokZAUX1njeUyQRMinSF3r","body_bytes":896,"body_truncated":false,"headers":{"accept":"application/json, text/plain, */*","clienttime":"1794260395","content-type":"application/x-www-form-urlencoded","dfid":"[redacted]","kg-rc":"1","kg-rec":"1","kg-rf":"B9EDA08A64250DEFFBCADDEE00F8F25F","kg-thash":"5d816a0","mid":"[redacted]","user-agent":"Android15-1070-11083-46-0-DiscoveryDRADProtocol-wifi"},"host":"userservice.kugou.com","method":"POST","path":"/risk/v3/r_register_dev","query":{"appid":"3116","clienttime":"1794260395","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","p":"9045be14a34ff8be1155f79615526c9d105cdcdb4308a312a5b9ad1a4e1849596b49dc115df7b42ec87f54a5ac5639d5a89853ef078bcd1e1d1adddd1c3ffe8959f1be0c29c13ff5c90328d7fa46bca07e782f7cc85b82c3837174758191f387b4a68ce3147518103bb5a47dae1239c9667d1960961e94ad6f11b52e8f3484a3","part":"1","platid":"1","signature":"[redacted]","uuid":"[redacted]"}},"exchange":1,"operation":"register_dev","request":2,"session":1,"stage":"request"}
+PASS   : DesktopPagesTest::startupUsesRealFailuresAndReleasesItsEntirePage()
+QWARN  : DesktopPagesTest::recoveryStartupWindowRetriesAndExitsWithoutBusinessOwners() This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::recoveryStartupWindowRetriesAndExitsWithoutBusinessOwners()
+QWARN  : DesktopPagesTest::settingsSearchClearRestoresCategoriesAndKeepsFocus() "There are still \"28\" items in the process of being created at engine destruction."
+PASS   : DesktopPagesTest::settingsSearchClearRestoresCategoriesAndKeepsFocus()
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: Request failed request=2 session=1 attempt_elapsed_ms=150 status=api_failure kind=business code=35002 phase=user_authorization_response elapsed_ms=0 received_bytes=61 service_status=0
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: {"code":35002,"kind":"business","message":"音乐服务拒绝了请求","request":2,"session":1,"stage":"error"}
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: {"content":{"body":"","body_bytes":0,"body_truncated":false,"headers":{"clienttime":"1794260402","dfid":"[redacted]","mid":"[redacted]","user-agent":"Android15-1070-11083-46-0-DiscoveryDRADProtocol-wifi","x-router":"trackercdngz.kugou.com"},"host":"gateway.kugou.com","method":"GET","path":"/v1/user_verify","query":{"appid":"3116","clienttime":"1794260402","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","module_id":"51","signature":"[redacted]","uuid":"[redacted]"}},"exchange":1,"operation":"song_url_auth_merge","request":2,"session":1,"stage":"request"}
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: {"content":{"body":{"data":"parameter incomplete","error_code":35002,"status":0},"body_bytes":61,"body_truncated":false,"headers":{"connection":"keep-alive","content-length":"61","content-type":"text/html","date":"Mon, 09 Nov 2026 21:40:02 GMT","kg-bc-ms":"9","kg-rs-ms":"1794260402897","kg-svr-version":"KCD_0.21.0_t_20261109120445","server":"kws","strict-transport-security":"[redacted]","x-backend-status":"200"},"http_status":200},"exchange":1,"operation":"song_url_auth_merge","request":2,"session":1,"stage":"response"}
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: Request failed request=3 session=1 attempt_elapsed_ms=52 status=api_failure kind=business code=35002 phase=user_authorization_response elapsed_ms=0 received_bytes=61 service_status=0
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: {"code":35002,"kind":"business","message":"音乐服务拒绝了请求","request":3,"session":1,"stage":"error"}
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: {"content":{"body":"","body_bytes":0,"body_truncated":false,"headers":{"clienttime":"1794260403","dfid":"[redacted]","mid":"[redacted]","user-agent":"Android15-1070-11083-46-0-DiscoveryDRADProtocol-wifi","x-router":"trackercdngz.kugou.com"},"host":"gateway.kugou.com","method":"GET","path":"/v1/user_verify","query":{"appid":"3116","clienttime":"1794260403","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","module_id":"51","signature":"[redacted]","uuid":"[redacted]"}},"exchange":1,"operation":"song_url_auth_merge","request":3,"session":1,"stage":"request"}
+QWARN  : DesktopPagesTest::playbackFallbackControlsUseProductionUi() echo.api.song_url_auth_merge: {"content":{"body":{"data":"parameter incomplete","error_code":35002,"status":0},"body_bytes":61,"body_truncated":false,"headers":{"connection":"keep-alive","content-length":"61","content-type":"text/html","date":"Mon, 09 Nov 2026 21:40:02 GMT","kg-bc-ms":"8","kg-rs-ms":"1794260402972","kg-svr-version":"KCD_0.21.0_t_20261109120445","server":"kws","strict-transport-security":"[redacted]","x-backend-status":"200"},"http_status":200},"exchange":1,"operation":"song_url_auth_merge","request":3,"session":1,"stage":"response"}
+PASS   : DesktopPagesTest::playbackFallbackControlsUseProductionUi()
+QWARN  : DesktopPagesTest::lyricFontSettingsApplyToProductionWindows() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::lyricFontSettingsApplyToProductionWindows() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::lyricFontSettingsApplyToProductionWindows() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::lyricFontSettingsApplyToProductionWindows() This plugin does not support raise()
+QWARN  : DesktopPagesTest::lyricFontSettingsApplyToProductionWindows() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::lyricFontSettingsApplyToProductionWindows() This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::lyricFontSettingsApplyToProductionWindows()
+PASS   : DesktopPagesTest::menuBarLyricsUseMacOnlyProductionSettingsAndRelease()
+QINFO  : DesktopPagesTest::lyricVariantSettingUsesProductionSelectAndReleasesPopup() Conversion select input QPoint(909,538) size QSizeF(180, 36)
+QINFO  : DesktopPagesTest::lyricVariantSettingUsesProductionSelectAndReleasesPopup() Conversion select input QPoint(980,560) size QSizeF(180, 36)
+QINFO  : DesktopPagesTest::lyricVariantSettingUsesProductionSelectAndReleasesPopup() Conversion select input QPoint(909,538) size QSizeF(180, 36)
+QINFO  : DesktopPagesTest::lyricVariantSettingUsesProductionSelectAndReleasesPopup() Conversion select input QPoint(980,560) size QSizeF(180, 36)
+PASS   : DesktopPagesTest::lyricVariantSettingUsesProductionSelectAndReleasesPopup()
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "settingsDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "taskCenterDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playbackPage"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playbackQueueDrawer"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playbackEffectPopup"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "sleepTimerPopup"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playbackOptionsPopup"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playerbarMorePopup"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "sidebarLayoutPopup"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "sidebarAccountPopover"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "accountSwitcherDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "logoutConfirmation"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playlistCreateDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playlistOrderDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "playlistImportDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "profileEditorDialog"
+QDEBUG : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_grade_info: Request completed request=1 session=2 attempt_elapsed_ms=245
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "profileGradeDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "profileSocialDrawer"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "profileDeviceDialog"
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.login_device: Request failed request=4 session=2 attempt_elapsed_ms=68 status=api_failure kind=business code=20017
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.login_device: {"code":20017,"kind":"business","message":"音乐服务拒绝了请求","request":4,"session":2,"stage":"error"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.login_device: {"content":{"body":{"clienttime_ms":1794260410532,"params":"1d4ac77ac2ca1d2d533e8a469dbc767657dfac99e0e66da7437134d4c679991a7f07904c39e47e2c4c87e209b22bcfeb","pk":"908954D72D71BBCBC1FF863B0FB46AF9582B1F2FD832E3E9D77F508B6B8169D10ECB109FD808B4A2DFC9248233389FA798061DCE1BA9F77F6AD7D9991CF3094F163B12E7963FAA6807DF8066A6FB3C1E3A7802D26658A80B04395E75D9F3B7812667032A9FB6F399506E5B1B1F623F6758DFD6F27C257E923D1E0B6AC1450D23","plat":1,"userid":900001},"body_bytes":428,"body_truncated":false,"headers":{"clienttime":"1794260410","content-type":"application/json","dfid":"[redacted]","mid":"[redacted]","user-agent":"Android15-1070-11083-46-0-DiscoveryDRADProtocol-wifi","x-router":"userinfoservice.kugou.com"},"host":"gateway.kugou.com","method":"POST","path":"/v2/get_dev","query":{"appid":"3116","clienttime":"1794260410","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","signature":"[redacted]","token":"[redacted]","userid":"900001","uuid":"[redacted]"}},"exchange":1,"operation":"login_device","request":4,"session":2,"stage":"request"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.login_device: {"content":{"body":{"data":null,"error_code":20017,"status":0},"body_bytes":44,"body_truncated":false,"headers":{"access-control-allow-headers":"DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization","access-control-allow-methods":"GET, POST, OPTIONS","connection":"keep-alive","content-type":"application/json;charset=utf-8","date":"Mon, 09 Nov 2026 21:40:10 GMT","kg-bc-ms":"2","kg-rs-ms":"1794260410389","kg-svr-version":"KCD_0.48.0_t_20261105170139","server":"kws","strict-transport-security":"[redacted]","transfer-encoding":"chunked","x-backend-status":"200"},"http_status":200},"exchange":1,"operation":"login_device","request":4,"session":2,"stage":"response"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_preference: Request failed request=5 session=2 attempt_elapsed_ms=57 status=api_failure kind=business code=20017
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_preference: {"code":20017,"kind":"business","message":"Token不合法","request":5,"session":2,"stage":"error"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_preference: {"content":{"body":{"p":"1fa99600b01a6f02f40a5f7a742522fbcaf679bcb03232b6ddbc30768e3d94f8e018f524feef4d63112dfa0826719df9c5d434064aaaeabeb17d3ce924fad648646462806134788f6f6e78ce224a04014d8a5e68c5d1d3e1ae765074c3461beffa5616e3cdfdf00c471c824c713d30cf4efccacccacf00956ad04453dcb83ecd","params":"0a1d1a0b5f85b9926e9b7ab9a6cfc3666710f2ee86ebb29b06ea0751a5cdbb4831c788959f0cf0368a9b0bbd48c8787a","plat":1,"userid":900001},"body_bytes":397,"body_truncated":false,"headers":{"clienttime":"1794260410","content-type":"application/json","dfid":"[redacted]","kg-rc":"1","kg-rec":"1","mid":"[redacted]","user-agent":"Android15-1070-11440-201-0-get_user_conf-wifi"},"host":"gateway.kugou.com","method":"POST","path":"/userpreferservice/v1/get_user_conf","query":{"appid":"3116","clienttime":"1794260410","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","signature":"[redacted]","uuid":"[redacted]"}},"exchange":1,"operation":"user_preference","request":5,"session":2,"stage":"request"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_preference: {"content":{"body":{"data":{},"errmsg":"Token不合法","error_code":20017,"status":0},"body_bytes":67,"body_truncated":false,"headers":{"connection":"keep-alive","content-length":"67","content-type":"application/json; charset=utf-8","date":"Mon, 09 Nov 2026 21:40:10 GMT","kg-bc-ms":"3","kg-rs-ms":"1794260410450","kg-svr-version":"v20260123_t_20260123124645","server":"kws","strict-transport-security":"[redacted]","x-b3-traceid":"919c7c4f258bdf283ef22a358d065da6","x-backend-status":"200"},"http_status":200},"exchange":1,"operation":"user_preference","request":5,"session":2,"stage":"response"}
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "listeningPreferencesDialog"
+QINFO  : DesktopPagesTest::productionPopupsFollowRequestOwnership() Released production popup "contentBlacklistDialog"
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: Request failed request=7 session=2 attempt_elapsed_ms=42 status=api_failure kind=authentication code=20017
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: {"code":20017,"kind":"authentication","message":"账号认证无效，请重新登录","request":7,"session":2,"stage":"error"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: {"content":{"body":{"page":1,"pagesize":30,"token":"[redacted]","total_ver":979,"type":2,"userid":900001},"body_bytes":99,"body_truncated":false,"headers":{"clienttime":"1794260410","content-type":"application/json","dfid":"[redacted]","mid":"[redacted]","user-agent":"Android15-1070-11083-46-0-DiscoveryDRADProtocol-wifi","x-router":"cloudlist.service.kugou.com"},"host":"gateway.kugou.com","method":"POST","path":"/v7/get_all_list","query":{"appid":"3116","clienttime":"1794260410","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","plat":"1","signature":"[redacted]","token":"[redacted]","userid":"900001","uuid":"[redacted]"}},"exchange":1,"operation":"user_playlist","request":7,"session":2,"stage":"request"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: {"content":{"body":{"error_code":20017,"status":0},"body_bytes":32,"body_truncated":false,"headers":{"connection":"keep-alive","content-type":"application/json;charset=utf-8","date":"Mon, 09 Nov 2026 21:40:10 GMT","kg-bc-ms":"3","kg-rs-ms":"1794260410581","kg-svr-version":"KCD_0.2.0_t_20261103173115","server":"kws","strict-transport-security":"[redacted]","transfer-encoding":"chunked","vary":"Accept-Encoding","x-backend-status":"200"},"http_status":200},"exchange":1,"operation":"user_playlist","request":7,"session":2,"stage":"response"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.blacklist_list: Request failed request=6 session=2 attempt_elapsed_ms=174 status=api_failure kind=business code=20017
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.blacklist_list: {"code":20017,"kind":"business","message":"音乐服务拒绝了请求","request":6,"session":2,"stage":"error"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.blacklist_list: {"content":{"body":{"label":"song","p":"3D9212EB0CB822809BFBA3FCA7CD9C15642A6C57955BC8C9FE6B623BC32796FD3AE88871AD10B79CB9979CE418020C6CD7A874C2D5C0FEE050B9EDCD1201446EFF40E5FDB473715599A050A7BEF03BFE48AA4E202516F0B706A0A5FC147ABCD50604B2897B1D0AF6CCF47453D39608B24639D9BE01CE860E66FF3B24B66457A0","page":1,"pagesize":30,"source":3,"userid":900001},"body_bytes":329,"body_truncated":false,"headers":{"clienttime":"1794260410","content-type":"application/json","dfid":"[redacted]","kg-tid":"473","mid":"[redacted]","user-agent":"Android15-1070-11083-46-0-DiscoveryDRADProtocol-wifi"},"host":"relationuser.kugou.com","method":"POST","path":"/v2/get_list_items","query":{"appid":"3116","clienttime":"1794260410","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","signature":"[redacted]","token":"[redacted]","userid":"900001","uuid":"[redacted]"}},"exchange":1,"operation":"blacklist_list","request":6,"session":2,"stage":"request"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.blacklist_list: {"content":{"body":{"data":null,"error_code":20017,"status":0},"body_bytes":44,"body_truncated":false,"headers":{"connection":"keep-alive","content-type":"application/json;charset=utf-8","date":"Mon, 09 Nov 2026 21:40:10 GMT","kg-bc-ms":"4","kg-rs-ms":"1794260410644","kg-svr-version":"KCD_0.35.0_t_20261027163026","server":"kws","transfer-encoding":"chunked","x-backend-status":"200"},"http_status":200},"exchange":1,"operation":"blacklist_list","request":6,"session":2,"stage":"response"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: Request failed request=8 session=2 attempt_elapsed_ms=46 status=api_failure kind=authentication code=20017
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: {"code":20017,"kind":"authentication","message":"账号认证无效，请重新登录","request":8,"session":2,"stage":"error"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: {"content":{"body":{"page":1,"pagesize":30,"token":"[redacted]","total_ver":979,"type":2,"userid":900001},"body_bytes":99,"body_truncated":false,"headers":{"clienttime":"1794260410","content-type":"application/json","dfid":"[redacted]","mid":"[redacted]","user-agent":"Android15-1070-11083-46-0-DiscoveryDRADProtocol-wifi","x-router":"cloudlist.service.kugou.com"},"host":"gateway.kugou.com","method":"POST","path":"/v7/get_all_list","query":{"appid":"3116","clienttime":"1794260410","clientver":"11440","dfid":"[redacted]","mid":"[redacted]","plat":"1","signature":"[redacted]","token":"[redacted]","userid":"900001","uuid":"[redacted]"}},"exchange":1,"operation":"user_playlist","request":8,"session":2,"stage":"request"}
+QWARN  : DesktopPagesTest::productionPopupsFollowRequestOwnership() echo.api.user_playlist: {"content":{"body":{"error_code":20017,"status":0},"body_bytes":32,"body_truncated":false,"headers":{"connection":"keep-alive","content-type":"application/json;charset=utf-8","date":"Mon, 09 Nov 2026 21:40:10 GMT","kg-bc-ms":"2","kg-rs-ms":"1794260410659","kg-svr-version":"KCD_0.2.0_t_20261103173115","server":"kws","strict-transport-security":"[redacted]","transfer-encoding":"chunked","vary":"Accept-Encoding","x-backend-status":"200"},"http_status":200},"exchange":1,"operation":"user_playlist","request":8,"session":2,"stage":"response"}
+PASS   : DesktopPagesTest::productionPopupsFollowRequestOwnership()
+FAIL!  : DesktopPagesTest::productionChatBubblesKeepBalancedTextInsets() 'ink' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesNavigation1.cpp(79) : failure location
+QDEBUG : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() echo.api.search_lyric: Request completed request=1 session=1 attempt_elapsed_ms=105
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause() This plugin does not support raise()
+PASS   : DesktopPagesTest::floatingLyricsFollowRealAudioAndStopMotionOnPause()
+QWARN  : DesktopPagesTest::rubyLyricsShareNativeRenderingOnFloatingSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::rubyLyricsShareNativeRenderingOnFloatingSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::rubyLyricsShareNativeRenderingOnFloatingSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::rubyLyricsShareNativeRenderingOnFloatingSurfaces() This plugin does not support raise()
+PASS   : DesktopPagesTest::rubyLyricsShareNativeRenderingOnFloatingSurfaces()
+SKIP   : DesktopPagesTest::desktopLyricsKeepRenderingUnderTranslucentOcclusion(pinned-0-locked-0) Opt in with ECHO_NATIVE_DESKTOP_REFRESH=1 on the real target QPA
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(949) : failure location
+SKIP   : DesktopPagesTest::desktopLyricsKeepRenderingUnderTranslucentOcclusion(pinned-0-locked-1) Opt in with ECHO_NATIVE_DESKTOP_REFRESH=1 on the real target QPA
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(949) : failure location
+SKIP   : DesktopPagesTest::desktopLyricsKeepRenderingUnderTranslucentOcclusion(pinned-1-locked-0) Opt in with ECHO_NATIVE_DESKTOP_REFRESH=1 on the real target QPA
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(949) : failure location
+SKIP   : DesktopPagesTest::desktopLyricsKeepRenderingUnderTranslucentOcclusion(pinned-1-locked-1) Opt in with ECHO_NATIVE_DESKTOP_REFRESH=1 on the real target QPA
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(949) : failure location
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(below-minimum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(below-minimum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(below-minimum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(below-minimum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(below-minimum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(below-minimum) This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::miniWidthPreferencesClampAndRestore(below-minimum)
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(within-range) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(within-range) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(within-range) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(within-range) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(within-range) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(within-range) This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::miniWidthPreferencesClampAndRestore(within-range)
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(above-maximum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(above-maximum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(above-maximum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(above-maximum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(above-maximum) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniWidthPreferencesClampAndRestore(above-maximum) This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::miniWidthPreferencesClampAndRestore(above-maximum)
+QDEBUG : DesktopPagesTest::miniProgressVolumeBackdropFavoriteAndDesktopBadge(light) echo.api.search_lyric: Request completed request=1 session=1 attempt_elapsed_ms=132
+QDEBUG : DesktopPagesTest::miniProgressVolumeBackdropFavoriteAndDesktopBadge(light) echo.api.lyric: Request completed request=2 session=1 attempt_elapsed_ms=134
+FAIL!  : DesktopPagesTest::miniProgressVolumeBackdropFavoriteAndDesktopBadge(light) '(desktopAction = visual(session.window->contentItem(), "playerbar-action-desktop-lyric"))' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(1176) : failure location
+QDEBUG : DesktopPagesTest::miniProgressVolumeBackdropFavoriteAndDesktopBadge(dark) echo.api.search_lyric: Request completed request=1 session=1 attempt_elapsed_ms=60
+QDEBUG : DesktopPagesTest::miniProgressVolumeBackdropFavoriteAndDesktopBadge(dark) echo.api.lyric: Request completed request=2 session=1 attempt_elapsed_ms=135
+FAIL!  : DesktopPagesTest::miniProgressVolumeBackdropFavoriteAndDesktopBadge(dark) '(desktopAction = visual(session.window->contentItem(), "playerbar-action-desktop-lyric"))' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(1176) : failure location
+QWARN  : DesktopPagesTest::miniVolumeDismissesAcrossHost(unpinned) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniVolumeDismissesAcrossHost(unpinned) This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::miniVolumeDismissesAcrossHost(unpinned)
+QWARN  : DesktopPagesTest::miniVolumeDismissesAcrossHost(pinned) This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniVolumeDismissesAcrossHost(pinned) This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::miniVolumeDismissesAcrossHost(pinned)
+QWARN  : DesktopPagesTest::miniQueueRendersAndScrolls() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniQueueRendersAndScrolls() This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::miniQueueRendersAndScrolls()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces() This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::miniScaleAndMenuUseProductionSurfaces()
+PASS   : DesktopPagesTest::lyricSettingsShareCoverPickerAndExcludeTaskbar()
+PASS   : DesktopPagesTest::floatingPreferencesAndFilteredTimelineKeepIdentity()
+SKIP   : DesktopPagesTest::desktopLyricsMatchSourceChromeAndHoverUnlock() Requires native global cursor and transparent window pixels
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(1652) : failure location
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support raise()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support raise()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles() This plugin does not support raise()
+PASS   : DesktopPagesTest::nativeFloatingWindowsShareStateAndReleaseAcrossCycles()
+QDEBUG : DesktopPagesTest::audibleTransitionPublishesOneToastThroughShell() echo.api.search_lyric: Request completed request=1 session=1 attempt_elapsed_ms=141
+QDEBUG : DesktopPagesTest::audibleTransitionPublishesOneToastThroughShell() echo.api.search_lyric: Request completed request=2 session=1 attempt_elapsed_ms=13
+PASS   : DesktopPagesTest::audibleTransitionPublishesOneToastThroughShell()
+QDEBUG : DesktopPagesTest::nativePlaybackFailurePublishesVisibleToast() echo.api.search_lyric: Request completed request=2 session=1 attempt_elapsed_ms=20
+QDEBUG : DesktopPagesTest::nativePlaybackFailurePublishesVisibleToast() echo.api.search_lyric: Request completed request=3 session=1 attempt_elapsed_ms=20
+QDEBUG : DesktopPagesTest::nativePlaybackFailurePublishesVisibleToast() echo.api.search_lyric: Request completed request=4 session=1 attempt_elapsed_ms=18
+PASS   : DesktopPagesTest::nativePlaybackFailurePublishesVisibleToast()
+PASS   : DesktopPagesTest::toastKeepsPlacementAcrossPlaybackPageSwitches()
+PASS   : DesktopPagesTest::sidebarPluginRegistrationKeepsHeaderVisible()
+SKIP   : DesktopPagesTest::nativePlaybackSurvivesRepeatedAppearanceUpdates() macOS appearance scheduling regression
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback1.cpp(2150) : failure location
+QWARN  : DesktopPagesTest::productionHeaderWindowActionsStayAtRightEdge() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::productionHeaderWindowActionsStayAtRightEdge() This plugin does not support raise()
+PASS   : DesktopPagesTest::productionHeaderWindowActionsStayAtRightEdge()
+PASS   : DesktopPagesTest::fullscreenShortcutReachesModalPlaybackPage()
+PASS   : DesktopPagesTest::productionExperimentalIdentitySettings(light-100)
+QWARN  : DesktopPagesTest::productionExperimentalIdentitySettings(dark-100) "There are still \"1\" items in the process of being created at engine destruction."
+PASS   : DesktopPagesTest::productionExperimentalIdentitySettings(dark-100)
+PASS   : DesktopPagesTest::productionExperimentalIdentitySettings(light-125)
+PASS   : DesktopPagesTest::productionExperimentalIdentitySettings(dark-125)
+PASS   : DesktopPagesTest::productionExperimentalLoggingSettings(light-100)
+PASS   : DesktopPagesTest::productionExperimentalLoggingSettings(dark-100)
+PASS   : DesktopPagesTest::productionExperimentalLoggingSettings(light-125)
+PASS   : DesktopPagesTest::productionExperimentalLoggingSettings(dark-125)
+QINFO  : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(light-100) Network UI renderer API 1
+QWARN  : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(light-100) "There are still \"1\" items in the process of being created at engine destruction."
+PASS   : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(light-100)
+QINFO  : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(dark-100) Network UI renderer API 1
+QWARN  : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(dark-100) "There are still \"1\" items in the process of being created at engine destruction."
+PASS   : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(dark-100)
+QINFO  : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(light-125) Network UI renderer API 1
+QWARN  : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(light-125) "There are still \"1\" items in the process of being created at engine destruction."
+PASS   : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(light-125)
+QINFO  : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(dark-125) Network UI renderer API 1
+PASS   : DesktopPagesTest::productionNetworkSettingsAutoSaveResetAndTheme(dark-125)
+PASS   : DesktopPagesTest::productionPlayerEngineSettingsDecimalInputAndLifecycle()
+FAIL!  : DesktopPagesTest::productionVariableDialogSizingReopens() 'qAbs(list->height() - list->property("measuredExtent").toReal()) < .6' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesSettings1.cpp(1697) : failure location
+PASS   : DesktopPagesTest::settingsDefaultsAndSourceEffectFileManager()
+PASS   : DesktopPagesTest::nativeOutputDeviceSelectHasOneDefaultChoice()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+QWARN  : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon() This plugin does not support propagateSizeHints()
+PASS   : DesktopPagesTest::playbackQueueEmptyIndicatorAndCloseIcon()
+PASS   : DesktopPagesTest::playbackQueueLocationSkipsVisibleCurrentSong()
+SKIP   : DesktopPagesTest::committedTrackClimaxFromLiveNativeApi() Explicit live read-only CDN test
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPresentation1.cpp(315) : failure location
+PASS   : DesktopPagesTest::playbackZoomShortcutsFollowSharedScale()
+PASS   : DesktopPagesTest::playbackChromeMatchesSource()
+QDEBUG : DesktopPagesTest::playbackLoadingRevealsFinalPlayPauseIcon() echo.api.search_lyric: Request completed request=1 session=1 attempt_elapsed_ms=128
+QDEBUG : DesktopPagesTest::playbackLoadingRevealsFinalPlayPauseIcon() echo.api.search_lyric: Request completed request=2 session=1 attempt_elapsed_ms=12
+QDEBUG : DesktopPagesTest::playbackLoadingRevealsFinalPlayPauseIcon() echo.api.search_lyric: Request completed request=3 session=1 attempt_elapsed_ms=69
+QDEBUG : DesktopPagesTest::playbackLoadingRevealsFinalPlayPauseIcon() echo.api.search_lyric: Request completed request=4 session=1 attempt_elapsed_ms=24
+QINFO  : DesktopPagesTest::playbackLoadingRevealsFinalPlayPauseIcon() Post-loading pause frames 16
+PASS   : DesktopPagesTest::playbackLoadingRevealsFinalPlayPauseIcon()
+QDEBUG : DesktopPagesTest::playbackToolbarsMatchSourceAcrossWidths() echo.api.search_lyric: Request completed request=1 session=1 attempt_elapsed_ms=113
+PASS   : DesktopPagesTest::playbackToolbarsMatchSourceAcrossWidths()
+PASS   : DesktopPagesTest::productionPlaybackPopoverSpacingAndEffectMarkers()
+QDEBUG : DesktopPagesTest::productionEffectPanelAlignmentAndCompactContentTabs() echo.api.effects_match: Request completed request=2 session=1 attempt_elapsed_ms=97
+PASS   : DesktopPagesTest::productionEffectPanelAlignmentAndCompactContentTabs()
+QDEBUG : DesktopPagesTest::productionResolvedQualityMarksPickerAndToolbar() echo.api.privilege_lite: Request completed request=1 session=1 attempt_elapsed_ms=167
+QDEBUG : DesktopPagesTest::productionResolvedQualityMarksPickerAndToolbar() echo.api.privilege_lite: Request completed request=2 session=1 attempt_elapsed_ms=60
+PASS   : DesktopPagesTest::productionResolvedQualityMarksPickerAndToolbar()
+QWARN  : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() This plugin does not support propagateSizeHints()
+QDEBUG : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() echo.api.privilege_lite: Request completed request=1 session=1 attempt_elapsed_ms=156
+QDEBUG : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() echo.api.privilege_lite: Request completed request=2 session=1 attempt_elapsed_ms=47
+QDEBUG : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() echo.api.privilege_lite: Request completed request=3 session=1 attempt_elapsed_ms=48
+QDEBUG : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() echo.api.privilege_lite: Request completed request=4 session=1 attempt_elapsed_ms=48
+QDEBUG : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() echo.api.privilege_lite: Request completed request=5 session=1 attempt_elapsed_ms=50
+QDEBUG : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() echo.api.privilege_lite: Request completed request=6 session=1 attempt_elapsed_ms=49
+QDEBUG : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() echo.api.privilege_lite: Request completed request=7 session=1 attempt_elapsed_ms=48
+FAIL!  : DesktopPagesTest::productionQualityPopupContainsAndScrollsAllOptions() 'detailInk.second >= detailInk.first' returned FALSE. (detail has no ink for viper_tape (text=暂无该音质, ink=800..-1))
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPopups.cpp(149) : failure location
+PASS   : DesktopPagesTest::taskIndicatorUsesSingleDot(light-100)
+PASS   : DesktopPagesTest::taskIndicatorUsesSingleDot(dark-100)
+PASS   : DesktopPagesTest::taskIndicatorUsesSingleDot(light-125)
+PASS   : DesktopPagesTest::taskIndicatorUsesSingleDot(dark-125)
+PASS   : DesktopPagesTest::productionEmbeddedLyricsFromActualReader(before-engine-ready)
+PASS   : DesktopPagesTest::productionEmbeddedLyricsFromActualReader(after-engine-ready)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 760 1 QSizeF(712, 56) QRectF(0,20 346x36) QRectF(358,20 300x36) QRectF(670,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 680 1 QSizeF(632, 56) QRectF(0,20 303x36) QRectF(315,20 263x36) QRectF(590,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 460 1 QSizeF(412, 100) QRectF(0,20 202x36) QRectF(210,20 202x36) QRectF(370,64 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 760 1.25 QSizeF(712, 56) QRectF(0,20 346x36) QRectF(358,20 300x36) QRectF(670,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 680 1.25 QSizeF(632, 56) QRectF(0,20 303x36) QRectF(315,20 263x36) QRectF(590,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 460 1.25 QSizeF(412, 100) QRectF(0,20 202x36) QRectF(210,20 202x36) QRectF(370,64 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 760 1 QSizeF(712, 56) QRectF(0,20 346x36) QRectF(358,20 300x36) QRectF(670,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 680 1 QSizeF(632, 56) QRectF(0,20 303x36) QRectF(315,20 263x36) QRectF(590,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 460 1 QSizeF(412, 100) QRectF(0,20 202x36) QRectF(210,20 202x36) QRectF(370,64 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 760 1.25 QSizeF(712, 56) QRectF(0,20 346x36) QRectF(358,20 300x36) QRectF(670,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 680 1.25 QSizeF(632, 56) QRectF(0,20 303x36) QRectF(315,20 263x36) QRectF(590,20 42x36)
+QINFO  : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets() Lyric search form 460 1.25 QSizeF(412, 100) QRectF(0,20 202x36) QRectF(210,20 202x36) QRectF(370,64 42x36)
+PASS   : DesktopPagesTest::productionLyricPreviewKeepsSymmetricInsets()
+SKIP   : DesktopPagesTest::productionLyricKeywordSearchFromLiveNativeApi() Opt-in read-only lyric keyword API and native input lifecycle
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback2.cpp(1343) : failure location
+SKIP   : DesktopPagesTest::productionLyricAutomaticFallbackFromLiveNativeApi() Opt-in real empty-hash automatic lyric fallback and dialog lifecycle
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback2.cpp(1438) : failure location
+SKIP   : DesktopPagesTest::productionLyricSelectionFromLiveNativeApi() Explicit read-only live lyric API verification
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesPlayback3.cpp(7) : failure location

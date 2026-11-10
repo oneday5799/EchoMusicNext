@@ -1,0 +1,83 @@
+********* Start testing of DesktopPagesTest *********
+Config: Using QtTest library 6.12.0, Qt 6.12.0 (x86_64-little_endian-llp64 shared (dynamic) release build; by MSVC 2022), windows 11
+QINFO  : DesktopPagesTest::initTestCase() Fixture proxy baseline type 3 uses system configuration true
+PASS   : DesktopPagesTest::initTestCase()
+QWARN  : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) QFontDatabase: Cannot find font directory D:/Code/EchoMusicNext/build/qt-official/6.12.0/msvc2022_64/lib/fonts.
+Note that Qt no longer ships fonts. Deploy some (from https://dejavu-fonts.github.io/ for example) or switch to fontconfig.
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) SIDEBAR-DIAG 1-1-3 uiScale= 1 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 800 collapsed= false
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) CHAIN "" QQuickItem w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) CHAIN "" EchoUiPartHost_QMLTYPE_15 w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) CHAIN "shellFrame" MainShell w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) CHAIN "mainShellLoader" QQuickLoader w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3) CHAIN "Main" QQuickRootItem w= 0 x= 0
+PASS   : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-3)
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) SIDEBAR-DIAG 1-1-4 uiScale= 1 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 800 collapsed= false
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) CHAIN "" QQuickItem w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) CHAIN "" EchoUiPartHost_QMLTYPE_649 w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) CHAIN "shellFrame" MainShell w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) CHAIN "mainShellLoader" QQuickLoader w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4) CHAIN "Main" QQuickRootItem w= 0 x= 0
+PASS   : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1-4)
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) SIDEBAR-DIAG 1-1.25-3 uiScale= 1.25 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 640 collapsed= true
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) CHAIN "" QQuickItem w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) CHAIN "" EchoUiPartHost_QMLTYPE_1283 w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) CHAIN "shellFrame" MainShell w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) CHAIN "mainShellLoader" QQuickLoader w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) CHAIN "Main" QQuickRootItem w= 0 x= 0
+FAIL!  : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-3) 'intermediateWidth' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesSettings2.cpp(385) : failure location
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) SIDEBAR-DIAG 1-1.25-4 uiScale= 1.25 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 920 collapsed= false
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) CHAIN "" QQuickItem w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) CHAIN "" EchoUiPartHost_QMLTYPE_1917 w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) CHAIN "shellFrame" MainShell w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) CHAIN "mainShellLoader" QQuickLoader w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4) CHAIN "Main" QQuickRootItem w= 1150 x= 0
+PASS   : DesktopPagesTest::sidebarShortcutCollapseFrames(1-1.25-4)
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) SIDEBAR-DIAG 2-1-3 uiScale= 1 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 800 collapsed= false
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) CHAIN "" QQuickItem w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) CHAIN "" EchoUiPartHost_QMLTYPE_2551 w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) CHAIN "shellFrame" MainShell w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) CHAIN "mainShellLoader" QQuickLoader w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3) CHAIN "Main" QQuickRootItem w= 0 x= 0
+PASS   : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-3)
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) SIDEBAR-DIAG 2-1-4 uiScale= 1 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 800 collapsed= false
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) CHAIN "" QQuickItem w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) CHAIN "" EchoUiPartHost_QMLTYPE_3185 w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) CHAIN "shellFrame" MainShell w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) CHAIN "mainShellLoader" QQuickLoader w= 800 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4) CHAIN "Main" QQuickRootItem w= 0 x= 0
+PASS   : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1-4)
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) SIDEBAR-DIAG 2-1.25-3 uiScale= 1.25 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 640 collapsed= true
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) CHAIN "" QQuickItem w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) CHAIN "" EchoUiPartHost_QMLTYPE_3819 w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) CHAIN "shellFrame" MainShell w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) CHAIN "mainShellLoader" QQuickLoader w= 640 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) CHAIN "Main" QQuickRootItem w= 0 x= 0
+FAIL!  : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-3) 'intermediateWidth' returned FALSE. ()
+D:\Code\EchoMusicNext\tests\qt\desktop\DesktopPagesSettings2.cpp(385) : failure location
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) SIDEBAR-DIAG 2-1.25-4 uiScale= 1.25 windowW= 1150 rootPropW= QVariant(int, 1150) shellW= 920 collapsed= false
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) CHAIN "" QQuickItem w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) CHAIN "" EchoUiPartHost_QMLTYPE_4453 w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) CHAIN "shellFrame" MainShell w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) CHAIN "mainShellLoader" QQuickLoader w= 920 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) CHAIN "ApplicationWindow" QQuickContentItem w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) CHAIN "ApplicationWindowContentControl" QQuickControl w= 1150 x= 0
+QDEBUG : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4) CHAIN "Main" QQuickRootItem w= 1150 x= 0
+PASS   : DesktopPagesTest::sidebarShortcutCollapseFrames(2-1.25-4)
+PASS   : DesktopPagesTest::cleanupTestCase()
+Totals: 8 passed, 2 failed, 0 skipped, 0 blacklisted, 10472ms
+********* Finished testing of DesktopPagesTest *********

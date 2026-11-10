@@ -1,0 +1,17 @@
+fix(controls): 组合声明原地重解析，内容宿主保留活动内容
+
+审查跟进项 (c1)：refresh() 的 detach 会整体注销 part——identity 更
+换、组合签名与 contentFactory 清零，attach 再以新序号重新登记，链
+缓存键随之失效，排队的 reconcile 照常拆建活动 item，插件内容状态
+随声明级 refresh 丢失。运行时组合增删走 notifyStructure 的签名早
+退、身份稳定，本就不受影响；受影响的是宿主侧声明编辑。
+
+- setProperties/setActions 只喂样式解析与组合载荷，不触及身份、地
+  址与组合链：改按 setPreference 惯用法原地 resolve +
+  resolveComposition，不再触发 detach/attach。
+- EchoUiContentHost 补全 requestReconcile 一直被忽略的 rebuild 语
+  义：软请求若落回建造当前 item 的同一工厂则保留活动内容（新增
+  m_itemFactory 簿记，随 release 清除）；工厂内容变更等硬请求与真
+  正换用其他工厂仍会重建。
+- 回归测试：Controls 单元级覆盖软/硬请求与排队期内软→硬合并契约；
+  组合集成级断言 setProperties/setActions 往返后 wrapper 身份保持。
