@@ -1,0 +1,185 @@
+2026-11-11 01:41:21.247 INFO  [echo.logging] Logging started pid=21612 level=debug timezone=Asia/Shanghai retention_days=7 file=C:/Users/Oneday/AppData/Local/hoowhoami/EchoMusicNext/logs/echomusicnext-2026-11-11_01-41-21-156-21612.log
+2026-11-11 01:41:21.247 INFO  [echo.logging] Session build: version=0.1.2 build=20261110T164945Z-73f0c583d8e8-dirty configuration=Release arch=x86_64 Qt=6.12.0 compiler=MSVC 19.44.35228.0
+2026-11-11 01:41:21.247 WARN  [default] Previous session ended without clean shutdown; crash report: C:/Users/Oneday/AppData/Local/hoowhoami/EchoMusicNext/logs/crashes/echomusicnext-20261110T174107345-3224.jsonl
+2026-11-11 01:41:21.249 INFO  [default] Bootstrap phase: createShell
+2026-11-11 01:41:21.270 INFO  [default] Bootstrap phase: createNetworkPlayback
+2026-11-11 01:41:21.304 INFO  [default] Bootstrap phase: createAccount
+2026-11-11 01:41:21.306 INFO  [default] Bootstrap phase: createPages
+2026-11-11 01:41:21.306 INFO  [default] Bootstrap phase: createPlugins
+2026-11-11 01:41:21.314 INFO  [default] Bootstrap phase: registerRoutes
+2026-11-11 01:41:21.315 INFO  [default] Bootstrap phase: wireShutdown
+2026-11-11 01:41:21.315 INFO  [default] Bootstrap phase: wireSmoke
+2026-11-11 01:41:21.315 INFO  [default] Bootstrap phase: mountUi
+2026-11-11 01:41:21.625 INFO  [echo.platform.windows.window] attach {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":false,"initialized":false,"layered":false,"nativeBounds":[561,221,1438,938],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"860f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":0,"windowColor":"#00000000","windowState":0}
+2026-11-11 01:41:21.654 INFO  [echo.platform.windows.window] apply {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[498,104,1618,1146],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"860f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":0,"windowColor":"#00000000","windowState":0}
+2026-11-11 01:41:21.689 DEBUG [echo.platform.windows.window] repair-geometry window-rect 498 104 2116 1250 client 1618 1146 window 1294 917
+2026-11-11 01:41:21.689 INFO  [echo.platform.windows.window] repair {"accentState":null,"accentTint":null,"alphaBufferSize":8,"attached":true,"build":26300,"compositionEnabled":true,"coversMonitor":false,"darkMode":false,"devicePixelRatio":1.25,"error":"","extendedStyle":"100","frameBorder":null,"frostEnabled":false,"fullscreenInputLocked":false,"initialized":true,"layered":false,"nativeBounds":[498,104,1618,1146],"remoteSession":false,"requestedAlphaBufferSize":8,"style":"960f0000","subclassInstalled":true,"surfaceType":6,"systemBackdrop":0,"transparency":0,"windowColor":"#00000000","windowState":0}
+2026-11-11 01:41:21.837 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-11 01:41:21.342 INFO  [native] Windows SMTC initialized
+2026-11-11 01:41:21.343 INFO  [native] audio player initialized
+2026-11-11 01:41:21.692 INFO  [native] audio output switch completed
+2026-11-11 01:41:21.856 INFO  [echo.platform.taskbar-lyric] probe thread up
+2026-11-11 01:41:21.856 INFO  [echo.platform.taskbar-lyric] COM initialized (STA)
+2026-11-11 01:41:21.858 WARN  [echo.logging] Dropped 1 log entries (queue capacity or contention)
+2026-11-11 01:41:21.858 INFO  [echo.platform.taskbar-lyric] 挂载成功 hwnd= 0xc90dce shell= 0x1013e
+2026-11-11 01:41:21.858 DEBUG [echo.shell.taskbar-lyric] hide: available=false reliable=false fullscreen=false left=QRect(0,0 0x0) right=QRect(0,0 0x0) scale=1
+2026-11-11 01:41:21.859 INFO  [echo.platform.taskbar-lyric] UIA client up ok=true
+2026-11-11 01:41:21.859 INFO  [echo.platform.taskbar-lyric] probe stage iter=1
+2026-11-11 01:41:21.917 DEBUG [native.api] request=1 revision=1 started
+2026-11-11 01:41:21.917 DEBUG [native.api] request=1 revision=1 status=Success kind=none code=None elapsed_ms=0
+2026-11-11 01:41:21.943 DEBUG [echo.api.capabilities] Request completed request=1 session=1 attempt_elapsed_ms=25
+2026-11-11 01:41:21.935 DEBUG [native.api] request=2 revision=1 started
+2026-11-11 01:41:22.028 WARN  [echo.logging] Dropped 2 log entries (queue capacity or contention)
+2026-11-11 01:41:21.945 DEBUG [native.api] request=2 revision=1 status=Cancelled kind=none code=None elapsed_ms=9
+2026-11-11 01:41:21.945 INFO  [native] Image decoded: width=256, height=256, color_type=Rgb8
+2026-11-11 01:41:21.962 DEBUG [native.api] request=4 revision=2 started
+2026-11-11 01:41:21.962 DEBUG [native.api] request=5 revision=2 started
+2026-11-11 01:41:21.962 DEBUG [native.api] request=6 revision=2 started
+2026-11-11 01:41:21.962 DEBUG [native.api] request=7 revision=2 started
+2026-11-11 01:41:22.036 DEBUG [native.api] request=8 revision=2 started
+2026-11-11 01:41:22.061 INFO  [native] Image decoded: width=256, height=256, color_type=Rgb8
+2026-11-11 01:41:22.062 INFO  [native] Image re-encoded as JPEG: 10179 bytes
+2026-11-11 01:41:22.195 DEBUG [echo.platform.taskbar-lyric] occupied "n=20 [0..69, 72..347, 118..153, 349..404, 404..459, 459..514, 514..569, 569..624, 2079..2119, 2119..2159, 2159..2199, 2199..2239, 2239..2279, 2279..2319, 2319..2374, 2379..2409, 2414..2444, 2454..2540, 2545..2560, 2080..2560, ] cl=0..624 L=0,0 R=630,1443"
+2026-11-11 01:41:22.195 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:41:22.195 INFO  [echo.platform.taskbar-lyric] probe stage iter=2
+2026-11-11 01:41:22.219 DEBUG [echo.api.user_vip_detail] Request completed request=4 session=2 attempt_elapsed_ms=258
+2026-11-11 01:41:22.219 DEBUG [echo.api.user_info] Request completed request=5 session=2 attempt_elapsed_ms=258
+2026-11-11 01:41:22.292 INFO  [echo.plugins.runtime] startup root=C:/Users/Oneday/AppData/Local/hoowhoami/EchoMusicNext/plugins safe_mode=false imports=0
+2026-11-11 01:41:22.295 WARN  [echo.logging] Dropped 2 log entries (queue capacity or contention)
+2026-11-11 01:41:22.185 DEBUG [native.api] request=4 revision=2 status=Success kind=none code=None elapsed_ms=223
+2026-11-11 01:41:22.199 DEBUG [native.api] request=5 revision=2 status=Success kind=none code=None elapsed_ms=236
+2026-11-11 01:41:22.327 DEBUG [echo.api.user_detail] Request completed request=3 session=2 attempt_elapsed_ms=365
+2026-11-11 01:41:22.327 DEBUG [echo.api.krm_audio] Request completed request=8 session=2 attempt_elapsed_ms=291
+2026-11-11 01:41:22.314 DEBUG [native.api] request=6 revision=2 status=Success kind=none code=None elapsed_ms=351
+2026-11-11 01:41:22.328 INFO  [echo.plugins.runtime] state plugin= installation=cf00c826-4df5-4553-a921-f1137d61fe0d version= state=Discovered enabled=1 mutation=0 error=
+2026-11-11 01:41:22.329 INFO  [echo.plugins.runtime] state plugin= installation=3dacbe03-a5b7-4854-b1fa-ded2b555cdbd version= state=Discovered enabled=0 mutation=0 error=
+2026-11-11 01:41:22.330 INFO  [echo.plugins.runtime] state plugin= installation=7597e9a5-64fe-4a31-8225-19235a289dec version= state=Discovered enabled=1 mutation=0 error=
+2026-11-11 01:41:22.331 INFO  [echo.plugins.runtime] state plugin= installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f version= state=Discovered enabled=1 mutation=0 error=
+2026-11-11 01:41:22.332 INFO  [echo.plugins.runtime] state plugin= installation=3208c591-92aa-4ba7-9c14-991cf70da3f3 version= state=Discovered enabled=0 mutation=0 error=
+2026-11-11 01:41:22.332 INFO  [echo.plugins.runtime] state plugin= installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b version= state=Discovered enabled=1 mutation=0 error=
+2026-11-11 01:41:22.335 DEBUG [echo.api.user_playlist] Request completed request=6 session=2 attempt_elapsed_ms=373
+2026-11-11 01:41:22.338 DEBUG [native.api] request=9 revision=2 started
+2026-11-11 01:41:22.384 INFO  [echo.plugins.runtime] state plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec version=1.0.2 state=Disabled enabled=1 mutation=0 error=
+2026-11-11 01:41:22.399 INFO  [echo.plugins.runtime] state plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d version=1.0.0 state=Disabled enabled=1 mutation=0 error=
+2026-11-11 01:41:22.408 INFO  [echo.plugins.runtime] state plugin=github-accelerate installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b version=1.0.0 state=Disabled enabled=1 mutation=0 error=
+2026-11-11 01:41:22.416 INFO  [echo.plugins.runtime] state plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f version=1.2.7 state=Disabled enabled=1 mutation=0 error=
+2026-11-11 01:41:22.458 INFO  [echo.plugins.runtime] state plugin=webdav-music installation=3dacbe03-a5b7-4854-b1fa-ded2b555cdbd version=1.0.0 state=Disabled enabled=0 mutation=0 error=
+2026-11-11 01:41:22.382 DEBUG [native.api] request=10 revision=2 started
+2026-11-11 01:41:22.479 INFO  [echo.plugins.runtime] state plugin=apple-music-style installation=3208c591-92aa-4ba7-9c14-991cf70da3f3 version=1.0.0 state=Disabled enabled=0 mutation=0 error=
+2026-11-11 01:41:22.520 DEBUG [echo.shell.taskbar-lyric] present side=right bounds=QRectF(1250.4,0 400x48.8) scale=1.25
+2026-11-11 01:41:22.525 DEBUG [echo.shell.taskbar-lyric] native: parent=0x1013e visible=1 rect=(1563,1380,2063,1441)
+2026-11-11 01:41:22.539 INFO  [echo.plugins.runtime] state plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f version=1.2.7 state=Activating enabled=1 mutation=0 error=
+2026-11-11 01:41:22.552 DEBUG [echo.plugins.operations] created operation=c012336c-6e89-49e4-aef8-72f034155ef1 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.553 DEBUG [echo.plugins.operations] created operation=8c3ff931-0c06-4b73-88d6-8bbee6ecad19 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginPermissions::authorize
+2026-11-11 01:41:22.553 DEBUG [echo.plugins.operations] created operation=0a26a784-5cce-4712-a4b9-69f5a50fd821 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginPermissions::authorize
+2026-11-11 01:41:22.560 DEBUG [echo.api.user_playlist] Request completed request=10 session=2 attempt_elapsed_ms=178
+2026-11-11 01:41:22.535 DEBUG [native.api] request=10 revision=2 status=Success kind=none code=None elapsed_ms=153
+2026-11-11 01:41:22.570 DEBUG [echo.plugins.operations] finished operation=8c3ff931-0c06-4b73-88d6-8bbee6ecad19 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginPermissions::authorize state=Succeeded elapsed_ms=16
+2026-11-11 01:41:22.570 DEBUG [echo.plugins.operations] finished operation=0a26a784-5cce-4712-a4b9-69f5a50fd821 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginPermissions::authorize state=Succeeded elapsed_ms=16
+2026-11-11 01:41:22.570 INFO  [echo.plugins.runtime] state plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f version=1.2.7 state=Active enabled=1 mutation=0 error=
+2026-11-11 01:41:22.578 DEBUG [echo.plugins.operations] finished operation=c012336c-6e89-49e4-aef8-72f034155ef1 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=26
+2026-11-11 01:41:22.593 DEBUG [echo.api.playlist_track_all_new] Request completed request=9 session=2 attempt_elapsed_ms=255
+2026-11-11 01:41:22.626 INFO  [echo.plugins.runtime] state plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec version=1.0.2 state=Activating enabled=1 mutation=0 error=
+2026-11-11 01:41:22.644 DEBUG [echo.plugins.operations] created operation=d22fc319-e642-4638-ace2-9f03b1e98884 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.564 DEBUG [native.api] request=9 revision=2 status=Success kind=none code=None elapsed_ms=226
+2026-11-11 01:41:22.654 INFO  [echo.plugins.runtime] state plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec version=1.0.2 state=Active enabled=1 mutation=0 error=
+2026-11-11 01:41:22.662 DEBUG [echo.plugins.operations] finished operation=d22fc319-e642-4638-ace2-9f03b1e98884 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=17
+2026-11-11 01:41:22.663 INFO  [echo.plugins.runtime] state plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d version=1.0.0 state=Activating enabled=1 mutation=0 error=
+2026-11-11 01:41:22.675 DEBUG [echo.plugins.operations] created operation=27299fc0-575c-41e1-ba2a-453232d947fd plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.690 DEBUG [echo.plugins.operations] finished operation=27299fc0-575c-41e1-ba2a-453232d947fd plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=14
+2026-11-11 01:41:22.692 DEBUG [echo.plugins.operations] created operation=6677af8a-ffcf-4be0-83fe-87ad47885aaa plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.692 DEBUG [echo.plugins.operations] created operation=38774eb1-7125-4d38-8ff3-33ddf0fe2dae plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.693 DEBUG [echo.plugins.operations] finished operation=6677af8a-ffcf-4be0-83fe-87ad47885aaa plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=1
+2026-11-11 01:41:22.693 DEBUG [echo.plugins.operations] created operation=cc71a932-78b6-4b34-a8c9-a5d89193ded9 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.694 DEBUG [echo.plugins.operations] finished operation=38774eb1-7125-4d38-8ff3-33ddf0fe2dae plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=1
+2026-11-11 01:41:22.694 DEBUG [echo.plugins.operations] created operation=8f6c0448-6d45-450f-9393-b82d1dacd98d plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.694 DEBUG [echo.plugins.operations] created operation=35642790-6fa6-40ab-9ef0-67883f15d356 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.694 DEBUG [echo.plugins.operations] created operation=f5f7c566-353f-44a2-a737-b56637a85adf plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.697 DEBUG [echo.plugins.operations] finished operation=8f6c0448-6d45-450f-9393-b82d1dacd98d plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=3
+2026-11-11 01:41:22.697 DEBUG [echo.plugins.operations] finished operation=35642790-6fa6-40ab-9ef0-67883f15d356 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=3
+2026-11-11 01:41:22.697 DEBUG [echo.plugins.operations] finished operation=f5f7c566-353f-44a2-a737-b56637a85adf plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=3
+2026-11-11 01:41:22.701 INFO  [echo.platform.taskbar-lyric] probe stage iter=3
+2026-11-11 01:41:22.707 DEBUG [echo.plugins.operations] finished operation=cc71a932-78b6-4b34-a8c9-a5d89193ded9 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=13
+2026-11-11 01:41:22.707 DEBUG [echo.plugins.operations] created operation=75e346ec-9383-440d-a4d6-8d057725eb5e plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.709 DEBUG [echo.plugins.operations] finished operation=75e346ec-9383-440d-a4d6-8d057725eb5e plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=2
+2026-11-11 01:41:22.709 DEBUG [echo.plugins.operations] created operation=deabb185-cddf-4388-ba07-a3e16eaf8ecd plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.711 DEBUG [echo.plugins.operations] finished operation=deabb185-cddf-4388-ba07-a3e16eaf8ecd plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=1
+2026-11-11 01:41:22.712 DEBUG [echo.plugins.operations] created operation=67a37c3e-093c-4b4d-b248-a55ecb5559b1 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.714 DEBUG [echo.plugins.operations] finished operation=67a37c3e-093c-4b4d-b248-a55ecb5559b1 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=2
+2026-11-11 01:41:22.714 DEBUG [echo.plugins.operations] created operation=26a8d045-14a4-4913-88b2-6776bd703555 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.716 DEBUG [echo.plugins.operations] finished operation=26a8d045-14a4-4913-88b2-6776bd703555 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=1
+2026-11-11 01:41:22.716 DEBUG [echo.plugins.operations] created operation=2c11e52d-f124-4cce-8bd6-505e2a252673 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.721 DEBUG [echo.plugins.operations] finished operation=2c11e52d-f124-4cce-8bd6-505e2a252673 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=4
+2026-11-11 01:41:22.721 DEBUG [echo.plugins.operations] created operation=a819d66b-27ad-44b0-998f-448cc3d7f183 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize
+2026-11-11 01:41:22.724 DEBUG [echo.plugins.operations] finished operation=a819d66b-27ad-44b0-998f-448cc3d7f183 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize state=Succeeded elapsed_ms=3
+2026-11-11 01:41:22.724 DEBUG [echo.plugins.operations] created operation=c7cccb03-33fd-4433-9bb2-c1060eaaf707 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.728 DEBUG [echo.plugins.operations] finished operation=c7cccb03-33fd-4433-9bb2-c1060eaaf707 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=3
+2026-11-11 01:41:22.728 DEBUG [echo.plugins.operations] created operation=4d23ced6-1d01-4ee2-a4ac-de180f18c4dd plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize
+2026-11-11 01:41:22.729 DEBUG [echo.plugins.operations] finished operation=4d23ced6-1d01-4ee2-a4ac-de180f18c4dd plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize state=Succeeded elapsed_ms=1
+2026-11-11 01:41:22.730 DEBUG [echo.plugins.operations] created operation=7d153be4-36b5-42d6-8f69-f608664598b4 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.734 DEBUG [echo.plugins.operations] finished operation=7d153be4-36b5-42d6-8f69-f608664598b4 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=4
+2026-11-11 01:41:22.735 DEBUG [echo.plugins.operations] created operation=d816200f-9d55-4b55-9000-727d62d0075f plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize
+2026-11-11 01:41:22.740 DEBUG [native.api] request=7 revision=2 status=Success kind=none code=None elapsed_ms=778
+2026-11-11 01:41:22.743 DEBUG [echo.api.personal_fm] Request completed request=7 session=2 attempt_elapsed_ms=781
+2026-11-11 01:41:22.748 DEBUG [echo.plugins.operations] finished operation=d816200f-9d55-4b55-9000-727d62d0075f plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize state=Succeeded elapsed_ms=13
+2026-11-11 01:41:22.748 DEBUG [echo.plugins.operations] created operation=1fd21312-9c9d-4ec1-bad3-68f8c5917188 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke
+2026-11-11 01:41:22.753 DEBUG [echo.plugins.operations] finished operation=1fd21312-9c9d-4ec1-bad3-68f8c5917188 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginFiles::invoke state=Succeeded elapsed_ms=4
+2026-11-11 01:41:22.753 DEBUG [echo.plugins.operations] created operation=70c91c55-54db-4b72-b3ae-9374e0c08e43 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize
+2026-11-11 01:41:22.760 DEBUG [echo.plugins.operations] finished operation=70c91c55-54db-4b72-b3ae-9374e0c08e43 plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginPermissions::authorize state=Succeeded elapsed_ms=7
+2026-11-11 01:41:22.845 INFO  [echo.plugins.runtime] state plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d version=1.0.0 state=Active enabled=1 mutation=0 error=
+2026-11-11 01:41:22.855 INFO  [echo.plugins.runtime] state plugin=github-accelerate installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b version=1.0.0 state=Activating enabled=1 mutation=0 error=
+2026-11-11 01:41:22.866 DEBUG [echo.plugins.operations] created operation=2e0a07c9-1422-4a42-bded-9a79d4fd551b plugin=github-accelerate installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b scope=main activation=4 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.881 DEBUG [echo.plugins.operations] finished operation=2e0a07c9-1422-4a42-bded-9a79d4fd551b plugin=github-accelerate installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b scope=main activation=4 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=15
+2026-11-11 01:41:22.885 DEBUG [echo.plugins.operations] created operation=3c3ce414-dbe4-4ff4-8bd3-c6ab0bfad90f plugin=github-accelerate installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b scope=main activation=4 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:22.886 INFO  [echo.plugins.runtime] state plugin=github-accelerate installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b version=1.0.0 state=Active enabled=1 mutation=0 error=
+2026-11-11 01:41:22.900 DEBUG [echo.plugins.operations] finished operation=3c3ce414-dbe4-4ff4-8bd3-c6ab0bfad90f plugin=github-accelerate installation=a8537c9c-669c-43e4-94fc-8d62b3ea7d0b scope=main activation=4 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=14
+2026-11-11 01:41:23.145 DEBUG [echo.plugins.operations] created operation=62b36e6c-8325-4903-902e-2a4560117294 plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command
+2026-11-11 01:41:23.146 DEBUG [echo.plugins.operations] finished operation=62b36e6c-8325-4903-902e-2a4560117294 plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command state=Succeeded elapsed_ms=0
+2026-11-11 01:41:23.849 DEBUG [echo.plugins.operations] created operation=446e11a5-d0b5-45d6-9df0-d03c8a836246 plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command
+2026-11-11 01:41:23.850 DEBUG [echo.plugins.operations] finished operation=446e11a5-d0b5-45d6-9df0-d03c8a836246 plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command state=Succeeded elapsed_ms=0
+2026-11-11 01:41:24.036 DEBUG [echo.plugins.operations] created operation=e0537d6e-5c30-473f-a29f-7610c4652a9c plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:24.043 DEBUG [echo.plugins.operations] finished operation=e0537d6e-5c30-473f-a29f-7610c4652a9c plugin=custom-icon installation=cf00c826-4df5-4553-a921-f1137d61fe0d scope=main activation=3 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=6
+2026-11-11 01:41:25.348 DEBUG [echo.plugins.operations] created operation=d9a4535c-66ea-4e1c-bdc0-42418fb7503a plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command
+2026-11-11 01:41:25.349 DEBUG [echo.plugins.operations] finished operation=d9a4535c-66ea-4e1c-bdc0-42418fb7503a plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command state=Succeeded elapsed_ms=0
+2026-11-11 01:41:25.573 DEBUG [echo.plugins.operations] created operation=2551df36-a6b5-4c69-a242-8db4989a88e7 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:25.580 DEBUG [echo.plugins.operations] finished operation=2551df36-a6b5-4c69-a242-8db4989a88e7 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=6
+2026-11-11 01:41:25.684 DEBUG [echo.plugins.operations] created operation=389a248d-c6f6-45b1-8a17-123179dfc2bd plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginNetwork::request
+2026-11-11 01:41:25.849 DEBUG [echo.plugins.operations] finished operation=389a248d-c6f6-45b1-8a17-123179dfc2bd plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginNetwork::request state=Succeeded elapsed_ms=165
+2026-11-11 01:41:25.849 DEBUG [echo.plugins.operations] created operation=5943fcfb-193c-4074-b32a-94ff47745bf3 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:25.851 DEBUG [echo.plugins.operations] finished operation=5943fcfb-193c-4074-b32a-94ff47745bf3 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=1
+2026-11-11 01:41:25.851 DEBUG [echo.plugins.operations] created operation=074e8273-c5eb-4192-b875-e876bdc6f3ea plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:25.852 DEBUG [echo.plugins.operations] finished operation=074e8273-c5eb-4192-b875-e876bdc6f3ea plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=1
+2026-11-11 01:41:25.853 DEBUG [echo.plugins.operations] created operation=5253883c-0f9a-47ba-b037-374154dd582e plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginNetwork::request
+2026-11-11 01:41:25.907 DEBUG [echo.plugins.operations] finished operation=5253883c-0f9a-47ba-b037-374154dd582e plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginNetwork::request state=Succeeded elapsed_ms=53
+2026-11-11 01:41:25.907 DEBUG [echo.plugins.operations] created operation=15ec5027-ad9c-4b2d-a963-901dcf99f46a plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:25.908 DEBUG [echo.plugins.operations] created operation=2db8fcc1-2329-488c-82eb-e0dee590d94c plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:25.909 DEBUG [echo.plugins.operations] finished operation=15ec5027-ad9c-4b2d-a963-901dcf99f46a plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=1
+2026-11-11 01:41:25.910 DEBUG [echo.plugins.operations] finished operation=2db8fcc1-2329-488c-82eb-e0dee590d94c plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=2
+2026-11-11 01:41:25.910 DEBUG [echo.plugins.operations] created operation=5a6bee73-70b4-4fa2-9881-02051916496a plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:25.911 DEBUG [echo.plugins.operations] finished operation=5a6bee73-70b4-4fa2-9881-02051916496a plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=1
+2026-11-11 01:41:25.912 DEBUG [echo.plugins.operations] created operation=5041c213-1666-49b9-aaae-217a12fca4ae plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginNetwork::request
+2026-11-11 01:41:26.763 DEBUG [echo.plugins.operations] finished operation=5041c213-1666-49b9-aaae-217a12fca4ae plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginNetwork::request state=Succeeded elapsed_ms=851
+2026-11-11 01:41:26.763 DEBUG [echo.plugins.operations] created operation=076d94b3-1b93-4b37-a4c1-2a4917305037 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:26.764 DEBUG [echo.plugins.operations] finished operation=076d94b3-1b93-4b37-a4c1-2a4917305037 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=1
+2026-11-11 01:41:26.765 DEBUG [echo.plugins.operations] created operation=df88a6a3-7fbc-4dec-92cd-eb5f4b56e791 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage
+2026-11-11 01:41:26.766 DEBUG [echo.plugins.operations] finished operation=df88a6a3-7fbc-4dec-92cd-eb5f4b56e791 plugin=auto-team-vip installation=f0ef5d31-876d-450b-b4d9-f55fcbcb259f scope=main activation=1 action=EchoMusic::EchoPluginIo::storage state=Succeeded elapsed_ms=1
+2026-11-11 01:41:27.291 DEBUG [echo.plugins.marketplace] request started request=bdbfac4a-8f3f-4ed9-b896-d5cf944a72b8 method=GET url=https://github.com/hoowhoami/EchoMusicNextPlugins/raw/HEAD/echo-plugins.json attempt=1 fresh=true
+2026-11-11 01:41:27.618 WARN  [echo.plugins.marketplace] request finished request=bdbfac4a-8f3f-4ed9-b896-d5cf944a72b8 url=https://raw.githubusercontent.com/hoowhoami/EchoMusicNextPlugins/97b39c44434c8a0bcc4b9380b14b36720f70c9c6/echo-plugins.json status=302 bytes=0 elapsed_ms=327 attempt=1 fallback=0 category=reset error=与插件服务器的连接被中断（HTTP 302） detail=Connection closed
+2026-11-11 01:41:28.356 DEBUG [echo.plugins.operations] created operation=c56f5635-3662-4dbd-a296-e7850cbbfa3d plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command
+2026-11-11 01:41:28.356 DEBUG [echo.plugins.operations] finished operation=c56f5635-3662-4dbd-a296-e7850cbbfa3d plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command state=Succeeded elapsed_ms=0
+2026-11-11 01:41:34.356 DEBUG [echo.plugins.operations] created operation=f793777a-1aa3-4748-8bd2-217a35071b30 plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command
+2026-11-11 01:41:34.356 DEBUG [echo.plugins.operations] finished operation=f793777a-1aa3-4748-8bd2-217a35071b30 plugin=cloud-priority installation=7597e9a5-64fe-4a31-8225-19235a289dec scope=main activation=2 action=EchoMusic::EchoPluginViewContext::command state=Succeeded elapsed_ms=0
+2026-11-11 01:41:34.370 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:41:47.383 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:42:00.412 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:42:13.339 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:42:25.425 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:42:38.342 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:42:51.371 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:43:04.389 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:43:17.394 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:43:29.396 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:43:41.424 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:43:54.339 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:44:06.651 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
+2026-11-11 01:44:19.365 INFO  [echo.platform.taskbar-lyric] probe "usable left=0 right=1443"
